@@ -1,0 +1,37 @@
+Author: mat78
+Week: 1 (31/01/22)
+
+Assigned actions
+================
+Action 1: Setting up project arrangements (Project requriments, Group Intro)
+
+I have started working on my Software Engineering project by reading
+and getting acquainted with all the necessary documents which are provided
+on Blackboard.
+
+Hours: 1
+
+Action 2: Setting up project arrangements (GitLab repository)
+
+Before the next project meeting, we made sure with the whole group that
+our GitLab repository was properly set up. I also learned how to write
+a weekly blog, in what format and where to put it.
+
+Hours: 1
+
+Action 3: Initial Task (Sketchs of FR1, FR2 and FR3)
+
+I have created a table with functional requirements (test procedure) that I have
+been responsible for. It shows a list of repeatable tests for our project.
+
+Hours: 2
+
+Other project work
+===================
+
+In my spare time, I did research on testing in Java and also I read about
+JUnit, a tool for creating repeatable unit tests.
+
+Hours: 1
+
+Total hours: 5
