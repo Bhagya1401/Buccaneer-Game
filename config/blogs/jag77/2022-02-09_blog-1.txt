@@ -14,7 +14,7 @@ Hours: 1
 Action 2: Develop some JavaFX screens as an example
 
 I looked into allowing for up to 4 user's infos to be inserted, and then developing
-a very rudementary screen with grids, and user names at the bottom
+a very rudementary screen with grids, and user names at the bottom.
 
 Hours: 3
 
