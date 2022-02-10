@@ -1,0 +1,17 @@
+Author: Dep22
+Week 1: 31/01/22
+
+Assigned actions
+================
+Action 1: Read intro documents 
+
+I read through the documents
+
+Hours: 2
+
+Action 2: read SE.QA.08 to see how to add blog to repository
+
+
+
+Hours: 1
+
