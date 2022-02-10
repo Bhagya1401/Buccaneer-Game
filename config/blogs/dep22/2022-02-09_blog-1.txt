@@ -14,7 +14,7 @@ Action 2: read SE.QA.08 to see how to add blog to repository and add one
 I read through SE.QA.08 and got the formast for the blogs and struggled at first to get it
 to push to repository but done now.
 
-Hours: 2
+Hours: 1
 
 Action 3: read SE.QA.04 and start work on material for the user interface document. 
 They will also start putting together some possible screens in Powerpoint.
@@ -25,8 +25,14 @@ of the game.
 
 Hours: 1
 
-Action 4: breaking our repository and fixing it 
+
+Other project work
+===================
+
+breaking our repository and fixing it 
 
 I broke the repository and spent a while fixxing it and organising it. to do this I had to do fiddling with different commands
 
 Hours: 1
+
+Total hours: 6
