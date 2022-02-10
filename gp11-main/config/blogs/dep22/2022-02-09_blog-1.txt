@@ -1,0 +1,26 @@
+Author: Dep22
+Week 1: 31/01/22
+
+Assigned actions
+================
+Action 1: Read intro documents 
+
+I read through the documents
+
+Hours: 2
+
+Action 2: read SE.QA.08 to see how to add blog to repository and add one
+
+I read through SE.QA.08 and got the formast for the blogs and struggled at first to get it
+to push to repository but done now.
+
+Hours: 2
+
+Action 3: read SE.QA.04 and start work on material for the user interface document. 
+They will also start putting together some possible screens in Powerpoint.
+
+I read through SE.QA.04 and whilst staying in contact with 'bhw' both discussed what we were going to do. 
+I started on the powerpoint so 'bhw' would do the use-case document. I started on the powerpoint creating a very basic model of the starting screen 
+of the game.
+
+Hours: 1

@@ -1,0 +1,24 @@
+Author: MAM148
+Week: 1 (31/01/22)
+
+Assigned actions
+===============
+Action 1: Read and understand Project Requirements and
+Group Intro documents
+
+I read and analyzed carefully "Group Project Overview" and
+"Requirements Specification for Buccaneer Online Board Game". 
+Several times I read the description of the game from the attached 
+documents and information found on the internet to understand its
+rules well.
+
+Hours: 1
+
+Action 2: Read SE.QA.06 and start drafting a list of repeatable tests
+
+I read the document for my task, SE.QA.06 Test Procedure Standards, and
+created the test table for Functional Requirements 4, 5 and 6.
+
+Hours: 3
+
+Total hours: 4
