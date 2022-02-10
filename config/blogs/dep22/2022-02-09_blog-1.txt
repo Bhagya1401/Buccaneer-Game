@@ -24,3 +24,9 @@ I started on the powerpoint so 'bhw' would do the use-case document. I started o
 of the game.
 
 Hours: 1
+
+Action 4: breaking our repository and fixing it 
+
+I broke the repository and spent a while fixxing it and organising it. to do this I had to do fiddling with different commands
+
+Hours: 1
