@@ -4,13 +4,13 @@ Persons present: All project members except beh52, jco3 and ivs2, plus project m
 Place and date of meeting: C57a, Thursday 3rd February 2022
 
 Circulation list: All project members, plus project manager
-Author: Andy Starr
-Date of minutes: 3rd February 2022
+Author: James Green
+Date of minutes: 10th February 2022
 Version: 1.0
 
 Matters arising:
 ===========
-NONE - first meeting of group
+Missing members
 
 New business:
 ===========
@@ -37,7 +37,7 @@ Manager: Andy Starr, email: aos
 
 4. 
 
-4.1 Bhagya 
+4.1 Bhagya - Continue investigation into user requirements 
 
 4.2 ONGOING - upload the original word document. Maciej FR 7-9 and Mateusz FR 10-12 documentation/analysis required.
 	ACTIONS - mam148 mat78
