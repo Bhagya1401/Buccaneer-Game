@@ -1,0 +1,19 @@
+Author: Jag77
+Week: 2 (7/01/22)
+
+Assigned actions
+===============
+
+
+Action 1: Continue development of the GUI by adding a menubar, graphics, 
+and a popup of some kind
+This involved me researching how to add a menubar and graphics,
+spending time working out how I wanted to implement it alongside debugging.
+
+I have also added a small amount of functionality for character movement
+and something resembling turns.
+
+
+Hours: 4
+
+Total hours: 4
