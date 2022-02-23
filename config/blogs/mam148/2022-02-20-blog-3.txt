@@ -1,0 +1,20 @@
+Author: MAM148
+Week: 3 (14/02/22)
+
+Assigned actions
+===============
+Action 1: Drafting a list of repeatable tests
+
+I created the test table for Functional Requirements 16 and 17.
+
+Hours: 2
+
+Action 2: Fixing and Cleaning up gitlap repository
+
+As QA Manager I fixed and cleaned up my group's repository, I created
+appropriate directory and files, moved files to correct directories and 
+added understandable commits.
+
+Hours:  2
+
+Total hours:  4
