@@ -1,0 +1,67 @@
+CS22120 Project: Group 11
+Meeting: Weekly Project Meeting
+Persons present: All project members except beh52, jco3 and ivs2, plus project manager 
+Place and date of meeting: C57a, Thursday 3rd February 2022
+
+Circulation list: All project members, plus project manager
+Author: James Green
+Date of minutes: 10th February 2022
+Version: 1.0
+
+Matters arising:
+===========
+Missing members
+
+New business:
+===========
+1. Membership of group
+
+Bagnall		Ash	asb20	 	 - Not present	 	 
+Green		James jag77	 	 	 	 
+Hardman		Ben	beh52	 	 - Not Present 	 	 
+Mazur		Mateusz	mam148	 	 	 	 
+Owen		James jco3	 	- Not Present 	 	 
+Plank		Dean dep22	 	 	 	 
+Setrom Hesby	Iver	ivs2	- Not Present 	 	 	 
+Traczyk		Maciej	mat78	 	 	 	 
+Wanni Arachchige	Bhagya	bhw
+
+
+Manager: Andy Starr, email: aos
+
+4. 
+
+4.1 ONGOING - Bhagya Continue investigation into use-case document 
+
+4.2 ONGOING - upload the original word document. Maciej FR 7-9 and Mateusz FR 10-12 documentation/analysis required.
+	ACTIONS - mam148 mat78
+
+
+5.  
+
+5.1 James G will add graphics to the screen, buttons with graphics of some kind. Graphics can move around screen, add popups, menu bar at the top
+	Iver continue investigation on representing states and upload document, have this ready for next group meeting
+	Ash continue investigation into saving java objects to persistent storage.
+	
+5.2 ONGOING - Iver to continue looking into SE.QA.01/2/3 and prepare a 5 minute summarisation for next week.
+
+6.
+
+6.1 Dean and Baggy will continue on the GUI specification ready for next week (24th thursday)
+
+6.2 QA manager (and deputy) mat78 13 14 15, mam148 16 17
+
+6.3 Dean and James G communicate on GUI and what to progress on. James G will attempt to implement these details.
+
+6.4 James G and Ash communicate on prototyping the saving of objects. Ash should provide a presentation on how we should
+    go ahead implementing the object storing for next week
+
+6.5 Ben will look into how user's card-privacy (how each player can only see their hand) will be implemented in the GUI
+
+6.6 James and Ben to join Discord - https://discord.gg/XJvyGJ96Q5
+
+AOB
+===
+1. NONE
+
+Minutes by jag77

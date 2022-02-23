@@ -1,0 +1,65 @@
+CS22120 Project: Group 11
+Meeting: Weekly Project Meeting
+Persons present: All project members except beh52, jco3 and ivs2, plus project manager 
+Place and date of meeting: C57a, Thursday 3rd February 2022
+
+Circulation list: All project members, plus project manager
+Author: James Green
+Date of minutes: 10th February 2022
+Version: 1.0
+
+Matters arising:
+===========
+Missing members
+
+New business:
+===========
+1. Membership of group
+
+Bagnall		Ash	asb20	 	 - Not present	 	 
+Green		James jag77	 	 	 	 
+Hardman		Ben	beh52	 	 	 	 
+Mazur		Mateusz	mam148	 	 	 	 
+Owen		James jco3	 	 	 	 
+Plank		Dean dep22	 	 	 	 
+Setrom Hesby	Iver	ivs2	 	 	 	 
+Traczyk		Maciej	mat78	 	 	 	 
+Wanni Arachchige	Bhagya	bhw
+
+
+Manager: Andy Starr, email: aos
+
+ 
+
+2.1 
+
+2.2 
+
+4. 
+
+4.1 Bhagya - Continue investigation into user requirements 
+
+4.2 ONGOING - upload the original word document. Maciej FR 7-9 and Mateusz FR 10-12 documentation/analysis required.
+	ACTIONS - mam148 mat78
+
+4.3  ONGOING - 
+	
+	ACTIONS: jag77 ivs2 asb20
+
+4.4 Ben and James O absent from meeting, group is unaware of any progress or correspondence
+
+4.5 ONGOING -  Agree on meeting time
+
+5.  
+
+5.1 James will add graphics to the screen, buttons with graphics of some kind. Graphics can move around screen, add popups, menu bar at the top
+	Iver continue investigation on representing states and upload document, have this ready for next group meeting
+	Ash continue investigation into saving java objects to persistent storage.
+	
+5.2 Iver to look into SE.QA.01/2/3 and prepare a 5 minute summarisation for next week.
+
+AOB
+===
+1. NONE
+
+Minutes by jag77
