@@ -1,0 +1,28 @@
+Author: mat78
+Week: 3 (14/02/22)
+
+Assigned actions
+==================
+Action 1: Initial Task (Sketchs of FR13, FR14 and FR15)
+
+I have created another table with next three functional requriments
+(test procedure) that I have been responsible for. It shows a list
+of appropirate test for our project. 
+
+Hours: 2
+
+Action 2: Deputy QA manager actions
+
+I have been communicating with the QA manager about the repository
+to repair some technical problems about it
+
+Hours: 2
+
+Other project work
+===================
+
+
+
+Hours: 0
+
+Total hours: 4
