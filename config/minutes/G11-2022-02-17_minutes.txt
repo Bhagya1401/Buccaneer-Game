@@ -5,7 +5,7 @@ Place and date of meeting: C57a, Thursday 3rd February 2022
 
 Circulation list: All project members, plus project manager
 Author: James Green
-Date of minutes: 17th February 2022
+Date of minutes: 10th February 2022
 Version: 1.0
 
 Matters arising:
@@ -59,6 +59,8 @@ Manager: Andy Starr, email: aos
 6.5 Ben will look into how user's card-privacy (how each player can only see their hand) will be implemented in the GUI
 
 6.6 James and Ben to join Discord - https://discord.gg/XJvyGJ96Q5
+
+6.7 Maciej Deputy QA manger, Mateusz QA manger, Baggy deputy project leader, Dean project leader.
 
 AOB
 ===
