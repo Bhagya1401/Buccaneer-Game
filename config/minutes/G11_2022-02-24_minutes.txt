@@ -1,0 +1,76 @@
+CS22120 Project: Group 11
+Meeting: Weekly Project Meeting
+Persons present: All project members except beh52, jco3, ivs2, dep22, bhw, plus project manager 
+Place and date of meeting: C57a, Thursday 24th February 2022
+
+Circulation list: All project members, plus project manager
+Author: Mateusz Mazur
+Date of minutes: 24th February 2022
+Version: 1.0
+
+Matters arising:
+===========
+Missing members
+
+New business:
+===========
+1. Membership of group
+
+Bagnall		Ash	asb20	 	 	 	 
+Green			James	jag77	 	 	 	 
+Hardman		Ben	beh52	 	 	 	 
+Mazur			Mateusz	mam148	 	 	 	 
+Owen			James	jco3	 	 	 	 
+Plank			Dean	dep22	 	 	 	 
+Setrom Hesby	Iver	ivs2	 	 	 	 
+Traczyk		Maciej	mat78	 	 	 	 
+Wanni Arachchige	Bhagya	bhw
+
+
+Manager: Andy Starr, email: aos
+
+2. Project Manager will remind everyone about importance of these meetings
+
+
+3. Initial Tasks
+
+3.1 Baggy will upload Use Case document by tommorow (25th February 2022).
+
+3.2 Mateusz and Maciek will look at SE.QA.01/02/03.
+They will also look at all prepared tests and combine them in one file (as soon as you can).
+ACTION: mam148, mat78
+
+3.3 Mateusz, Maciek, Dean and Baggy will meet and review User Interface documents.
+Mateusz is responsible for organasing the metting.
+ACTION: mam148, mat178, bhw, dep22
+
+3.4 Baggy and Dean will develop a plan for successful finishing the project.
+ACTION: bhw, dep22
+
+3.5 Dean will prepare resources for design specification.
+ACTION: dep22
+
+3.6 Ash and  James G will carry on prototyping the saving objects and player staff.
+ACTION: asb20, jag77
+
+3.7 James G will carry on coding, implement user interface staff with backend.
+ACTION: jag77
+
+3.8  Ben will look into how user's card-privacy (how each player can only see their hand) 
+will be implemented in the GUI
+ACTION: beh52
+
+3.9 James O and Ben will join Discord - https://discord.gg/XJvyGJ96Q5
+ACTION: bah52, jco3
+
+
+
+4. Actions to note
+ 
+4.1 Dean has uploaded the User Interface Mockups
+
+AOB
+===
+1. NONE
+
+Minutes by mam148
