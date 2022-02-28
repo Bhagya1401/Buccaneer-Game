@@ -1,0 +1,43 @@
+CS22120 Project: Group 11
+Meeting: Review Meeting for UI Specification and Presentation
+Persons present: mam148, mat78, dep22, bhw
+Place and date of meeting: Group Discord Voice Channel, Monday 28th February 2022
+
+Circulation list: bhw, mam148, mat78, dep22
+Author: Mateusz Mazur
+Date of minutes: 28th February 2022
+Version: 1.0
+
+Changes arising from review:
+=========================
+
+Changes to UI Spec to be made by bhw. Changes to UI Presentation to be made by dep22.
+
+UI Specification
+=================
+
+1.Use case diagrams need to be added
+
+2.Front cover including title, author, configuration reference, date when the latest version
+was produced, correct verion number, document status needs to be added
+
+3.Header for the document containing title, version and status on each page needs to be added
+
+4.Contents page need to be added
+
+5.Correct footer with "Aberystwyt University/Computer Science"  and "Page x of y" 
+needs to be added
+
+6.Errors section needs to be fixed
+
+UI Presentation
+==============
+
+7.The following functional requirements are not presently covered by the 
+UI presentation, and need to be: FR7 (Port management), FR8(Flat Island Managemnet)
+FR12 (Attacking Rules), FR15, FR17
+
+8.Presentation should indicate which uses cases are being covered
+
+
+Minutes by mam148
