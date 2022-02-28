@@ -1,2 +1,4 @@
 Item                ConfigRef       Name        Location
 UI Specification    UISpecGroup11               docs/UISpecGP11
+UI Presentation     ------                      docs/UISpecGP11
+Test Specification  TestSpecGroup11             docs/TestSpecGP11
