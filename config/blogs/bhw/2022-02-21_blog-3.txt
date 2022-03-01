@@ -1,0 +1,16 @@
+Author: BHW
+Week: 3 (21/02/2022)
+
+
+Assigned actions
+====================
+
+Action 1: ONGOING Bhagya Continue investigation into use-case document 
+
+Listed out the use case in basic form and created a UML diagram to visually present this. Started writing detailed descriptions for each use case following the template provided in SE.QA.04. 
+
+	Hours: 3
+
+
+
+Total Hours: 3
