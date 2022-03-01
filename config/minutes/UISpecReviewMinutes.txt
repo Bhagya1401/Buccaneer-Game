@@ -19,13 +19,13 @@ UI Specification
 1.Use case diagrams need to be added
 
 2.Front cover including title, author, configuration reference, date when the latest version
-was produced, correct verion number, document status needs to be added
+was produced, correct version number, document status needs to be added
 
 3.Header for the document containing title, version and status on each page needs to be added
 
 4.Contents page need to be added
 
-5.Correct footer with "Aberystwyt University/Computer Science"  and "Page x of y" 
+5.Correct footer with "Aberystwyth University/Computer Science"  and "Page x of y" 
 needs to be added
 
 6.Errors section needs to be fixed
@@ -34,7 +34,7 @@ UI Presentation
 ==============
 
 7.The following functional requirements are not presently covered by the 
-UI presentation, and need to be: FR7 (Port management), FR8(Flat Island Managemnet)
+UI presentation, and need to be: FR7 (Port management), FR8(Flat Island Management)
 FR12 (Attacking Rules), FR15, FR17
 
 8.Presentation should indicate which uses cases are being covered
