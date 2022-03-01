@@ -1,0 +1,22 @@
+Author: BHW
+Week: 2 (14/02/2022)
+
+
+Assigned actions
+====================
+
+Action 1: Continue investigating into user requirements 
+	
+Thoroughly re-read SE.QA.04 to get a detailed understanding of how user requirements should be documented. Started putting the use case ideas from the previous week in a 	document format. 
+	
+	Hours: 3
+
+Other project work
+===================
+Started jotting down some ideas on how certain user interactions may be implemented
+
+	Hours: 1
+	
+
+
+Total Hours: 4
