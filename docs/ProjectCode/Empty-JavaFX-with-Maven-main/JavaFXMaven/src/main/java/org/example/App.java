@@ -5,8 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import com.thoughtworks.xstream.XStream;
+
 
 /**
  * JavaFX App
@@ -19,6 +20,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("start_screen"));
         stage.setScene(scene);
+
+        XStream xs = new XStream();
 
         stage.show();
     }

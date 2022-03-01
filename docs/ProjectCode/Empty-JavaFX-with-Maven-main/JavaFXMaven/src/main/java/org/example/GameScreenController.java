@@ -4,6 +4,8 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
+
+
 public class GameScreenController {
 
     @FXML
@@ -13,4 +15,6 @@ public class GameScreenController {
     private void switchToStart() throws IOException {
         App.setRoot("start_screen");
     }
+
+
 }

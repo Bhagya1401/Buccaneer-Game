@@ -27,6 +27,8 @@ public class StartScreenController {
     @FXML Button continueButton;
     @FXML ImageView shipImage1, shipImage2, shipImage3, shipImage4;
 
+    XStream
+
 
     public void initialize(){
         shipColoursReserved = new String[4];
