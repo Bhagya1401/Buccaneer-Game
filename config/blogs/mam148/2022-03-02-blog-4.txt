@@ -1,0 +1,20 @@
+Author: MAM148
+Week: 4 (21/02/22)
+
+Assigned actions
+===============
+Action 1: Review meeting
+
+I met with Maciek, Dean and Baggy to review the user interface specification produced by
+Baggy and Dean. We discussed every important detail of user interface specification,
+what to fix and what to add. 
+
+Hours: 1
+
+Action 2: Summarise of SE.QA.01/2/3
+
+I read, understood and prepared summarisation of SE.QA.01 and first half of SE.QA.02. 
+
+Hours:  3
+
+Total hours:  4
