@@ -1,0 +1,34 @@
+Author: ASB20
+Week: 4 (02/03/22)
+
+Assigned actions
+==============
+
+Action 1: Java Persistence
+
+	Decided on using XStream, however ran into some issues so me and James 
+	decided to use GSON instead.
+	
+	Hours: 3
+
+
+Action 3: Communicate with James on implementing the GameHandler class
+
+	We were on Discord for a few hours going through classes and making a plan
+	of how we're going to implement most of the methods.
+
+	Hours: 3
+
+
+Action 3: Create the GameHandler class
+
+	The class that controls java persistence in our project. I've added both a project that uses this class
+	to our repository, along with a pdf that goes over some of the basics and flow of the class.
+
+	Hours: 4
+
+
+Other project work
+================
+
+Total hours: 10
