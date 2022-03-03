@@ -1,0 +1,70 @@
+S22120 Project: Group 11
+Meeting: Weekly Project Meeting
+Persons present: All project members except beh52, jco3, ivs2, dep22, plus project manager 
+Place and date of meeting: C57a, Thursday 3rd March 2022
+
+Circulation list: All project members, plus project manager
+Author: Mateusz Mazur
+Date of minutes: 3rd March 2022
+Version: 1.0
+
+Matters arising:
+===========
+Missing members
+
+New business:
+===========
+1. Membership of group
+
+Bagnall		Ash	asb20	 	 	 	 
+Green			James	jag77	 	 	 	 
+Hardman		Ben	beh52	 	 	 	 
+Mazur			Mateusz	mam148	 	 	 	 
+Owen			James	jco3	 	 	 	 
+Plank			Dean	dep22	 	 	 	 
+Setrom Hesby	Iver	ivs2	 	 	 	 
+Traczyk		Maciej	mat78	 	 	 	 
+Wanni Arachchige	Bhagya	bhw
+
+
+Manager: Andy Starr, email: aos
+
+2.Initial tasks
+
+2.1 ONGOING Baggy and Dean will develop a plan for successful finishing the project.
+ACTION: bhw, dep22
+
+2.2 ONGOING Dean will prepare resources for design specification.
+ACTION: dep22
+
+2.3 ONGOING James G will carry on coding and implementing user interface with backend.
+ACTION: jag77
+
+2.4 ONGOING Ash and  James G will carry on prototyping the saving objects.
+ACTION: asb20, jag77
+
+2.5 ONGOING Ben will look into how user's card-privacy (how each player can only see their hand) 
+will be implemented in the GUI
+ACTION: beh52
+
+2.6 ONGOING James O and Ben will join Discord - https://discord.gg/XJvyGJ96Q5
+ACTION: bah52, jco3
+
+2.7 Mateusz and Maciek will look at Use Case Document uploaded by bhw and
+User Interface Presentation uploaded by dep22. They will check if it is fixed as mentioned
+in minutes from review meeting (UISpecReviewMinutes.txt)
+ACTION: mam148, mat78
+
+2.8 Maciek, Mateusz, Dean and Baggy will meet and review Test Specification.
+ACTION: mam148, mat178, bhw, dep22
+
+2.9 Dean will prepare spreadsheet of initial tasks and time spent on these tasks.
+If essential, he will allocate or reallocate tasks to other group members.
+ACTION: dep22
+
+
+AOB
+===
+1. NONE
+
+Minutes by mam148
