@@ -1,0 +1,32 @@
+Author: ASB20
+Week: 4 (10/03/22)
+
+Assigned actions
+==============
+
+Action 1: Continued on implementing object persistence with James
+
+	Continued communicating with James on how we're implementing certain features.
+	
+	Hours: 2
+
+
+Action 2: Started prototyping and developing the Card aspect of the game
+
+	I have made a plan of how to implement the Card aspect of the game inline with the Test
+	Specification and other documentation. I've also started writing code that handles the
+	usage of cards by players.
+
+	Hours: 3
+
+Action 3: Read over the Test specification and the card aspect of the game to ensure that I understand
+		  what's required.
+
+	Hours: 1
+
+
+
+Other project work
+================
+
+Total hours: 6
