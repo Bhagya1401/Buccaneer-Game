@@ -1,0 +1,29 @@
+Author: Dep22
+Week 4: 29/02/22
+
+Assigned actions
+================
+Action 1: meet and review User Interface documents.
+
+Me, Mateusz, Maciek, and Baggy all met to review the user interface documents. Mateusz and Maciek pointed out some issues with the use case document and
+the presentation to fix.
+
+Hours: 1
+
+Action 2: Me and Baggy will develop a plan for sucessful finishing of the project
+
+Me and Baggy had a talk about the plan.
+
+Hours: 1
+
+Action 3: fixing the problems identified in the UI review
+
+after the meeting I went through ensuring all of the functional requirements were covered and were labelled correctly. Such as the fighting mechanism and moving.
+
+Hours: 3
+
+Other project work
+===================
+
+
+Total hours: 5

@@ -1,0 +1,24 @@
+Author: Dep22
+Week 3: 22/02/22
+
+Assigned actions
+================
+Action 1: continue on the GUI specification ready for next week
+
+I continued to cover all of the games requirements in UI
+
+Hours: 3
+
+Action 2: talk with James G about what can be implemented in UI
+
+we had a chat and discussed about the different buttons and actions we could use in the UI
+
+Hours: 1
+
+
+
+Other project work
+===================
+
+
+Total hours: 4
