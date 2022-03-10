@@ -8,6 +8,23 @@ Author: Mateusz Mazur
 Date of minutes: 28th February 2022
 Version: 1.0
 
+Matters arising:
+==============
+Questions to ask:
+1. Does the formal UI specification meet the General Document Standards (see [5] and questions in
+appendix A)?
+2. Does the typical users section give good real-world examples of the range of people that might want to
+use the system?
+3. Do the use cases cover all the items in the product functions section of the requirements specification?
+4. Do the use cases give sufficient detail of what will happen in each use case?
+5. Does each use case match what is said about it in the requirements?
+6. Are any requirements not covered in the use cases?
+7. Do the error conditions represent the wrong inputs that might need to be caught by this system?
+8. Does the presentation cover each of the use cases, and clearly indicate which use cases are being covered?
+9. Does the presentation give sufficient detail that you can understand what is needed in the UI when
+implementing?
+
+
 Changes arising from review:
 =========================
 
@@ -19,13 +36,13 @@ UI Specification
 1.Use case diagrams need to be added
 
 2.Front cover including title, author, configuration reference, date when the latest version
-was produced, correct version number, document status needs to be added
+was produced, correct verion number, document status needs to be added
 
 3.Header for the document containing title, version and status on each page needs to be added
 
 4.Contents page need to be added
 
-5.Correct footer with "Aberystwyth University/Computer Science"  and "Page x of y" 
+5.Correct footer with "Aberystwyt University/Computer Science"  and "Page x of y" 
 needs to be added
 
 6.Errors section needs to be fixed
@@ -34,7 +51,7 @@ UI Presentation
 ==============
 
 7.The following functional requirements are not presently covered by the 
-UI presentation, and need to be: FR7 (Port management), FR8(Flat Island Management)
+UI presentation, and need to be: FR7 (Port management), FR8(Flat Island Managemnet)
 FR12 (Attacking Rules), FR15, FR17
 
 8.Presentation should indicate which uses cases are being covered
