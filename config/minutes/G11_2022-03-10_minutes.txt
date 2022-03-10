@@ -1,0 +1,83 @@
+CS22120 Project: Group 11
+Meeting: Weekly Project Meeting
+Persons present: All project members except beh52, jco3, ivs2, plus project manager 
+Place and date of meeting: C57a, Thursday 10th March 2022
+
+Circulation list: All project members, plus project manager
+Author: Mateusz Mazur
+Date of minutes: 10th March 2022
+Version: 1.0
+
+Matters arising:
+===========
+
+
+New business:
+===========
+1. Membership of group
+
+Bagnall		Ash	asb20	 	 	 	 
+Green			James	jag77	 	 	 	 
+Hardman		Ben	beh52	 	 	 	 
+Mazur			Mateusz	mam148	 	 	 	 
+Owen			James	jco3	 	 	 	 
+Plank			Dean	dep22	 	 	 	 
+Setrom Hesby	Iver	ivs2	 	 	 	 
+Traczyk		Maciej	mat78	 	 	 	 
+Wanni Arachchige	Bhagya	bhw
+
+
+Manager: Richard Shipman, email: rcs
+
+2.Initial tasks
+
+2.1 All group members will push their previous pieces of work to 
+the dev folders from previous tutorial meetings.
+ACTION: asb20, jag77, beh52, mam148, jco3, dep22, ivs2, mat78, bhw
+
+2.2 Mateusz will add Matters arising section into review meeting minutes.
+ACTION: mam148
+
+2.3 Mateusz will update config_refs text file.
+ACTION: mam148
+
+2.4 All group members except Mateusz and Maciek will push their missing
+blogs from previous weeks.
+ACTION: asb20, jag77, beh52, jco3, dep22, ivs2, bhw
+
+2.5 Dean will get confident with Gitlab Issues.
+ACTION: dep22
+
+2.6 Mateusz and Maciek will start thinking about unit tests in JUnit
+and how to implement them from Test Specification.
+ACTON: mam148, mat78
+
+2.7 ONGOING Baggy and Dean will develop a plan for successful finishing the project.
+ACTION: bhw, dep22
+
+2.8 ONGOING Dean will prepare resources for design specification.
+ACTION: dep22
+
+2.9 ONGOING James G will carry on coding and implementing user interface with backend.
+ACTION: jag77
+
+2.10 ONGOING Ash and  James G will carry on prototyping the saving objects.
+ACTION: asb20, jag77
+
+2.11 ONGOING Ben will look into how user's card-privacy (how each player can only see their hand) 
+will be implemented in the GUI
+ACTION: beh52
+
+2.12 ONGOING James O and Ben will join Discord - https://discord.gg/XJvyGJ96Q5
+ACTION: beh52, jco3
+
+2.13 ONGOING Dean will prepare spreadsheet of initial tasks and time spent on these tasks.
+If essential, he will allocate or reallocate tasks to other group members.
+ACTION: dep22
+
+
+AOB
+===
+1. NONE
+
+Minutes by mam148
