@@ -14,12 +14,14 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene startScreen;
+    private static Scene characterScreen;
     private static Scene gameScreen;
     private static Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
         startScreen = new Scene(loadFXML("start_screen"));
+        characterScreen = new Scene(loadFXML("character_screen"));
         gameScreen = new Scene(loadFXML("game_screen"));
         App.stage = stage;
         setStartScreen();
@@ -29,6 +31,10 @@ public class App extends Application {
 
     static void setStartScreen(){
         stage.setScene(startScreen);
+    }
+
+    static void setCharacterScreen(){
+        stage.setScene(characterScreen);
     }
 
     static void setGameScreen(){

@@ -49,10 +49,35 @@ public class Game {
                 gameBoard[i][j] = oTile;
             }
         }
+
         // add island tiles
+        IslandTile treasureIsland = new IslandTile("TreasureIsland");
+        Image treasureImage = new Image(String.valueOf(App.class.getResource("/img/" + "treasure_icon.png")));
+        treasureIsland.setIcon(treasureImage);
+        IslandTile pirateIsland = new IslandTile("Pirate Island");
+        Image pirateImage = new Image(String.valueOf(App.class.getResource("/img/" + "pirate_icon.png")));
+        pirateIsland.setIcon(pirateImage);
+        IslandTile london = new IslandTile("London");
+        Image londonImage = new Image(String.valueOf(App.class.getResource("/img/" + "london_icon.png")));
+        london.setIcon(londonImage);
+        IslandTile someOtherCity = new IslandTile("Some Other City");
+        Image cityImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
+        someOtherCity.setIcon(cityImage);
+        gameBoard[0][10] = london;
+        gameBoard[19][10] = someOtherCity;
+        gameBoard[10][0] = treasureIsland;
+        gameBoard[10][19] = pirateIsland;
+
+
         // add player tiles
-        //gameBoard[0][0] = new IslandTile("London");
-        //gameBoard[10][10] = new PlayerTile(data);
+        // this isnt a great way of doing it, might as well hard code the values but fuck it i've written it now
+        for (int i=0; i<4; i++){
+            PlayerTile playerTile = new PlayerTile(players[i].getPlayerNumber());
+            playerTile.setIcon(players[i].getIcon());
+            gameBoard[new int[]{0, 19, 10, 10}[i]][new int[]{10,10,0,19}[i]] = playerTile;
+        }
+
+
     }
 /*
     public void startGameBoard(){

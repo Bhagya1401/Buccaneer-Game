@@ -4,16 +4,22 @@ import javafx.scene.image.Image;
 
 public class PlayerTile implements Tile {
 
-    Player player;
+    int playerNum;
+
+    Image shipIcon;
+
+    public PlayerTile(int num){
+        playerNum = num;
+    }
 
     @Override
     public void setIcon(Image icon) {
-        player.setIcon(icon);
+        shipIcon = icon;
     }
 
     @Override
     public Image getIcon() {
-        return player.getIcon();
+        return shipIcon;
     }
 
     @Override

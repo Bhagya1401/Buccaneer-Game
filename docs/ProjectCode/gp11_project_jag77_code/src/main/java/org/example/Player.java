@@ -11,6 +11,7 @@ public class Player {
     private String playerName;
     private Image shipImage;
     private int[] coordinate;
+    private String direction;
 
     private StringProperty playerNameProp;
     private IntegerProperty playerNumberProp;
@@ -24,6 +25,32 @@ public class Player {
         this.playerName = playerName;
         coordinate = new int[2];
     }
+
+    public String getDirection(){
+        return direction;
+    }
+
+    public void setDirection(String dir){
+        direction = dir;
+    }
+
+    public void turnLeft(){
+        switch (direction){
+            case "west":
+                direction = "south";
+                break;
+            case "south":
+                direction = "east";
+                break;
+            case "east":
+                direction = "north";
+                break;
+            case "north":
+                direction = "west";
+        }
+    }
+
+
 
     public void setCoordinate(int col, int row){
         coordinate[0] = col;

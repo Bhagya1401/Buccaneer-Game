@@ -2,19 +2,24 @@ package org.example;
 
 import javafx.scene.image.Image;
 
-public class OceanTile implements Tile{
+public class IslandTile implements Tile{
 
-    Image oceanIcon;
+    Image islandIcon;
+
+    String islandName;
+
+    public IslandTile(String name){
+        islandName = name;
+    }
 
     @Override
     public void setIcon(Image icon) {
-        // not sure if necessary for oceantile
-        oceanIcon = icon;
+        islandIcon = icon;
     }
 
     @Override
     public Image getIcon() {
-        return oceanIcon;
+        return islandIcon;
     }
 
     @Override
@@ -24,11 +29,11 @@ public class OceanTile implements Tile{
 
     @Override
     public boolean isTraversable() {
-        return true;
+        return false;
     }
 
     @Override
-    public boolean isIsland(){
-        return false;
+    public boolean isIsland() {
+        return true;
     }
 }

@@ -1,0 +1,16 @@
+Author: Jag77
+Week: 4 (28/01/22)
+
+Assigned actions
+===============
+
+
+Action 1: Finished looking into and implementing maven, after more research I found that it was not a problem
+		  with maven itself, but instead intellij needed to be updated.
+
+Action 2: Continue developing GUI through scenebuilder.
+
+Action 3: Create a MVC program structure
+
+
+Total hours: 5
