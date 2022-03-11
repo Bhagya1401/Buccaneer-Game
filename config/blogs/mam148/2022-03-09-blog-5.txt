@@ -1,0 +1,28 @@
+Author: MAM148
+Week: 5 (28/02/22)
+
+Assigned actions
+===============
+Action 1: Review meeting
+
+I met with Maciek, Dean and Baggy to review the testspecification produced by
+me and Maciek. We discussed every important detail of test specification,
+what to fix and what to add. 
+
+Hours: 1
+
+Action 2: Fixing test specification
+
+After review meeting I fixed test specification document in cooperation with 
+Maciek as mentioned in TestSpecReviewMinutes.txt. 
+
+Hours:  2
+
+Action 3:  Checking user interface specification
+
+I looked at use case document and user interface presentation to make sure it is fixed
+as mentioned in UISpecReviewMinutes.txt
+
+Hours: 1
+
+Total hours:  4

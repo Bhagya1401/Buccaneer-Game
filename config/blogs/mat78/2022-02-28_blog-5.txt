@@ -1,0 +1,27 @@
+Author: mat78
+Week: 5 (03/03/22)
+
+Assigned actions
+=================
+Action 1: Review of the Use Case Document
+
+Me and Mateusz have checked if this document is properly
+written and ready to be uploaded.
+
+Hours: 1
+
+Action 2: TestSpec Document
+
+Me and Mateusz have finished the TestSpec Document. It is
+now reviewed and ready to be uploaded.
+
+Hours: 2
+
+Action 3: Review metting with my group
+
+I met my group on Monday where we summarized and reviewed
+TestSpec document.
+
+Hours: 1
+
+Total hours: 4

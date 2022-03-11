@@ -8,6 +8,16 @@ Author: Mateusz Mazur
 Date of minutes: 7th March 2022
 Version: 1.0
 
+Matters arising:
+==============
+Questions to ask:
+1. Does the document meet the General Document Standards (see [5] and questions in appendix A)?
+2. Does the Test Specification have the matrix of Requirement/Test ref/Test content/Pass criteria for each
+functional requirement? Do the tests cover every requirement?
+3. Are the detailed tests reproducible?
+4. Do the tests for each requirement cover all possibilities for the relevant requirement? In particular, do
+they test for all possible types of failure? Are boundary conditions tested?
+
 Changes arising from review:
 =========================
 
