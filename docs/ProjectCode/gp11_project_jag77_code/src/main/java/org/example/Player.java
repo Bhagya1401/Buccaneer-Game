@@ -13,9 +13,6 @@ public class Player {
     private int[] coordinate;
     private String direction;
 
-    private StringProperty playerNameProp;
-    private IntegerProperty playerNumberProp;
-
     public Player(){
         ;
     }

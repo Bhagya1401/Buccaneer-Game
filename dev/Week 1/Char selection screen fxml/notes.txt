@@ -1,0 +1,6 @@
+Here is an example character screen built using SceneBuilder.
+Alongside the app program to load it
+
+
+
+Jag77

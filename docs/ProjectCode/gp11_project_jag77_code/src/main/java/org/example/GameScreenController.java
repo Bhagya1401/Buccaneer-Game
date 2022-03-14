@@ -75,17 +75,15 @@ public class GameScreenController {
                 boardGridVisual.add(imageV,i,j);
             }
         }
-
-        //Player tempPlayer = bucGame.getCurrentPlayer();
-        //System.out.println("Player name!!! : " + tempPlayer.getPlayerName());
         updateDirectionArrow();
     }
 
     @FXML
-    private void endTurn(){
+    private void endTurn() throws IOException {
         bucGame.nextTurn();
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
         updateDirectionArrow();
+        App.setNextPlayerScreen();
     }
 
     @FXML

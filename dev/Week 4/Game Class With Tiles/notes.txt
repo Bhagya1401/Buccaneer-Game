@@ -1,0 +1,5 @@
+Heres a game class that will store information about the ongoing game.
+
+The project also contains a prototype of the tiles that are used on the game board.
+
+Jag77
