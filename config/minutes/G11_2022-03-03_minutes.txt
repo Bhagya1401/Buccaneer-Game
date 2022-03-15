@@ -14,19 +14,6 @@ Missing members
 
 New business:
 ===========
-1. Membership of group
-
-Bagnall		Ash	asb20	 	 	 	 
-Green			James	jag77	 	 	 	 
-Hardman		Ben	beh52	 	 	 	 
-Mazur			Mateusz	mam148	 	 	 	 
-Owen			James	jco3	 	 	 	 
-Plank			Dean	dep22	 	 	 	 
-Setrom Hesby	Iver	ivs2	 	 	 	 
-Traczyk		Maciej	mat78	 	 	 	 
-Wanni Arachchige	Bhagya	bhw
-
-
 Manager: Andy Starr, email: aos
 
 2.Initial tasks
