@@ -1,4 +1,4 @@
-S22120 Project: Group 11
+CS22120 Project: Group 11
 Meeting: Review Meeting for Test Specification
 Persons present: mam148, mat78, dep22, bhw
 Place and date of meeting: Group Discord Voice Channel, Monday 7th March 2022
