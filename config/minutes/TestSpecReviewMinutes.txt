@@ -10,6 +10,29 @@ Version: 1.0
 
 Matters arising:
 ==============
+APPENDIX A - CHECKLIST FOR ALL DOCUMENTS
+Questions to ask:
+1. Do all formal project documents have the following information on the front cover:
+• Title (indicating Group_name and nature of document)?
+• Author(s)?
+• Configuration Reference?
+• Date when the latest version was produced?
+• Version number (correct)?
+• Document status (Draft, Release)?
+• Name, Address of Dept and Copyright notice?
+2. Does the header for the document contain title, version and status on each page?
+3. Does the footer contain "Aberystwyth University / Computer Science" and "Page x of y" correctly?
+4. Does the document contain specified sections:
+• Contents
+• Introduction: Purpose of document, Scope, Objectives
+• <Main Body> with appropriate sections
+• References
+• Document Change History with Version, Issue No., Date, Sections Changed from Previous
+Versions, Changed by
+5. Are the sections numbered correctly from 1?
+6. Are fonts appropriate in headers and in body text?
+
+APPENDIX B - USER INTERFACE SPECIFICATION REVIEW
 Questions to ask:
 1. Does the document meet the General Document Standards (see [5] and questions in appendix A)?
 2. Does the Test Specification have the matrix of Requirement/Test ref/Test content/Pass criteria for each
