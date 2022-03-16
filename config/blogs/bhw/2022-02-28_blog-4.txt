@@ -1,0 +1,40 @@
+Author: BHW
+Week: 4 (28/02/2022)
+
+
+Assigned actions
+====================
+
+Action 1: Upload "Use case document"
+	
+Upload the use case document to Gitlab
+
+	Hours: 0
+
+
+Action 2: Meet with Mateusz, Maciek and Dean to hold a formal review for User Interface documentation
+	
+Met up with the specified group members to review my use case document and User Interface documentation as a whole. Identified errors in my documentation that require fixing.
+
+	Hours: 1
+
+
+Action 3: Dean and I will develop a plan for successfully finishing the project	
+
+Dean and I have talked about creating a plan in order to finish the project.
+
+	Hours: 1
+
+
+Other project work
+========================
+Followed SE.QA.02 guidelines to ensure that the use case document was properly formatted.
+
+	Hours: 3
+
+Fixing the errors and issues with the use case documentation such as missing information, incorrect UML diagram and other inconsistencies highlighted in the formal review (UISpecReviewMinutes.txt).  
+
+	Hours: 3
+
+
+Total Hours: 8

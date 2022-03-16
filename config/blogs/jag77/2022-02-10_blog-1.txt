@@ -1,0 +1,21 @@
+Author: Jag77
+Week: 1 (7/2/22)
+
+Assigned actions
+===============
+Action 1: Read and understand Project Requirements and
+Group Intro documents
+
+I looked into the relevant documentation including the Group overview 
+and requirement specification
+
+Hours: 1
+
+Action 2: Develop some JavaFX screens as an example
+
+I looked into allowing for up to 4 user's infos to be inserted, and then developing
+a very rudementary screen with grids, and user names at the bottom.
+
+Hours: 3
+
+Total hours: 4

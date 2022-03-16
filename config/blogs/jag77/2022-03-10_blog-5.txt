@@ -1,0 +1,16 @@
+Author: Jag77
+Week: 5 (7/03/22)
+
+Assigned actions
+===============
+
+
+Action 1: Worked with Asb2 (Ash) to develop Object persistence.
+
+Action 2: Continued program development to add functionality (movement)
+
+Action 3: Added "tiles" interface, alongside classes that implement this interface (ocean tile, player tile, island tile)
+
+Action 4: Developed a start screen, with a non functional load butotn, and a functional start game button.
+
+Total hours: 5
