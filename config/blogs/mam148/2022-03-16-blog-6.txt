@@ -1,0 +1,22 @@
+Author: MAM148
+Week: 6 (07/03/22)
+
+Assigned actions
+===============
+Action 1: Fixing repository and repository files
+
+I added all of my previous work to the dev folders from previous 
+tutorials, added Matters arising section in review meeting minutes,
+updated config_refs file and fixed previous minutes files as mentioned
+in User Interface Specification feedback.
+
+Hours: 2
+
+Action 2: Thinking about unit tests in JUnit
+
+I looked at recordings and worksheet about JUnit from last year,
+example tests in JUnit and others materials about unit testing in Java.
+
+Hours: 2
+
+Total hours: 4
