@@ -1,0 +1,22 @@
+Author: mat78
+Week: 6 (07/03/22)
+
+Assigned actions
+=================
+Action 1:
+
+I have added my previous pieces of work 
+(TestSpec of: FR1-FR3, FR7-FR9, FR13-FR15) to
+the dev folder. 
+
+Hours: 1
+
+Action 2:
+
+I have started planning how to transform my tests 
+from the TestSpec document into JUnit tests to 
+test every requirement that our project has to meet.
+
+Hours: 2
+
+Total hours: 3
