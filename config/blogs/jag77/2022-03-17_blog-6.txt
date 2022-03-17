@@ -9,4 +9,6 @@ Action 1: Looked more into integrating object persistence to code
 
 Action 2: Researched communication between javafx scenes
 
+Action 3: Began building code to support Ash's "GameHandler" class
+
 Total hours: 4
