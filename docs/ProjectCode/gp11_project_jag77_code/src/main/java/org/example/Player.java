@@ -14,7 +14,7 @@ public class Player {
     private String direction;
 
     public Player(){
-        ;
+        coordinate = new int[2];
     }
 
     public Player(String playerName,int playerNumber){
@@ -83,6 +83,10 @@ public class Player {
 
     public int getPlayerNumber() {
         return playerNumber;
+    }
+
+    public void setPlayerName(String name){
+        this.playerName = name;
     }
 
     public String getPlayerName() {

@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-
 public class GameScreenController {
 
     @FXML
@@ -29,10 +28,13 @@ public class GameScreenController {
     Button moveButton;
 
     Game bucGame; // model
+    public GameHandler handler;
 
     public void initialize(){
-        bucGame = new Game();
-
+        //bucGame = new Game();
+        System.out.println("Initialising in GAme screen controller");
+        handler = new GameHandler();
+        /*
         String[] colours = {"blue","yellow","red","black"};
         int[][] coords = {{1,10},{10,1},{18,10},{10,18}};
 
@@ -50,6 +52,35 @@ public class GameScreenController {
         bucGame.populateTiles();
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
         updateBoardVisuals();
+         */
+    }
+
+
+    public void newGame(Player[] players){
+        bucGame = new Game();
+        bucGame.players = players;
+        handler.NewGame();
+        bucGame.populateTiles();
+        System.out.println("Updating visuals?");
+        updateVisuals();
+    }
+
+    public boolean loadGame() throws IOException {
+        boolean loadAble = handler.ContinueGame();
+        if (loadAble){
+            // loadBoard loads the game object not the actual board game.
+            // Thats fine but it means other code will need work to make this make sense
+            bucGame = handler.loadBoard();
+            bucGame.players = handler.getAllPlayers();
+        }
+        updateVisuals();
+        return loadAble;
+    }
+
+    private void updateVisuals(){
+        playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
+        updateBoardVisuals();
+        updateDirectionArrow();
     }
 
     private void updateBoardVisuals(){
@@ -75,15 +106,20 @@ public class GameScreenController {
                 boardGridVisual.add(imageV,i,j);
             }
         }
-        updateDirectionArrow();
     }
 
     @FXML
     private void endTurn() throws IOException {
         bucGame.nextTurn();
-        playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
-        updateDirectionArrow();
+        updateVisuals(); // this reloads the whole board, not sure if theres a point tbf.
+        //playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
+        //updateDirectionArrow();
         App.setNextPlayerScreen();
+
+        // would prefer if there was one "save" function
+        // as saving player and game states are intertwined surely?
+        handler.saveAllPlayers(bucGame.players); // this isnt working?
+        //handler.saveBoard(bucGame);
     }
 
     @FXML
@@ -135,6 +171,8 @@ public class GameScreenController {
     private void switchToStart() throws IOException { // calls a scene switch from the app class
         App.setStartScreen();
     }
+
+
 
 
 }

@@ -1,10 +1,11 @@
 package org.example;
 
-import com.thoughtworks.xstream.XStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -20,21 +21,36 @@ public class CharacterScreenController {
     String[] shipColoursReserved;
     String[] shipColoursUnreserved;
 
+    int[][] coords;
+    String[] directions;
+
     //Button reRollButton1, reRollButton2, reRollButton3, reRollButton4;
     @FXML CheckBox checkBoxOne, checkBoxTwo, checkBoxThree, checkBoxFour;
     @FXML Button continueButton;
     @FXML ImageView shipImage1, shipImage2, shipImage3, shipImage4;
-
+    @FXML TextField playerOneName, playerTwoName, playerThreeName, playerFourName;
 
     public void initialize(){
+        // base information for characters
+        coords = new int[][]{{1,10},{10,1},{18,10},{10,18}};
+        directions = new String[]{"north","east","south","west"};
         shipColoursReserved = new String[4];
         shipColoursUnreserved = new String[]{"black", "blue", "brown", "green", "yellow", "red","purple"};
-        //get model
+    }
+
+    public void setData(){
+        playerOneName.setText("PlayerOne");
+        playerTwoName.setText("PlayerTwo");
+        playerThreeName.setText("PlayerThree");
+        playerFourName.setText("PlayerFour");
+
         players = new Player[4];
         for (int i=0;i<players.length;i++){
             players[i] = new Player();
             reRollColour(i);
             updateImage(i);
+            players[i].setCoordinate(coords[i][0],coords[i][1]);
+            players[i].setDirection(directions[i]);
         }
     }
 
@@ -43,7 +59,20 @@ public class CharacterScreenController {
     private void switchToGame() throws IOException {
         if (checkBoxOne.isSelected() & checkBoxTwo.isSelected() &
             checkBoxThree.isSelected() & checkBoxFour.isSelected()){
-            XStream xs = new XStream();
+//            FXMLLoader loader = App.getLoader("game_screen");
+//            loader.load();
+//            GameScreenController gSC = loader.getController();
+//            gSC.newGame(players);
+
+            players[0].setPlayerName(playerOneName.getText());
+            players[1].setPlayerName(playerTwoName.getText());
+            players[2].setPlayerName(playerThreeName.getText());
+            players[3].setPlayerName(playerFourName.getText());
+
+
+            FXMLLoader loader = App.getGameLoader();
+            GameScreenController ctrl = loader.getController();
+            ctrl.newGame(players);
             App.setNextPlayerScreen();
         }
     }

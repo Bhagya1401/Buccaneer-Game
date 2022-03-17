@@ -118,7 +118,7 @@ public class Game {
         return false;
     }
 
-    public boolean move(){ // this needs to be redone. Absolutely disgusting code
+    public boolean move(){ // not a fan of this implementation, not sure how else to do it though
         Player p = getCurrentPlayer();
         String d = p.getDirection();
         int[] coords = p.getCoordinate();
