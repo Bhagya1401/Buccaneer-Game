@@ -1,7 +1,7 @@
 Item                    ConfigRef           Name                         Location
-UI Specification        UISpecGroup11       Use Case Document            docs/UISpecGP11
-UI Presentation         ------              UI Mockups                   docs/UISpecGP11
-Test Specification      TestSpecGroup11                                  docs/TestSpecGP11
+UI Specification        UISpecGroup11       Use Case Document.docx       docs/UISpecGP11
+UI Presentation         ------              UI Mockups.pptx              docs/UISpecGP11
+Test Specification      TestSpecGroup11     TestSpecGroup11.pdf          docs/TestSpecGP11
 Design Specification    DesignSpecGroup11                                docs/DesignSpecGP11
 Final Report            FinalGroup11                                     docs/FinalReportGP11
 Test Report             TestRepGroup11                                   docs/FinalReportGP11
