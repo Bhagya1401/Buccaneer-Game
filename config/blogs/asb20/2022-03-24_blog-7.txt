@@ -1,0 +1,30 @@
+Author: ASB20
+Week: 7 (24/03/22)
+
+Assigned actions
+==============
+
+Action 1: Continued on implementing object persistence
+
+	Continued as normal.
+	
+	Hours: 2
+
+Action 2: Creating a fix for implementing objects
+
+	Encountered a few problems with the gson class as was attempting to fix the issues. Found a fix, need to discuss with James about implementing said fix
+
+	Hours: 3
+
+Action 3: Creating the Crew Card systems
+
+	The Crew Card system is practically finished, just need to run through a few things to ensure that it's perfect and ready for implementation.
+
+	Hours: 4
+
+
+
+Other project work
+================
+
+Total hours: 9
