@@ -1,0 +1,20 @@
+Author: MAM148
+Week: 7 (14/03/22)
+
+Assigned actions
+===============
+Action 1: Fixing repository and repository files
+
+I fixed some things in my group's repository mentioned in
+UI Specification feedback and Test Specification feedback
+
+Hours: 2
+
+Action 2: Reading about JUnit
+
+I read some materials about JUnit, how to create tests in the most sufficent 
+way
+
+Hours: 1
+
+Total hours: 3
