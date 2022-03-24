@@ -1,0 +1,21 @@
+Author: mat78
+Week: 7 (14/03/22)
+
+Assigned actions
+=================
+Action 1: DesignSpec Document
+
+I have written about detailed design section in
+Design Specification Document. 
+
+Hours: 3
+
+Other project work
+====================
+I have read how to do sequence diagrams to
+include them into our DesignSpec Document.
+
+Hours: 1
+
+Total hours: 4
+
