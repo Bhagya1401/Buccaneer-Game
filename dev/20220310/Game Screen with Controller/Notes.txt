@@ -1,0 +1,7 @@
+Here is a project that puts the Game class together with the FXML using a Controller class. 
+
+This has some basic functionality like movement and changing turns.
+
+Makes use of the MVC (Model View Controller) system.
+
+Jag77

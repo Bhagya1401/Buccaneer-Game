@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.StartScreenController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.StartScreenController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Bucaneer Board Game" VBox.vgrow="ALWAYS" />
       <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />

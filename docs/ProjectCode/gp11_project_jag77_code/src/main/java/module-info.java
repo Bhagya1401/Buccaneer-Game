@@ -1,8 +1,7 @@
-module org.example {
+module uk.ac.aber {
     requires javafx.controls;
     requires javafx.fxml;
-    requires xstream;
-
-    opens org.example to javafx.fxml;
-    exports org.example;
+    requires com.google.gson;
+    opens uk.ac.aber.App to javafx.graphics;
+    opens uk.ac.aber.Controllers to javafx.fxml;
 }
