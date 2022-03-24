@@ -1,0 +1,27 @@
+Author: BHW
+Week: 5 (07/03/2022)
+
+
+Assigned actions
+====================
+
+Action 1:  ONGOING Baggy and Dean will develop a plan for successfully finishing the project.
+
+	
+	Hours: 1
+
+
+Action 2: Maciek, Mateusz, Dean and Baggy will meet and review Test Specification.
+	
+	I scanned the Test Specification to identify any present errors. Inconsistencies identified were raised in the formal review meeting.
+
+	Hours: 3
+
+
+Other project work
+========================
+Created a spreadsheet with Dean that tracks the hours each team member puts in every week.
+
+	Hours: 1
+
+Total Hours: 5
