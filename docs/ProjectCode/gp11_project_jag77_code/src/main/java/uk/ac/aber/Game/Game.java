@@ -13,11 +13,14 @@ public class Game {
     public Player[] players;
     private int turn;
     public Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
+    private Treasure[] treasure;
+    private int moves;
 
     public Game(){
         this.turn = 1;
         gameBoard = new Tile[20][20];
         players = new Player[4];
+        treasure = new Treasure[20];
         loadPlayers();
     }
 
@@ -35,10 +38,15 @@ public class Game {
 
     public void setTurn(int newTurn){
         turn = newTurn;
+        moves = 4;
     }
 
     public void nextTurn(){ // increment with rollover
         setTurn((turn%4)+1);
+    }
+
+    public int getMovesLeft(){
+        return moves;
     }
 
     public Player getCurrentPlayer(){
@@ -49,8 +57,29 @@ public class Game {
         return players[playerNum-1];
     }
 
+    private void initTreasure(){
+        // names stay like this for now, as the image paths are reliant on these
+        String[] names = new String[]{"diamond", "ruby", "gold_bars", "pearls", "barrel_of_rum"};
+        int[] values = {5,5,4,3,2};
+
+        for (int i = 0; i<20;i++){
+            int num = i / 5; // 5 types of icons
+            String name = names[num];
+            int value = values[num];
+            Image img = new Image(String.valueOf(App.class.getResource("/img/" + name + "_icon.png")));
+            treasure[i] = new Treasure(name,value,img);
+        }
+    }
 
 
+    // im thinking, add coordinates to each tile type,
+    // when loading them in, the program could just fill with ocean like it does now,
+    // then instead of just placing the tiles in the grid, give the tiles a location.
+    // this could lead to a solution on the larger islands
+    // may need a "isLarge" on the tile object? not sure.
+    // actually, could do with making an "island" class, just like a player object.
+    // "island" interface, with the 3 islands deriving from that.
+    // then a port interface? or maybe that can just be a class
     public void populateTiles(){ // purely used for testing purposes.
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
@@ -61,33 +90,39 @@ public class Game {
             }
         }
 
-        // add island tiles
-        IslandTile treasureIsland = new IslandTile("TreasureIsland");
-        Image treasureImage = new Image(String.valueOf(App.class.getResource("/img/" + "treasure_icon.png")));
-        treasureIsland.setIcon(treasureImage);
-        IslandTile pirateIsland = new IslandTile("Pirate Island");
-        Image pirateImage = new Image(String.valueOf(App.class.getResource("/img/" + "pirate_icon.png")));
-        pirateIsland.setIcon(pirateImage);
-        IslandTile london = new IslandTile("London");
+        // add port island tiles
+        IslandTile venice = new IslandTile("Port of Venice");
+        Image veniceImage = new Image(String.valueOf(App.class.getResource("/img/" + "treasure_icon.png")));
+        venice.setIcon(veniceImage);
+        IslandTile london = new IslandTile("Port of London");
         Image londonImage = new Image(String.valueOf(App.class.getResource("/img/" + "london_icon.png")));
         london.setIcon(londonImage);
-        IslandTile someOtherCity = new IslandTile("Some Other City");
-        Image cityImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
-        someOtherCity.setIcon(cityImage);
-        gameBoard[0][10] = london;
-        gameBoard[19][10] = someOtherCity;
-        gameBoard[10][0] = treasureIsland;
-        gameBoard[10][19] = pirateIsland;
-
+        IslandTile cadiz = new IslandTile("Port of Cadiz");
+        Image cadizImage = new Image(String.valueOf(App.class.getResource("/img/" + "pirate_icon.png")));
+        cadiz.setIcon(cadizImage);
+        IslandTile amsterdam = new IslandTile("Port of Amsterdam");
+        Image amsterdamImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
+        amsterdam.setIcon(amsterdamImage);
+        IslandTile marseilles = new IslandTile("Port of Marseilles");
+        Image marseillesImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
+        amsterdam.setIcon(marseillesImage);
+        IslandTile genoa = new IslandTile("Port of Genoa");
+        Image genoaImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
+        amsterdam.setIcon(genoaImage);
+        gameBoard[19][6] = venice;
+        gameBoard[19][13] = london;
+        gameBoard[6][19] = cadiz;
+        gameBoard[0][13] = amsterdam;
+        gameBoard[0][5] = marseilles;
+        gameBoard[6][1] = genoa;
 
         // add player tiles
-        // this isnt a great way of doing it, might as well hard code the values but fuck it i've written it now
+        // this isnt a great way of doing it, might as well hard code the values but f it i've written it now
         for (int i=0; i<4; i++){
             PlayerTile playerTile = new PlayerTile(players[i].getPlayerNumber());
             playerTile.setIcon(players[i].getIcon());
             gameBoard[players[i].getColCoordinate()][players[i].getRowCoordinate()] = playerTile;
         }
-
     }
 
     private boolean checkImmediateTile(String d, int[] coords){ //also not a fan of how this has been done
@@ -125,9 +160,10 @@ public class Game {
         Player p = getCurrentPlayer();
         String d = p.getDirection();
         int[] coords = p.getCoordinate();
-        boolean moveAble = checkImmediateTile(d,coords);
+        boolean moved = checkImmediateTile(d,coords);
         Tile switchTile = null;
-        if (moveAble){
+        if (moved){
+            moves--;
             switch (d){
                 case "west":
                     switchTile = gameBoard[coords[0]-1][coords[1]];
@@ -155,7 +191,7 @@ public class Game {
                     break;
             }
         }
-        return moveAble;
+        return moved;
     }
 
     public void turnRight(){

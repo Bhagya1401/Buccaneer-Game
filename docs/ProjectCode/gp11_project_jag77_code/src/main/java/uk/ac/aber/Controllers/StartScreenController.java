@@ -49,11 +49,12 @@ public class StartScreenController {
 
     @FXML
     private void loadGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("game_screen.fxml")
-        );
-        GameScreenController gSC = loader.getController();
-        if (gSC.loadGame()){
+        FXMLLoader loader = App.getGameLoader();
+        GameScreenController ctrl = loader.getController();
+
+
+        // nothing is loaded. Needs fixing
+        if (ctrl.loadGame()){
             App.setGameScreen();
         }
         else{

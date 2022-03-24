@@ -5,11 +5,14 @@ import javafx.scene.image.Image;
 
 public class Player {
 
-    private int playerNumber;
-    private String playerName;
-    private Image shipImage;
-    private int[] coordinate;
-    private String direction;
+
+    // all of these should be private, temporarily changing them for an easy workaround involving the gamehandler
+    // ash will be working on this
+    public int playerNumber;
+    public String playerName;
+    public Image shipImage;
+    public int[] coordinate;
+    public String direction;
 
     public Player(){
         coordinate = new int[2];
@@ -44,8 +47,6 @@ public class Player {
                 direction = "west";
         }
     }
-
-
 
     public void setCoordinate(int col, int row){
         coordinate[0] = col;
