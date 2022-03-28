@@ -10,7 +10,7 @@ public class Player {
     // ash will be working on this
     public int playerNumber;
     public String playerName;
-    public Image shipImage;
+    public String shipImageName;
     public int[] coordinate;
     public String direction;
 
@@ -22,6 +22,10 @@ public class Player {
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         coordinate = new int[2];
+    }
+
+    public void setPlayerNumber(int num){
+        this.playerNumber = num;
     }
 
     public String getDirection(){
@@ -72,12 +76,12 @@ public class Player {
     }
 
 
-    public void setIcon(Image shipImage){
-        this.shipImage = shipImage;
+    public void setIconName(String shipImageName){
+        this.shipImageName = shipImageName;
     }
 
-    public Image getIcon(){
-        return shipImage;
+    public String getIconName(){
+        return shipImageName;
     }
 
     public int getPlayerNumber() {

@@ -4,17 +4,17 @@ import javafx.scene.image.Image;
 
 public class OceanTile implements Tile{
 
-    Image oceanIcon;
+    String oceanIconName;
 
     @Override
-    public void setIcon(Image icon) {
+    public void setIconName(String iconName) {
         // not sure if necessary for oceantile
-        oceanIcon = icon;
+        oceanIconName = iconName;
     }
 
     @Override
-    public Image getIcon() {
-        return oceanIcon;
+    public String getIconName() {
+        return oceanIconName;
     }
 
     @Override

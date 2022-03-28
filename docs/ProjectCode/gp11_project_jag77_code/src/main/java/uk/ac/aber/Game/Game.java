@@ -8,20 +8,28 @@ import uk.ac.aber.Game.Tile.PlayerTile;
 import uk.ac.aber.Game.Tile.Tile;
 import javafx.scene.image.Image;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+
 public class Game {
 
     public Player[] players;
-    private int turn;
-    public Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
-    private Treasure[] treasure;
-    private int moves;
+    public int turn;
+    public transient Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
+    public Treasure[] treasure;
+    public int moves;
+    public transient HashMap<String,Image> images;
 
     public Game(){
         this.turn = 1;
         gameBoard = new Tile[20][20];
         players = new Player[4];
         treasure = new Treasure[20];
-        loadPlayers();
+        images = new HashMap<>();
+        loadImages();
+        //loadPlayers();
     }
 
     private void loadPlayers(){
@@ -40,6 +48,29 @@ public class Game {
         turn = newTurn;
         moves = 4;
     }
+
+    private void loadImages(){
+        System.out.println("Listing all the images and stuff");
+        String filePath = "C:/UniDocs/year_2/CS22120/gp11/docs/ProjectCode/gp11_project_jag77_code/target/classes/img";
+        //Image tempImage = new Image(filePath + "/" + "arrow.png");
+        System.out.println("Filepath!!! \n" + filePath);
+        File folder = new File(filePath);
+        String[] imageNames = folder.list();
+        //
+        if (imageNames == null){
+           System.out.println("Its null!");
+        }
+        else{
+            for (String fileName : imageNames){
+                Image img = new Image(filePath + "/" + fileName);
+                String name = fileName.substring(0,fileName.length() - 4); // remove the ".png"
+                images.put(name,img);
+            }
+            System.out.println(Arrays.toString(imageNames));
+        }
+
+    }
+
 
     public void nextTurn(){ // increment with rollover
         setTurn((turn%4)+1);
@@ -84,43 +115,35 @@ public class Game {
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
                 OceanTile oTile = new OceanTile();
-                Image oceanImage = new Image(String.valueOf(App.class.getResource("/img/" + "water_icon.png")));
-                oTile.setIcon(oceanImage);
+                oTile.setIconName("water_icon");
                 gameBoard[i][j] = oTile;
             }
         }
 
         // add port island tiles
         IslandTile venice = new IslandTile("Port of Venice");
-        Image veniceImage = new Image(String.valueOf(App.class.getResource("/img/" + "treasure_icon.png")));
-        venice.setIcon(veniceImage);
+        venice.setIconName("venice_icon");
         IslandTile london = new IslandTile("Port of London");
-        Image londonImage = new Image(String.valueOf(App.class.getResource("/img/" + "london_icon.png")));
-        london.setIcon(londonImage);
+        london.setIconName("london_icon");
         IslandTile cadiz = new IslandTile("Port of Cadiz");
-        Image cadizImage = new Image(String.valueOf(App.class.getResource("/img/" + "pirate_icon.png")));
-        cadiz.setIcon(cadizImage);
+        cadiz.setIconName("cadiz_icon");
         IslandTile amsterdam = new IslandTile("Port of Amsterdam");
-        Image amsterdamImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
-        amsterdam.setIcon(amsterdamImage);
+        amsterdam.setIconName("amsterdam_icon");
         IslandTile marseilles = new IslandTile("Port of Marseilles");
-        Image marseillesImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
-        amsterdam.setIcon(marseillesImage);
+        marseilles.setIconName("marseilles_icon");
         IslandTile genoa = new IslandTile("Port of Genoa");
-        Image genoaImage = new Image(String.valueOf(App.class.getResource("/img/" + "city_icon.png")));
-        amsterdam.setIcon(genoaImage);
+        genoa.setIconName("genoa_icon");
         gameBoard[19][6] = venice;
         gameBoard[19][13] = london;
         gameBoard[6][19] = cadiz;
         gameBoard[0][13] = amsterdam;
         gameBoard[0][5] = marseilles;
-        gameBoard[6][1] = genoa;
+        gameBoard[6][0] = genoa;
 
         // add player tiles
-        // this isnt a great way of doing it, might as well hard code the values but f it i've written it now
         for (int i=0; i<4; i++){
             PlayerTile playerTile = new PlayerTile(players[i].getPlayerNumber());
-            playerTile.setIcon(players[i].getIcon());
+            playerTile.setIconName(players[i].getIconName());
             gameBoard[players[i].getColCoordinate()][players[i].getRowCoordinate()] = playerTile;
         }
     }

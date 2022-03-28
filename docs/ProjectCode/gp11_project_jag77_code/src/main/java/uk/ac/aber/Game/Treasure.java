@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 
 public class Treasure {
     private String name;
-    private Image image;
+    private transient Image image;
     private int value;
 
     public Treasure(String name, int value, Image image){

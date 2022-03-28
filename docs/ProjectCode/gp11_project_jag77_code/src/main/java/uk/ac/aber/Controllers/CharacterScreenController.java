@@ -71,6 +71,9 @@ public class CharacterScreenController {
             players[2].setPlayerName(playerThreeName.getText());
             players[3].setPlayerName(playerFourName.getText());
 
+            for (int i=1;i<5;i++){
+                players[i-1].setPlayerNumber(i);
+            }
 
             FXMLLoader loader = App.getGameLoader();
             GameScreenController ctrl = loader.getController();
@@ -79,31 +82,38 @@ public class CharacterScreenController {
         }
     }
 
+    private Image makeImage(String imageName){
+        return new Image (String.valueOf(uk.ac.aber.App.App.class.getResource("/img/" + imageName + ".png")));
+    }
+
+
     @FXML
     private void updateImage(int num){
         System.out.printf("Updating image %d\n",num);
-        switch (num){
-            case 0:
-                shipImage1.setImage(players[num].getIcon());
-                break;
-            case 1:
-                shipImage2.setImage(players[num].getIcon());
-                break;
-            case 2:
-                shipImage3.setImage(players[num].getIcon());
-                break;
-            case 3:
-                shipImage4.setImage(players[num].getIcon());
-                break;
-        }
+        ImageView[] images = {shipImage1,shipImage2,shipImage3,shipImage4};
+        images[num].setImage(makeImage(players[num].getIconName()));
+//        switch (num){
+//            case 0:
+//                shipImage1.setImage(makeImage(players[num].getIconName()));
+//                break;
+//            case 1:
+//                shipImage2.setImage(players[num].getIcon());
+//                break;
+//            case 2:
+//                shipImage3.setImage(players[num].getIcon());
+//                break;
+//            case 3:
+//                shipImage4.setImage(players[num].getIcon());
+//                break;
+//        }
     }
 
     private void reRollColour(int num){
-        System.out.println("Rerolling colour");
-        System.out.println("Colours unused before:");
-        System.out.println(Arrays.toString(shipColoursUnreserved));
-        System.out.println("Colours used before:");
-        System.out.println(Arrays.toString(shipColoursReserved));
+//        System.out.println("Rerolling colour");
+//        System.out.println("Colours unused before:");
+//        System.out.println(Arrays.toString(shipColoursUnreserved));
+//        System.out.println("Colours used before:");
+//        System.out.println(Arrays.toString(shipColoursReserved));
 
 
         boolean change = false; // has not changed yet
@@ -116,16 +126,15 @@ public class CharacterScreenController {
         }
         while (storeColour == null);
 
-        Image shipImage = new Image(String.valueOf(App.class.getResource("/img/" + storeColour + "_ship.png"))); // make new image
-        players[num].setIcon(shipImage); // set new image
+        players[num].setIconName(storeColour + "_ship"); // set new image
 
         shipColoursUnreserved[randomNum] = shipColoursReserved[num];
         shipColoursReserved[num] = storeColour;
 
-        System.out.println("Colours unused after:");
-        System.out.println(Arrays.toString(shipColoursUnreserved));
-        System.out.println("Colours used after:");
-        System.out.println(Arrays.toString(shipColoursReserved));
+//        System.out.println("Colours unused after:");
+//        System.out.println(Arrays.toString(shipColoursUnreserved));
+//        System.out.println("Colours used after:");
+//        System.out.println(Arrays.toString(shipColoursReserved));
     }
 
     public void handleReRollButtonOne(ActionEvent event) {
