@@ -1,11 +1,11 @@
 CS22120 Project: Group 11
 Meeting: Review Meeting for Design Specification
 Persons present: mam148, mat78, bhw
-Place and date of meeting: Group Discord Voice Channel, Monday 28th March 2022
+Place and date of meeting: Group Discord Voice Channel, Tuesday 29th March 2022
 
 Circulation list: bhw, mam148, mat78
 Author: Mateusz Mazur
-Date of minutes: 28th March 2022
+Date of minutes: 29th March 2022
 Version: 1.0
 
 Matters arising:
