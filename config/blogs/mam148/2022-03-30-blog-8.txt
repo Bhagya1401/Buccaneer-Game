@@ -1,0 +1,19 @@
+Author: MAM148
+Week: 8 (21/03/22)
+
+Assigned actions
+===============
+Action 1: QA tasks
+
+I fixed some things in my group's repository and prepared minutes for
+tutorial meeting and review meeting.
+
+Hours: 2
+
+Action 2: Review meeting
+
+I met with Maciek and Baggy to review design specification
+
+Hours: 1
+
+Total hours: 3
