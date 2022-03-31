@@ -1,0 +1,13 @@
+Author: Jag77
+Week: 8 (28/03/22)
+
+Assigned actions
+===============
+Action 1: Carried on coding GUI and backend, restructured how images are loaded/saved, added movement. Waiting on crew cards to be able to work more on movement/attacking
+Also worked on treasure items, currently this is non-functional.
+Time: 3 Hour
+ 
+Action 2: Spent time working on object persistence, the game now saves and loads.
+Time: 2 hours
+
+Total hours: 5
