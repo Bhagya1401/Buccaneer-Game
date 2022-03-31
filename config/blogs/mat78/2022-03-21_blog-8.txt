@@ -1,0 +1,21 @@
+Author: mat78
+Week: 8 (21/03/22)
+
+Assigned actions
+==================
+Action 1: DesignSpec Document
+
+I have finished writing about sections in Design Specification
+document. To do this, I had to contact my group members for 
+information on certain things such as algorithms and data relationships.
+
+Hours: 3
+
+Action 2: Review metting (DesignSpec)
+
+I met my group on Monday to review and discuss our 
+Design Specification Document.
+
+Hours: 1
+
+Total hours: 4

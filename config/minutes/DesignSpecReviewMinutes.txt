@@ -1,0 +1,70 @@
+CS22120 Project: Group 11
+Meeting: Review Meeting for Design Specification
+Persons present: mam148, mat78, bhw
+Place and date of meeting: Group Discord Voice Channel, Tuesday 29th March 2022
+
+Circulation list: bhw, mam148, mat78
+Author: Mateusz Mazur
+Date of minutes: 29th March 2022
+Version: 1.0
+
+Matters arising:
+==============
+CHECKLIST FOR ALL DOCUMENTS
+Questions to ask:
+1. Do all formal project documents have the following information on the front cover:
+• Title (indicating Group_name and nature of document)?
+• Author(s)?
+• Configuration Reference?
+• Date when the latest version was produced?
+• Version number (correct)?
+• Document status (Draft, Release)?
+• Name, Address of Dept and Copyright notice?
+2. Does the header for the document contain title, version and status on each page?
+3. Does the footer contain "Aberystwyth University / Computer Science" and "Page x of y" correctly?
+4. Does the document contain specified sections:
+• Contents
+• Introduction: Purpose of document, Scope, Objectives
+• <Main Body> with appropriate sections
+• References
+• Document Change History with Version, Issue No., Date, Sections Changed from Previous
+Versions, Changed by
+5. Are the sections numbered correctly from 1?
+6. Are fonts appropriate in headers and in body text?
+
+DESIGN SPECIFICATION REVIEW
+Questions to ask:
+1. Does the document meet the General Document Standards (see [5] and questions in appendix A)?
+2. Does the design adequately address the overall architecture of the system?
+3. Does the design show the interaction between the modules sufficiently?
+4. Does the design give a correct interface for each module specified?
+5. Is there sufficient information on difficult pieces of the design?
+6. Will the design meet the requirements? This should be verified from the requirements mapping table,
+and through examination of the requirements specification.
+7. Do the reviewers understand the design?
+8. Can the design be simplified?
+9. Will the design lead to a maintainable system?
+10. Could the design be modified to offer more opportunity for reusing existing software libraries?
+
+Changes arising from review:
+=========================
+
+Changes to Design Specification to be made by mat78, dep22, asb20 and bhw.
+
+Design Specification
+==================
+1.Introduction section needs to be added.
+
+2.Sections needs to be numbered correctly.
+
+3.Document history needs to be fixed.
+
+4.Section "table mapping requirements onto classes" needs to be added.
+
+5.Section "programs in the system" needs to be added.
+
+6.Section "dependancy description" needs to be added.
+
+7.Section  "detailed design" needs to be completed.
+
+minutes by mam148
