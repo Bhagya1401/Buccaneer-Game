@@ -5,11 +5,14 @@ import javafx.scene.image.Image;
 
 public class Player {
 
-    private int playerNumber;
-    private String playerName;
-    private Image shipImage;
-    private int[] coordinate;
-    private String direction;
+
+    // all of these should be private, temporarily changing them for an easy workaround involving the gamehandler
+    // ash will be working on this
+    public int playerNumber;
+    public String playerName;
+    public String shipImageName;
+    public int[] coordinate;
+    public String direction;
 
     public Player(){
         coordinate = new int[2];
@@ -19,6 +22,10 @@ public class Player {
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         coordinate = new int[2];
+    }
+
+    public void setPlayerNumber(int num){
+        this.playerNumber = num;
     }
 
     public String getDirection(){
@@ -45,8 +52,6 @@ public class Player {
         }
     }
 
-
-
     public void setCoordinate(int col, int row){
         coordinate[0] = col;
         coordinate[1] = row;
@@ -71,12 +76,12 @@ public class Player {
     }
 
 
-    public void setIcon(Image shipImage){
-        this.shipImage = shipImage;
+    public void setIconName(String shipImageName){
+        this.shipImageName = shipImageName;
     }
 
-    public Image getIcon(){
-        return shipImage;
+    public String getIconName(){
+        return shipImageName;
     }
 
     public int getPlayerNumber() {

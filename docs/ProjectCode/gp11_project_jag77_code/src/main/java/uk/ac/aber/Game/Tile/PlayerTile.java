@@ -6,20 +6,20 @@ public class PlayerTile implements Tile {
 
     int playerNum;
 
-    Image shipIcon;
+    String shipIconName;
 
     public PlayerTile(int num){
         playerNum = num;
     }
 
     @Override
-    public void setIcon(Image icon) {
-        shipIcon = icon;
+    public void setIconName(String iconName) {
+        shipIconName = iconName;
     }
 
     @Override
-    public Image getIcon() {
-        return shipIcon;
+    public String getIconName() {
+        return shipIconName;
     }
 
     @Override

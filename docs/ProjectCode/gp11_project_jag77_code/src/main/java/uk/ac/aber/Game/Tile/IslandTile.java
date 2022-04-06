@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class IslandTile implements Tile{
 
-    Image islandIcon;
+    String islandIconName;
 
     String islandName;
 
@@ -13,13 +13,13 @@ public class IslandTile implements Tile{
     }
 
     @Override
-    public void setIcon(Image icon) {
-        islandIcon = icon;
+    public void setIconName(String iconName) {
+        islandIconName = iconName;
     }
 
     @Override
-    public Image getIcon() {
-        return islandIcon;
+    public String getIconName() {
+        return islandIconName;
     }
 
     @Override

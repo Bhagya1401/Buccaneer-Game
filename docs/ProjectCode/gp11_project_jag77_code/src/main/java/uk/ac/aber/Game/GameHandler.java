@@ -67,6 +67,7 @@ public class GameHandler {
      * Initializes the class when called upon.
      * This defines variables in the class that will be referenced later
      */
+    @Deprecated
     public void init() {
         File directory = new File(this.gamePlayers);
         this.totalPlayers = directory.list().length;
@@ -89,6 +90,11 @@ public class GameHandler {
         } else {
             return false;
         }
+    }
+
+    public boolean isGameValid_James() throws IOException {
+        File f = new File(this.gameConfig);
+        return f.exists() && !f.isDirectory();
     }
 
     /**
@@ -214,6 +220,7 @@ public class GameHandler {
      * @see Player
      * @see #gamePlayers
      */
+    @Deprecated
     public boolean savePlayer(Player pl) {
         if (pl == null) { return false; }
         if (pl.getPlayerNumber() == 0 || pl.getPlayerNumber() > 4) { return false; }
@@ -265,6 +272,7 @@ public class GameHandler {
      * @see Player
      * @see #savePlayer(Player) 
      */
+    @Deprecated
     public boolean saveAllPlayers(Player[] pls) {
         for (Player pl : pls) {
             if (!this.savePlayer(pl)) {
@@ -279,6 +287,7 @@ public class GameHandler {
      *
      * @see #ContinueGame()
      */
+    @Deprecated
     public Player[] getAllPlayers() {
         return this.players;
     }
@@ -291,6 +300,7 @@ public class GameHandler {
      * @see Player
      * @see #gamePlayers
      */
+    @Deprecated
     public Player[] getAllPlayersFromFile() throws IOException {
         File folder = new File(this.gamePlayers);
         File[] listOfFiles = folder.listFiles();
@@ -320,6 +330,7 @@ public class GameHandler {
      * @see Player
      * @see #gamePlayers
      */
+    @Deprecated
     public Player getPlayerFromFile(int playerNum) throws IOException {
         if (playerNum == 0 || playerNum > 4) { ; }
 

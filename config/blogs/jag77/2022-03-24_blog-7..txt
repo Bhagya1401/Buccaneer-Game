@@ -1,0 +1,13 @@
+Author: Jag77
+Week: 6 (14/03/22)
+
+Assigned actions
+===============
+Action 1: implement object persistence into the main code.
+ - not complete.
+ 
+Action 2: Work on how islands will interace with the game
+
+Action 3: make sure the player's direction is visible.
+
+Total hours: 2

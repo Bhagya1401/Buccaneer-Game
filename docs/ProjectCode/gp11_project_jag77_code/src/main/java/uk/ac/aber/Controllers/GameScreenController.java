@@ -59,7 +59,6 @@ public class GameScreenController {
          */
     }
 
-
     public void newGame(Player[] players){
         bucGame = new Game();
         bucGame.players = players;
@@ -70,14 +69,19 @@ public class GameScreenController {
     }
 
     public boolean loadGame() throws IOException {
-        boolean loadAble = handler.ContinueGame();
+        //boolean loadAble = handler.ContinueGame();
+        boolean loadAble = handler.isGameValid_James();
         if (loadAble){
             // loadBoard loads the game object not the actual board game.
             // Thats fine but it means other code will need work to make this make sense
             bucGame = handler.loadBoard();
-            bucGame.players = handler.getAllPlayers();
+            bucGame.populateTiles();
+            updateVisuals();
+            //bucGame.players = handler.getAllPlayers(); // gson already saves the players. no need to save/load them twice
         }
-        updateVisuals();
+        else{
+            System.out.println("NOT LOADING!!!");
+        }
         return loadAble;
     }
 
@@ -90,7 +94,7 @@ public class GameScreenController {
     private void updateBoardVisuals(){
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
-                ImageView imageV = new ImageView(bucGame.gameBoard[i][j].getIcon());
+                ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[i][j].getIconName()));
                 imageV.setFitHeight(35);
                 imageV.setFitWidth(35);
                 String tileType;
@@ -106,7 +110,7 @@ public class GameScreenController {
                 else{
                     tileType = "Unknown";
                 }
-                System.out.println("Adding " + tileType + " tile at " + i + " " + j);
+                //System.out.println("Adding " + tileType + " tile at " + i + " " + j);
                 boardGridVisual.add(imageV,i,j);
             }
         }
@@ -115,6 +119,8 @@ public class GameScreenController {
     @FXML
     private void endTurn() throws IOException {
         bucGame.nextTurn();
+        System.out.println("Current player number:");
+        System.out.println(bucGame.getCurrentPlayer().getPlayerNumber());
         updateVisuals(); // this reloads the whole board, not sure if theres a point tbf.
         //playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
         //updateDirectionArrow();
@@ -122,41 +128,62 @@ public class GameScreenController {
 
         // would prefer if there was one "save" function
         // as saving player and game states are intertwined surely?
-        handler.saveAllPlayers(bucGame.players); // this isnt working?
-        //handler.saveBoard(bucGame);
+        System.out.println("Hello, im in 'end turn' about to save players");
+        //handler.saveAllPlayers(bucGame.players); // this isnt working?
+        handler.saveBoard(bucGame);
     }
 
     @FXML
-    private void playerMove(){
+    private void playerMove() throws IOException {
         boolean moved = bucGame.move();
         if (moved){
             updateBoardVisuals();
+            if (bucGame.getMovesLeft() == 0){
+                endTurn();
+            }
         }
     }
 
-    private void updateDirectionArrow(){ // implementation is kinda sketch
+    private void updateDirectionArrow() { // implementation is kinda sketch
         System.out.println("Updating direction arrow");
         Player tempPlayer = bucGame.getCurrentPlayer();
         System.out.println("Player name!!! : " + tempPlayer.getPlayerName());
         System.out.println("Player dir : " + tempPlayer.getDirection());
+        int rotation;
+        int[] coordinate;
         switch (bucGame.getCurrentPlayer().getDirection()){
             case "north":
                 System.out.println("north");
-                directionArrowImage.setRotate(270);
+                rotation = 270;
                 break;
             case "east":
                 System.out.println("east");
-                directionArrowImage.setRotate(0);
+                rotation = 0;
                 break; // image already faces this direction
             case "south":
                 System.out.println("south");
-                directionArrowImage.setRotate(90);
+                rotation = 90;
                 break;
             case "west":
                 System.out.println("west");
-                directionArrowImage.setRotate(180);
+                rotation = 180;
                 break;
+            default:
+                System.out.println("Shouldn't get to this point");
+                rotation = -1; // doesn't matter, just getting rid of error regarding rotation not being assigned a value
+                assert true;
         }
+        directionArrowImage.setRotate(rotation);
+
+        // not a fan of the fact this is done basically every time the user's turn is done
+        // realistically it could be handled by "playerLeft/RightTurn" methods.
+        coordinate = bucGame.getCurrentPlayer().getCoordinate();
+        ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[coordinate[0]][coordinate[1]].getIconName()));
+        imageV.setFitHeight(35);
+        imageV.setFitWidth(35);
+        imageV.setRotate(rotation+180); // the 180 is added to account for the fact the arrow and ships' icons face different ways
+        boardGridVisual.add(imageV,coordinate[0],coordinate[1]);
+
     }
 
     @FXML
