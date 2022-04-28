@@ -86,7 +86,6 @@ public class CharacterScreenController {
         return new Image (String.valueOf(uk.ac.aber.App.App.class.getResource("/img/" + imageName + ".png")));
     }
 
-
     @FXML
     private void updateImage(int num){
         System.out.printf("Updating image %d\n",num);
