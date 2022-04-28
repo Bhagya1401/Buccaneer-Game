@@ -1,0 +1,91 @@
+CS22120 Project: Group 11
+Meeting: Weekly Project Meeting
+Persons present: All project members except beh52, jco3, ivs2, plus project manager 
+Place and date of meeting: C57a, Thursday 28th April 2022
+
+Circulation list: All project members, plus project manager
+Author: Mateusz Mazur
+Date of minutes: 28th April 2022
+Version: 1.0
+
+Matters arising:
+===========
+1.Initial tasks
+
+1.1 Baggy (with or without Dean) will develop a plan for successful finishing the project.
+ACTION: bhw
+
+1.2 Baggy will get confident with Gitlab Issues and will allocate tasks between
+group members to fix User Interface Specification and Test Specification
+before deadline.
+ACTION: bhw
+
+1.3 Baggy and Ash will discuss which requirements should be skipped to successfully
+finish the project.
+ACTION: bhw, asb20
+
+1.4 Baggy will speak to Chris about skipping some of requirements from
+group project because lack of people.
+ACTION: bhw
+
+1.5 James, Ash and Baggy will prepare 'Dependency description' section 
+for Design Specification and put together all the sections.
+ACTION: jag77, asb20, bhw
+
+1.6 Baggy, Ash, James and Maciek will meet to review Design Specification
+tomorrow (1st April).
+
+1.7 Baggy will fix User Interface Specification as mentioned in User Interface
+Specification feedback before coding.
+ACTION: bhw
+
+1.8 Mateusz and Maciek will fix Test Specification as mentioned in Test
+Specification feedback before coding.
+ACTION: mam148, mat78
+
+1.9 Ash will read about JUnit, how to write JUnit tests and explain it to
+the rest of the group.
+ACTION: asb20
+
+1.10 James, Ash and Baggy will prepare plan for coding all the project parts and
+allocate tasks to all group members.
+ACTION: jag77, asb20, bhw
+
+New business:
+===========
+Manager: Andy Starr, email: aos
+
+1.Initial tasks
+
+1.1 ONGOING  Baggy (with or without Dean) will develop a plan for successful finishing the project.
+ACTION: bhw
+
+1.2 ONGOING Baggy will get confident with Gitlab Issues and will allocate tasks between
+group members to fix User Interface Specification and Test Specification
+before deadline.
+ACTION: bhw
+
+1.3 ONGOING Baggy will fix User Interface Specification as mentioned in User Interface
+Specification feedback before coding.
+ACTION: bhw\
+
+1.4 ONGOING Mateusz and Maciek will fix Test Specification as mentioned in Test
+Specification feedback before coding.
+ACTION: mam148, mat78
+
+1.5 ONGOING Ash will read about JUnit, how to write JUnit tests and explain it to
+the rest of the group.
+ACTION: asb20
+ 
+1.6 ONGOING James, Ash and Baggy will prepare 'Dependency description' section 
+for Design Specification and put together all the sections.
+ACTION: jag77, asb20, bhw
+
+1.7 Mateusz and Maciek will create Test Table before Monday (2nd May)
+ACTION: mam148, mat78
+
+AOB
+===
+1. NONE
+
+Minutes by mam148
