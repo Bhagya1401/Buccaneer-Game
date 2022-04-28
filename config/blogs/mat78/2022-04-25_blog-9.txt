@@ -1,0 +1,22 @@
+Author: mat78
+Week: 8 (25/04/22)
+
+Assigned actions
+==================
+Action 1: TestSpec correction
+
+I'm fixing TestSpec with Mateusz by adding
+a couple of new tests and doing some formatting
+to get this done before Integration Week.
+
+Hours: 2
+
+Other project work
+====================
+I have acquainted with the materials that are on
+the Gitlab of our project to be prepared for the
+integration week
+
+Hours: 1
+
+Total hours: 3
