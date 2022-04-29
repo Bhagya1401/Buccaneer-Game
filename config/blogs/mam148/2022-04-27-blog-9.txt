@@ -1,0 +1,12 @@
+Author: MAM148
+Week: 9 (28/03/22)
+
+Assigned actions
+===============
+Action 1: Fixing Test Specification
+
+I fixed Test Specification as mentioned in Test Specification feedback
+
+Hours: 4
+
+Total hours: 4
