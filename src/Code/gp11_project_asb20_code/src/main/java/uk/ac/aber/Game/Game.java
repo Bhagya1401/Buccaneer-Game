@@ -1,6 +1,7 @@
 package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
+import uk.ac.aber.Game.ChanceCards.ChanceCard;
 import uk.ac.aber.Game.ChanceCards.ChancePack;
 import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.CrewCards.CrewHand;
@@ -41,7 +42,13 @@ public class Game {
         this.crewPack = new CrewPack();
         this.chancePack = new ChancePack();
 
+        //this.chancePack.debugPrint();
 
+        Player ash = new Player("Ash", 1);
+        ash.setCoordinate(3, 4);
+
+        ChanceCard crd = this.chancePack.getChanceCard(ash);
+        //System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 
 
         /*

@@ -23,6 +23,7 @@ public class CrewHand {
                 hnd.addCard(toTransfer);
                 this.cards[0] = null;
                 this.shift(this.cards);
+                this.totalCards--; // ?
             }
         }
     }

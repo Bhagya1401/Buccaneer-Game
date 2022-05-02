@@ -33,7 +33,7 @@ public class Player {
 
     //public boolean moveForward(int spaces, Time game)
 
-    public void turn(String leftRight){
+    public void turn(String leftRight) {
         int dirIndex;
         for (dirIndex = 0; dirIndex < 8; dirIndex++){
             if (direction.toUpperCase().equals(DIRECTIONS[dirIndex])){
