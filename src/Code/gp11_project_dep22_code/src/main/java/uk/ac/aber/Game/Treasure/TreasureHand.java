@@ -75,9 +75,28 @@ public class TreasureHand {
             return tmp;
         }
 
+    public Treasure highestValue(){
+        Treasure highestVal = null;
+        Treasure tempTreasure = null;
+        for (Treasure treasure : this.treasures) {
+            if (tempTreasure == null){
+                tempTreasure = treasure;
+            }
 
+
+
+            if (treasure != null) {
+                if (treasure.getValue() > tempTreasure.getValue()){
+                    highestVal = treasure;
+                }
+            tempTreasure = treasure;
+            }
 
     }
+
+      return highestVal;
+    }
+}
 
 
 
