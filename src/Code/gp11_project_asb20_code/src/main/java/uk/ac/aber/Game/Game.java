@@ -75,7 +75,7 @@ public class Game {
 
     private void loadImages(){
         System.out.println("Listing all the images and stuff");
-        String filePath = "C:/UniDocs/year_2/CS22120/gp11/docs/ProjectCode/gp11_project_jag77_code/target/classes/img";
+        String filePath = "M:\\Year 3\\gp11\\gp11_ashcards\\src\\main\\resources\\img";
         //Image tempImage = new Image(filePath + "/" + "arrow.png");
         System.out.println("Filepath!!! \n" + filePath);
         File folder = new File(filePath);
