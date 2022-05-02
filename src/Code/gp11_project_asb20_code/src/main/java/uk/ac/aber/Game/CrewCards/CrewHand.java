@@ -38,6 +38,45 @@ public class CrewHand {
         d[from-1]=f;
     }
 
+    public CrewCard removeCardFromTop() {
+        CrewCard tmp = null;
+        if (this.cards[0] != null) {
+            tmp = this.cards[0];
+            this.cards[0] = null;
+            this.shift(this.cards);
+        }
+        this.totalCards--;
+        return tmp;
+    }
+
+    public void shiftAtVal(CrewCard[] d, int val){
+        CrewCard f=d[0];
+
+        int from=val+1;
+        for(;from<d.length;from++){
+            d[from-1]=d[from];
+        }
+
+        d[from-1]=f;
+        this.cards[19] = null;
+    }
+
+
+
+    // remove a card at a given index
+    public CrewCard removeAtIndex(int ind) {
+        CrewCard tmp = null;
+        if (this.cards[ind] != null) {
+            tmp = this.cards[ind];
+            this.cards[ind] = null;
+            this.shiftAtVal(this.cards, ind);
+        }
+        this.totalCards--;
+        return tmp;
+    }
+
+    // does have card that = value // remove index // give the cards
+
     public void printDebug() {
         System.out.println("---------------------------------------");
         for (int i = 0; i < this.cards.length; i++) {
