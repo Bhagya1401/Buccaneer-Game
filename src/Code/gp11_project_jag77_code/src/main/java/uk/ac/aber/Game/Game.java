@@ -20,7 +20,7 @@ public class Game {
     public transient Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
     public Treasure[] treasure;
     public int moves;
-    public transient HashMap<String,Image> images;
+    public HashMap<String,Image> images;
 
     public Game(){
         this.turn = 1;

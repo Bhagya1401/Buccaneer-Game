@@ -32,12 +32,10 @@ public class GameScreenController {
     Button moveButton;
 
     Game bucGame; // model
-    public GameHandler handler;
 
     public void initialize(){
         //bucGame = new uk.ac.aber.Game();
         System.out.println("Initialising in GAme screen controller");
-        handler = new GameHandler();
         /*
         String[] colours = {"blue","yellow","red","black"};
         int[][] coords = {{1,10},{10,1},{18,10},{10,18}};
@@ -62,28 +60,28 @@ public class GameScreenController {
     public void newGame(Player[] players){
         bucGame = new Game();
         bucGame.players = players;
-        handler.NewGame();
+        //handler.NewGame();
         bucGame.populateTiles();
         System.out.println("Updating visuals?");
         updateVisuals();
     }
-
-    public boolean loadGame() throws IOException {
-        //boolean loadAble = handler.ContinueGame();
-        boolean loadAble = handler.isGameValid_James();
-        if (loadAble){
-            // loadBoard loads the game object not the actual board game.
-            // Thats fine but it means other code will need work to make this make sense
-            bucGame = handler.loadBoard();
-            bucGame.populateTiles();
-            updateVisuals();
-            //bucGame.players = handler.getAllPlayers(); // gson already saves the players. no need to save/load them twice
-        }
-        else{
-            System.out.println("NOT LOADING!!!");
-        }
-        return loadAble;
-    }
+//
+//    public boolean loadGame() throws IOException {
+//        //boolean loadAble = handler.ContinueGame();
+//        //boolean loadAble = handler.isGameValid_James();
+//        if (loadAble){
+//            // loadBoard loads the game object not the actual board game.
+//            // Thats fine but it means other code will need work to make this make sense
+//            //bucGame = handler.loadBoard();
+//            bucGame.populateTiles();
+//            updateVisuals();
+//            //bucGame.players = handler.getAllPlayers(); // gson already saves the players. no need to save/load them twice
+//        }
+//        else{
+//            System.out.println("NOT LOADING!!!");
+//        }
+//        return loadAble;
+//    }
 
     private void updateVisuals(){
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
@@ -130,7 +128,7 @@ public class GameScreenController {
         // as saving player and game states are intertwined surely?
         System.out.println("Hello, im in 'end turn' about to save players");
         //handler.saveAllPlayers(bucGame.players); // this isnt working?
-        handler.saveBoard(bucGame);
+        //handler.saveBoard(bucGame);
     }
 
     @FXML
