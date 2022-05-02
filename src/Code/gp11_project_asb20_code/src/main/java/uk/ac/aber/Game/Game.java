@@ -1,6 +1,9 @@
 package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
+import uk.ac.aber.Game.ChanceCards.ChancePack;
+import uk.ac.aber.Game.CrewCards.CrewCard;
+import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.CrewCards.CrewPack;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Tile.PortTile;
@@ -22,7 +25,9 @@ public class Game {
     public Treasure[] treasure;
     public int moves;
     public transient HashMap<String,Image> images;
+
     public CrewPack crewPack;
+    public ChancePack chancePack;
 
     public Game(){
         this.turn = 1;
@@ -34,6 +39,30 @@ public class Game {
         //loadPlayers();
 
         this.crewPack = new CrewPack();
+        this.chancePack = new ChancePack();
+
+
+
+
+        /*
+        CrewHand hnd = new CrewHand();
+        crewPack.giveCrewHandCard(hnd);
+        crewPack.giveCrewHandCard(hnd);
+        crewPack.giveCrewHandCard(hnd);
+
+        hnd.printDebug();
+
+        System.out.println("----------------------------------------------------------------------- C1 SHIT");
+        System.out.println("----------------------------------------------------------------------- C1 SHIT");
+
+
+        CrewCard crd = hnd.removeAtIndex(2);
+        //CrewCard crd = hnd.removeCardFromTop();
+        hnd.printDebug();
+
+        System.out.println("----------------------------------------------------------------------- C1 SHIT");
+        System.out.println("----------------------------------------------------------------------- C1 SHIT");
+        */
 
         /*
         CrewHand c1 = new CrewHand();
