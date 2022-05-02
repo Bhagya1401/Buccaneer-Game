@@ -9,26 +9,36 @@ package uk.ac.aber.Game;
 
 import javafx.scene.image.Image;
 
+import java.util.Objects;
+
 public class Treasure {
     private String name;
     private transient Image image;
     private int value;
 
-    public Treasure(String name, int value, Image image){
+    public Treasure(String name, int value, Image image) {
         this.name = name;
         this.image = image;
         this.value = value;
     }
 
-    private String getName(){
+    private String getName() {
         return name;
     }
 
-    private Image getImage(){
+    private Image getImage() {
         return image;
     }
 
-    private int getValue(){
+    private int getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Treasure treasure = (Treasure) o;
+        return Objects.equals(name, treasure.name);
     }
 }
