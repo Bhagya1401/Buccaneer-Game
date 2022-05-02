@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.GameScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.GameScreenController">
    <center>
-      <GridPane gridLinesVisible="true" BorderPane.alignment="CENTER">
+      <GridPane fx:id="boardGridVisual" gridLinesVisible="true" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
@@ -71,7 +71,7 @@
                   <Insets bottom="30.0" />
                </padding>
             </Label>
-            <Label text="Name_Placeholder">
+            <Label fx:id="playerNameLabel" text="Name_Placeholder">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
@@ -90,9 +90,9 @@
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Left Turn" />
-            <Button mnemonicParsing="false" text="Move" />
-            <Button mnemonicParsing="false" text="Right Turn" />
+            <Button fx:id="leftTurnButton" mnemonicParsing="false" onAction="#playerLeftTurn" text="Left Turn" />
+            <Button fx:id="moveButton" mnemonicParsing="false" onAction="#playerMove" text="Move" />
+            <Button fx:id="rightTurnButton" mnemonicParsing="false" onAction="#playerRightTurn" text="Right Turn" />
          </children></HBox>
    </bottom>
    <top>
@@ -104,6 +104,7 @@
                </font>
             </Label>
             <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="endTurnButton" mnemonicParsing="false" onAction="#endTurn" text="End Turn" />
             <Button fx:id="exitButton" mnemonicParsing="false" onAction="#switchToStart" text="Exit" />
             <ImageView fx:id="directionArrowImage" fitHeight="100.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
                <image>

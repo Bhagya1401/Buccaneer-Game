@@ -41,7 +41,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>org.example.App</mainClass>
+                    <mainClass>uk.ac.aber.App.App</mainClass>
                 </configuration>
             </plugin>
         </plugins>
