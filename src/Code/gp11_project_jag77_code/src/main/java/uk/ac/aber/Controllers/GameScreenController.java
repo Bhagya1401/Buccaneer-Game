@@ -58,30 +58,11 @@ public class GameScreenController {
     }
 
     public void newGame(Player[] players){
-        bucGame = new Game();
-        bucGame.players = players;
-        //handler.NewGame();
-        bucGame.populateTiles();
+        bucGame = new Game(players);
+        bucGame.startGame();
         System.out.println("Updating visuals?");
         updateVisuals();
     }
-//
-//    public boolean loadGame() throws IOException {
-//        //boolean loadAble = handler.ContinueGame();
-//        //boolean loadAble = handler.isGameValid_James();
-//        if (loadAble){
-//            // loadBoard loads the game object not the actual board game.
-//            // Thats fine but it means other code will need work to make this make sense
-//            //bucGame = handler.loadBoard();
-//            bucGame.populateTiles();
-//            updateVisuals();
-//            //bucGame.players = handler.getAllPlayers(); // gson already saves the players. no need to save/load them twice
-//        }
-//        else{
-//            System.out.println("NOT LOADING!!!");
-//        }
-//        return loadAble;
-//    }
 
     private void updateVisuals(){
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
@@ -133,7 +114,7 @@ public class GameScreenController {
 
     @FXML
     private void playerMove() throws IOException {
-        boolean moved = bucGame.move();
+        boolean moved = bucGame.move(1);
         if (moved){
             updateBoardVisuals();
             if (bucGame.getMovesLeft() == 0){
@@ -150,20 +131,20 @@ public class GameScreenController {
         int rotation;
         int[] coordinate;
         switch (bucGame.getCurrentPlayer().getDirection()){
-            case "north":
-                System.out.println("north");
+            case "N":
+                System.out.println("N");
                 rotation = 270;
                 break;
-            case "east":
-                System.out.println("east");
+            case "E":
+                System.out.println("E");
                 rotation = 0;
                 break; // image already faces this direction
-            case "south":
-                System.out.println("south");
+            case "S":
+                System.out.println("S");
                 rotation = 90;
                 break;
-            case "west":
-                System.out.println("west");
+            case "W":
+                System.out.println("W");
                 rotation = 180;
                 break;
             default:
@@ -181,18 +162,17 @@ public class GameScreenController {
         imageV.setFitWidth(35);
         imageV.setRotate(rotation+180); // the 180 is added to account for the fact the arrow and ships' icons face different ways
         boardGridVisual.add(imageV,coordinate[0],coordinate[1]);
-
     }
 
     @FXML
     private void playerLeftTurn(){
-        bucGame.turnLeft();
+        bucGame.turn("L");
         updateDirectionArrow();
     }
 
     @FXML
     private void playerRightTurn(){
-        bucGame.turnRight();
+        bucGame.turn("R");
         updateDirectionArrow();
     }
 
