@@ -1,0 +1,52 @@
+Player
+Game
+Character
+NextPlayer
+
+Start
+IslandTile
+PlayerTile
+Tile
+
+Treasure
+App
+GameScreenController
+CrewHand
+
+CrewCard
+CrewPack
+ChanceCard
+ChancePack
+
+PortTile
+Popups
+
+Tasks
+================
+Island Objects
+
+
+PLayers need to pcikup surroundings, detect object in thier raidus
+Funtional Ports, randomly assigned to players as home ports, trading at ports, leaving port in any direction
+
+Home ports, have a safe zone
+Treasure management and distribution
+Functional Islands, displayed on board
+Player need to be able to attack
+Players need to handle thier own movement
+Combat
+Description box
+Endagame state
+
+Diagonal movement 
+Trading system for treasure 
+PortTile class
+
+
+
+
+Monday Plan 
+=========================
+
+Class diagram
+Explain code to the group
