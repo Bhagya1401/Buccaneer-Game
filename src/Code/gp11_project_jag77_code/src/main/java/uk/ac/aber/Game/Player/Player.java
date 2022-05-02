@@ -2,17 +2,22 @@ package uk.ac.aber.Game.Player;
 
 import javafx.scene.image.Image;
 
+import java.util.HashMap;
+
 
 public class Player {
 
 
     // all of these should be private, temporarily changing them for an easy workaround involving the gamehandler
     // ash will be working on this
-    public int playerNumber;
-    public String playerName;
-    public String shipImageName;
-    public int[] coordinate;
-    public String direction;
+    public final String[] DIRECTIONS = {"N","NE","E","SE","S","SW","W","NW"};
+
+    private int playerNumber;
+    private String playerName;
+    private String shipImageName;
+    private int[] coordinate;
+    private String direction;
+    private HashMap<String, String> LEFT_ROTATION;
 
     public Player(){
         coordinate = new int[2];
@@ -22,6 +27,32 @@ public class Player {
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         coordinate = new int[2];
+    }
+
+    //public boolean moveForward(int spaces, Time game)
+
+    public void turn(String leftRight){
+        int dirIndex;
+        for (dirIndex = 0; dirIndex < 8; dirIndex++){
+            if (direction.toUpperCase().equals(DIRECTIONS[dirIndex])){
+                break;
+            }
+        }
+        if (leftRight.toUpperCase().equals("L")){
+            dirIndex--;
+            if (dirIndex < 0){
+                dirIndex = DIRECTIONS.length-1; // set to north west
+            }
+        }
+        else if (leftRight.toUpperCase().equals("R")){
+            dirIndex++;
+            if (dirIndex >DIRECTIONS.length - 1){
+                dirIndex = 0; // set to north
+            }
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
     }
 
     public void setPlayerNumber(int num){
@@ -34,22 +65,6 @@ public class Player {
 
     public void setDirection(String dir){
         direction = dir;
-    }
-
-    public void turnLeft(){
-        switch (direction){
-            case "west":
-                direction = "south";
-                break;
-            case "south":
-                direction = "east";
-                break;
-            case "east":
-                direction = "north";
-                break;
-            case "north":
-                direction = "west";
-        }
     }
 
     public void setCoordinate(int col, int row){

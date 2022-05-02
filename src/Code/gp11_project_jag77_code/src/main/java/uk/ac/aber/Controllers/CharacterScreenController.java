@@ -38,6 +38,7 @@ public class CharacterScreenController {
         directions = new String[]{"north","east","south","west"};
         shipColoursReserved = new String[4];
         shipColoursUnreserved = new String[]{"black", "blue", "brown", "green", "yellow", "red","purple"};
+        setData();
     }
 
     public void setData(){

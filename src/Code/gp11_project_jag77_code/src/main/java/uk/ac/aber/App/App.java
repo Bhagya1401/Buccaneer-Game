@@ -41,7 +41,7 @@ public class App extends Application {
         gameScreen = new Scene(loadFXML("game_screen"));
          */
         App.stage = stage;
-        setStartScreen();
+        setCharacterScreen();
 
         stage.show();
     }
