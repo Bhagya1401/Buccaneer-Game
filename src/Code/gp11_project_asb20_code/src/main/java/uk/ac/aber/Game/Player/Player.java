@@ -31,9 +31,17 @@ public class Player {
         coordinate = new int[2];
     }
 
-    //public boolean moveForward(int spaces, Time game)
+    // move player to X coordinate and update visuals
+    // also check if anything is in this position too, if so move further away
 
-    public void turn(String leftRight){
+    // get closest port
+    // array of port coordinates and compare them
+    // get a position (direction) too and return perhaps?
+
+    // get closest player
+    // cycle through players and check coordinates of each player and compare
+
+    public void turn(String leftRight) {
         int dirIndex;
         for (dirIndex = 0; dirIndex < 8; dirIndex++){
             if (direction.toUpperCase().equals(DIRECTIONS[dirIndex])){

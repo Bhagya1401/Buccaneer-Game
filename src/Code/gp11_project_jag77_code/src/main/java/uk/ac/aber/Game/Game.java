@@ -15,29 +15,37 @@ import java.util.HashMap;
 
 public class Game {
 
-    public Player[] players;
-    public int turn;
-    public transient Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
-    public Treasure[] treasure;
-    public int moves;
+    private Player[] players;
+    private int turn;
+    public  Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
+    public Tile[] playerTiles;
+    private Treasure[] treasure;
+    private int moves;
     public HashMap<String,Image> images;
 
     public Game(){
-        this.turn = 1;
-        gameBoard = new Tile[20][20];
-        players = new Player[4];
-        treasure = new Treasure[20];
-        images = new HashMap<>();
+        this.gameBoard = new Tile[20][20];
+        this.players = new Player[4];
+        this.treasure = new Treasure[20];
+        this.images = new HashMap<>();
+        this.playerTiles = new Tile[4];
+    }
+
+    public Game(Player[] players){
+        this.gameBoard = new Tile[20][20];
+        this.players = players;
+        this.treasure = new Treasure[20];
+        this.images = new HashMap<>();
+        this.playerTiles = new Tile[4];
+    }
+
+    public void startGame(){
+        turn = 1;
+        if (players != null){
+            moves = getCurrentPlayer().getMoves();
+        }
         loadImages();
-        //loadPlayers();
-    }
-
-    private void loadPlayers(){
-        System.out.println("Loading players...");
-    }
-
-    private void savePlayers(){
-        System.out.println("Saving players...");
+        populateTiles();
     }
 
     public int getTurn(){
@@ -51,7 +59,7 @@ public class Game {
 
     private void loadImages(){
         System.out.println("Listing all the images and stuff");
-        String filePath = "C:/UniDocs/year_2/CS22120/gp11/docs/ProjectCode/gp11_project_jag77_code/target/classes/img";
+        String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
         //Image tempImage = new Image(filePath + "/" + "arrow.png");
         System.out.println("Filepath!!! \n" + filePath);
         File folder = new File(filePath);
@@ -70,7 +78,6 @@ public class Game {
         }
 
     }
-
 
     public void nextTurn(){ // increment with rollover
         setTurn((turn%4)+1);
@@ -114,9 +121,7 @@ public class Game {
     public void populateTiles(){ // purely used for testing purposes.
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
-                OceanTile oTile = new OceanTile();
-                oTile.setIconName("water_icon");
-                gameBoard[i][j] = oTile;
+                gameBoard[i][j] = makeOceanTile();
             }
         }
 
@@ -145,29 +150,36 @@ public class Game {
             PlayerTile playerTile = new PlayerTile(players[i].getPlayerNumber());
             playerTile.setIconName(players[i].getIconName());
             gameBoard[players[i].getColCoordinate()][players[i].getRowCoordinate()] = playerTile;
+            playerTiles[i] = playerTile;
         }
+    }
+
+    private OceanTile makeOceanTile(){
+        OceanTile oTile = new OceanTile();
+        oTile.setIconName("water_icon");
+        return oTile;
     }
 
     private boolean checkImmediateTile(String d, int[] coords){ //also not a fan of how this has been done
         // switch statement here
         Tile tile = null;
         switch (d){
-            case "west":
+            case "W":
                 if (coords[0]-1 >= 0){
                     tile = gameBoard[coords[0]-1][coords[1]];
                 }
                 break;
-            case "south":
+            case "S":
                 if (coords[1]+1 <= 19){
                     tile = gameBoard[coords[0]][coords[1]+1];
                 }
                 break;
-            case "east":
+            case "E":
                 if (coords[0]-1 >= 0){
                     tile = gameBoard[coords[0]+1][coords[1]];
                 }
                 break;
-            case "north":
+            case "N":
                 if (coords[0]-1 >= 0){
                     tile = gameBoard[coords[0]][coords[1]-1];
                 }
@@ -178,6 +190,30 @@ public class Game {
         }
         return false;
     }
+
+    public boolean move(int spaces){
+        System.out.println("MOVING NEW METHOD IN GAME");
+        Player currPlayer = getCurrentPlayer();
+        Tile switchTile = null;
+        int[] oldCoord = Arrays.copyOf(currPlayer.getCoordinate(),2);
+        boolean moved = currPlayer.moveForward(spaces,gameBoard);
+//        if (moved){
+//            int [] newCoord = currPlayer.getCoordinate();
+//
+//            // be sure the col and row are the right way round
+//            Tile tile = gameBoard[newCoord[0]][newCoord[1]]; // get tile that player is moving to (should be an ocean tile)
+//            gameBoard[currPlayer.getRowCoordinate()][currPlayer.getColCoordinate()] = gameBoard[oldCoord[0]][oldCoord[1]];
+//            gameBoard[oldCoord[0]][oldCoord[1]] = tile;
+//            moves--; //decrements movement
+//        }
+
+        if (moved){
+            gameBoard[currPlayer.getColCoordinate()][currPlayer.getRowCoordinate()] = playerTiles[turn-1]; // turn - 1 because of indexing
+            gameBoard[oldCoord[0]][oldCoord[1]] = makeOceanTile();
+        }
+        return moved;
+    }
+
 
     public boolean move(){ // this needs to be redone. Absolutely disgusting code
         Player p = getCurrentPlayer();
@@ -217,41 +253,10 @@ public class Game {
         return moved;
     }
 
-    public void turnRight(){
-        Player p = getCurrentPlayer();
-        String d = p.getDirection();
-        switch (d){
-            case "west":
-                p.setDirection("north");
-                break;
-            case "south":
-                p.setDirection("west");
-                break;
-            case "east":
-                p.setDirection("south");
-                break;
-            case "north":
-                p.setDirection("east");
-        }
+    public void turn(String turnDir){
+        getCurrentPlayer().turn(turnDir);
     }
 
-    public void turnLeft(){
-        Player p = getCurrentPlayer();
-        String d = p.getDirection();
-        switch (d){
-            case "west":
-                p.setDirection("south");
-                break;
-            case "south":
-                p.setDirection("east");
-                break;
-            case "east":
-                p.setDirection("north");
-                break;
-            case "north":
-                p.setDirection("west");
-        }
-    }
 
 /*
     public void startGameBoard(){
