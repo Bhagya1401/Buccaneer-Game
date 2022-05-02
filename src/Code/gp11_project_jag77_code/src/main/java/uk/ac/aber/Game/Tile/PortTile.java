@@ -1,14 +1,23 @@
 package uk.ac.aber.Game.Tile;
 
-public class IslandTile implements Tile{
-    @Override
-    public void setIconName(String icon) {
+public class PortTile implements Tile{
 
+    String islandIconName;
+
+    String islandName;
+
+    public PortTile(String name){
+        islandName = name;
+    }
+
+    @Override
+    public void setIconName(String iconName) {
+        islandIconName = iconName;
     }
 
     @Override
     public String getIconName() {
-        return null;
+        return islandIconName;
     }
 
     @Override
@@ -23,6 +32,6 @@ public class IslandTile implements Tile{
 
     @Override
     public boolean isIsland() {
-        return false;
+        return true;
     }
 }

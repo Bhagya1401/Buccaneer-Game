@@ -104,7 +104,7 @@ public class GameScreenController {
                 else if (bucGame.gameBoard[i][j] instanceof PlayerTile){
                     tileType = "Player";
                 }
-                else if (bucGame.gameBoard[i][j] instanceof IslandTile){
+                else if (bucGame.gameBoard[i][j] instanceof PortTile){
                     tileType = "Island";
                 }
                 else{

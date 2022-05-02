@@ -2,16 +2,16 @@ package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Tile.IslandTile;
+import uk.ac.aber.Game.Tile.PortTile;
 import uk.ac.aber.Game.Tile.OceanTile;
 import uk.ac.aber.Game.Tile.PlayerTile;
 import uk.ac.aber.Game.Tile.Tile;
 import javafx.scene.image.Image;
+import uk.ac.aber.Game.Treasure.Treasure;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class Game {
 
@@ -121,17 +121,17 @@ public class Game {
         }
 
         // add port island tiles
-        IslandTile venice = new IslandTile("Port of Venice");
+        PortTile venice = new PortTile("Port of Venice");
         venice.setIconName("venice_icon");
-        IslandTile london = new IslandTile("Port of London");
+        PortTile london = new PortTile("Port of London");
         london.setIconName("london_icon");
-        IslandTile cadiz = new IslandTile("Port of Cadiz");
+        PortTile cadiz = new PortTile("Port of Cadiz");
         cadiz.setIconName("cadiz_icon");
-        IslandTile amsterdam = new IslandTile("Port of Amsterdam");
+        PortTile amsterdam = new PortTile("Port of Amsterdam");
         amsterdam.setIconName("amsterdam_icon");
-        IslandTile marseilles = new IslandTile("Port of Marseilles");
+        PortTile marseilles = new PortTile("Port of Marseilles");
         marseilles.setIconName("marseilles_icon");
-        IslandTile genoa = new IslandTile("Port of Genoa");
+        PortTile genoa = new PortTile("Port of Genoa");
         genoa.setIconName("genoa_icon");
         gameBoard[19][6] = venice;
         gameBoard[19][13] = london;

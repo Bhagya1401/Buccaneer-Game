@@ -5,7 +5,7 @@
  */
 
 
-package uk.ac.aber.Game;
+package uk.ac.aber.Game.Treasure;
 
 import javafx.scene.image.Image;
 
