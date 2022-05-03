@@ -13,4 +13,6 @@ public interface Tile {
     public boolean isTraversable(); // can a ship move here
 
     public boolean isIsland(); // Is it say, treasure or pirate island, or a city
+
+    public  boolean isPort();// Is it port tile
 }

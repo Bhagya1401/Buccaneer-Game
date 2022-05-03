@@ -23,8 +23,9 @@ public class HomePort extends Port{
 
     //adds any crewCards in deck to player crew Hand
     public void addToPlayerHand(Player player) {
-        for (int i = 0; i < getPortCrewHand().cards.length; i++) {
+        for (int i = 0; i < getPortCrewHand().cards.size(); i++) {
             player.crewHand.addCard(getPortCrewHand().removeAtIndex(i));
+
         }
     }
 

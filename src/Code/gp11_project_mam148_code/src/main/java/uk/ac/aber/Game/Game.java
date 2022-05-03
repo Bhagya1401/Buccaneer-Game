@@ -20,6 +20,7 @@ public class Game {
     public int moves;
     public transient HashMap<String,Image> images;
     public CrewPack crewPack;
+    public Port[]
 
     public Game(){
         this.turn = 1;
