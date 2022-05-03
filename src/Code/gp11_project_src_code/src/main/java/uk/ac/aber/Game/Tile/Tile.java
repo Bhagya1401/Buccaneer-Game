@@ -1,7 +1,5 @@
 package uk.ac.aber.Game.Tile;
 
-import javafx.scene.image.Image;
-
 public interface Tile {
 
     public void setIconName(String icon); // sets icon for storage purposes

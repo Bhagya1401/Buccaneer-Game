@@ -12,16 +12,28 @@ import javafx.scene.image.Image;
 import java.util.Objects;
 
 public class Treasure {
-    String name;
-    int value;
+    private String name;
+    private Image image;
+    private int value;
 
-    public Treasure(String name, int value) {
+    public Treasure() {
+        this.name = "";
+        this.value = 0;
+        this.image = null;
+    }
+
+    public Treasure(String name, int value, Image image) {
         this.name = name;
+        this.image = image;
         this.value = value;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public int getValue() {
