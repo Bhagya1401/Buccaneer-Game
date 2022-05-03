@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Port.Port;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
 import java.util.HashMap;
 
@@ -22,6 +23,7 @@ public class Player {
     private String direction;
     private HashMap<String, String> LEFT_ROTATION;
     public CrewHand crewHand = new CrewHand();
+    public TreasureHand treasureHand = new TreasureHand();
 
     public Player(){
         coordinate = new int[2];
