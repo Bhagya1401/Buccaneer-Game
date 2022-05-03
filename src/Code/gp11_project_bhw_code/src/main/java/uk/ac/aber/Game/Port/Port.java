@@ -10,9 +10,8 @@ public class Port {
     private String portName;
 
 
-    private boolean isHomePort;
-    public CrewHand crewHand = new CrewHand();
-    public TreasureHand treasureHand = new TreasureHand();
+    private CrewHand crewHand = new CrewHand();
+    private TreasureHand treasureHand = new TreasureHand();
 
 
 
@@ -53,7 +52,15 @@ public class Port {
     }
 
 
-    public void setHomePort() {
-        this.isHomePort = false;
+    public CrewHand getPortCrewHand() {
+        return crewHand;
+    }
+
+    public String getPortName() {
+        return portName;
+    }
+
+    public TreasureHand getTreasureHand() {
+        return treasureHand;
     }
 }
