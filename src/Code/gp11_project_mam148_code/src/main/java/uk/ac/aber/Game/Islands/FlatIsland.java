@@ -16,7 +16,7 @@ public class FlatIsland {
     private FlatIslandTile flatIslandTile;
     private Game game;
 
-    public FlatIsland(){
+    public FlatIsland() {
         itemsOfTreasure = new ArrayList<Treasure>();
         crewCards = new ArrayList<CrewCard>();
         flatIslandTile = new FlatIslandTile();

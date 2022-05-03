@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
 
 public class GameScreenController {
@@ -66,7 +67,7 @@ public class GameScreenController {
         updateVisuals();
     }
 
-    private void updateVisuals(){
+    public void updateVisuals(){
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
         updateBoardVisuals();
         updateDirectionArrow();
@@ -115,6 +116,16 @@ public class GameScreenController {
 
     @FXML
     private void playerMove() throws IOException {
+        System.out.println("move -----------------------------------------------------");
+
+
+        int[] newPos = {9, 0};
+        bucGame.movePlayerTo(newPos, this);
+
+        //Port closest = bucGame.getCurrentPlayer().getClosestPort(bucGame.ports);
+        //System.out.println("CLOSEST PORT: " + closest.getPortName());
+
+        /*
         boolean moved = bucGame.move();
         if (moved){
             updateBoardVisuals();
@@ -122,6 +133,8 @@ public class GameScreenController {
                 endTurn();
             }
         }
+
+         */
     }
 
     private void updateDirectionArrow() { // implementation is kinda sketch
