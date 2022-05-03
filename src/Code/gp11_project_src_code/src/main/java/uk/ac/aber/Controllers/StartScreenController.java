@@ -38,7 +38,7 @@ public class StartScreenController {
         }*/
         FXMLLoader gameLoader = App.getGameLoader();
         GameScreenController gameCtrl = gameLoader.getController();
-        gameCtrl.handler.NewGame();
+        //gameCtrl.bucGame.NewGame();
 
         FXMLLoader charLoader = App.getCharLoader();
         CharacterScreenController charCtrl = charLoader.getController();
@@ -54,12 +54,12 @@ public class StartScreenController {
 
 
         // nothing is loaded. Needs fixing
-        if (ctrl.loadGame()){
-            App.setGameScreen();
-        }
-        else{
-            ; // later output that there is no existing game state
-        }
+//        if (ctrl.loadGame()){
+//            App.setGameScreen();
+//        }
+//        else{
+//            ; // later output that there is no existing game state
+//        }
 
     }
 }
