@@ -3,6 +3,7 @@ package uk.ac.aber.Game.Islands;
 import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Tile.FlatIslandTile;
 import uk.ac.aber.Game.Tile.IslandTile;
 import uk.ac.aber.Game.Tile.Tile;
 import uk.ac.aber.Game.Treasure.Treasure;
@@ -12,14 +13,14 @@ import java.util.ArrayList;
 public class FlatIsland {
     private ArrayList<Treasure> itemsOfTreasure;
     private ArrayList<CrewCard> crewCards;
-    private Tile flatIslandTile;
-    private int[] coordinate;
+    private FlatIslandTile flatIslandTile;
     private Game game;
 
     public FlatIsland(){
         itemsOfTreasure = new ArrayList<Treasure>();
         crewCards = new ArrayList<CrewCard>();
-        flatIslandTile = game.getTile("Flat Island");
+        flatIslandTile = new FlatIslandTile();
+        flatIslandTile.setTiles();
     }
 
     public void addTreasure(Treasure newTreasure){

@@ -65,6 +65,14 @@ public class Game {
         return turn;
     }
 
+    public Tile[][] getGameBoard(){
+        return gameBoard;
+    }
+
+    public void addTile(Tile[][] gameBoard){
+        this.gameBoard = gameBoard;
+    }
+
     public void setTurn(int newTurn){
         turn = newTurn;
         moves = 4;
@@ -132,17 +140,6 @@ public class Game {
     // actually, could do with making an "island" class, just like a player object.
     // "island" interface, with the 3 islands deriving from that.
     // then a port interface? or maybe that can just be a class
-
-    public void populateIslandTiles(){
-        for(int i = 1; i <= 3; i++){
-            for(int j = 15; j <= 18; j++){
-                IslandTile flatIsland = new IslandTile("Flat Island");
-                flatIsland.setIconName("flatIsland_icon");
-                gameBoard[i][j] = flatIsland;
-            }
-        }
-    }
-
     public void populateTiles(){ // purely used for testing purposes.
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
@@ -172,15 +169,13 @@ public class Game {
         gameBoard[0][5] = marseilles;
         gameBoard[6][0] = genoa;
 
-
-        for(int i = 1; i <= 3; i++){
-            for(int j = 15; j <= 18; j++){
+        for (int i = 1; i <= 3; i++) {
+            for (int j = 15; j <= 18; j++) {
                 IslandTile flatIsland = new IslandTile("Flat Island");
                 flatIsland.setIconName("flatIsland_icon");
                 gameBoard[i][j] = flatIsland;
             }
         }
-
 
         for(int i = 16; i <= 18; i++){
             for(int j = 1; j <= 4; j++){
@@ -205,11 +200,6 @@ public class Game {
             playerTile.setIconName(players[i].getIconName());
             gameBoard[players[i].getColCoordinate()][players[i].getRowCoordinate()] = playerTile;
         }
-    }
-
-    public IslandTile getTile(String name){
-        IslandTile islandTile = new IslandTile(name);
-        return islandTile;
     }
 
     private boolean checkImmediateTile(String d, int[] coords){ //also not a fan of how this has been done
