@@ -1,12 +1,14 @@
 package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
+import uk.ac.aber.Controllers.GameScreenController;
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
 import uk.ac.aber.Game.ChanceCards.ChancePack;
 import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.CrewCards.CrewPack;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.PortTile;
 import uk.ac.aber.Game.Tile.OceanTile;
 import uk.ac.aber.Game.Tile.PlayerTile;
@@ -22,15 +24,16 @@ public class Game {
 
     public Player[] players;
     public int turn;
-    public transient Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
+    public Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
     public Treasure[] treasure;
     public int moves;
     public transient HashMap<String,Image> images;
 
     public CrewPack crewPack;
     public ChancePack chancePack;
+    public Port[] ports;
 
-    public Game(){
+    public Game() {
         this.turn = 1;
         gameBoard = new Tile[20][20];
         players = new Player[4];
@@ -39,58 +42,51 @@ public class Game {
         loadImages();
         //loadPlayers();
 
-        this.crewPack = new CrewPack();
-        this.chancePack = new ChancePack();
+
+
 
         //this.chancePack.debugPrint();
 
-        Player ash = new Player("Ash", 1);
-        ash.setCoordinate(3, 4);
+        //Player ash = new Player("Ash", 1);
+        //ash.setCoordinate(20, 5);
 
-        ChanceCard crd = this.chancePack.getChanceCard(ash);
-        //System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+       // Player james = new Player("James", 2);
+        //james.setCoordinate(2, 2);
 
+        //Player dean = new Player("Dean", 3);
+        //dean.setCoordinate(4, 4);
 
-        /*
-        CrewHand hnd = new CrewHand();
-        crewPack.giveCrewHandCard(hnd);
-        crewPack.giveCrewHandCard(hnd);
-        crewPack.giveCrewHandCard(hnd);
-
-        hnd.printDebug();
-
-        System.out.println("----------------------------------------------------------------------- C1 SHIT");
-        System.out.println("----------------------------------------------------------------------- C1 SHIT");
+        //Player baggy = new Player("Baggy", 4);
+        //baggy.setCoordinate(6, 6);
 
 
-        CrewCard crd = hnd.removeAtIndex(2);
-        //CrewCard crd = hnd.removeCardFromTop();
-        hnd.printDebug();
+        Port venice = new Port("Venice", 19, 6);
+        Port london = new Port("London", 19, 13);
+        Port cadiz = new Port("Cadiz", 6, 19);
+        Port amsterdam = new Port("Amsterdam", 0, 13);
+        Port marseilles = new Port("Marseilles", 0, 5);
+        Port genoa = new Port("Genoa", 6, 0);
 
-        System.out.println("----------------------------------------------------------------------- C1 SHIT");
-        System.out.println("----------------------------------------------------------------------- C1 SHIT");
-        */
-
-        /*
-        CrewHand c1 = new CrewHand();
-        this.crewPack.giveCrewHandCard(c1);
-        System.out.println("----------------------------------------------------------------------- C1 SHIT");
-        c1.printDebug();
-        this.crewPack.debugPrint();
-        System.out.println("----------------------------------------------------------------------- C1 SHIT");
+        this.ports = new Port[] {venice, london, cadiz, amsterdam, marseilles, genoa};
 
 
-        CrewHand c2 = new CrewHand();
-        System.out.println("----------------------------------------------------------------------- C2 SHIT");
-        this.crewPack.giveCrewHandCard(c2);
-        c2.printDebug();
-        this.crewPack.debugPrint();
-        System.out.println("----------------------------------------------------------------------- C2 SHIT");
 
 
-        System.out.println(ash.crewHand.totalCards);
-        */
+        this.crewPack = new CrewPack();
+        this.chancePack = new ChancePack(this.players, this.ports, this.crewPack);
+
+
+        //Player[] plys = {ash, james, dean, baggy};
+        //Port[] ports = {venice, london, cadiz, amsterdam, marseilles, genoa};
+
+        //int[] newPos = {5, 5};
+        //ash.moveTo(newPos, gameBoard);
     }
+
+
+
+
+
 
     private void loadPlayers(){
         System.out.println("Loading players...");

@@ -1,21 +1,37 @@
 package uk.ac.aber.Game.ChanceCards;
 
 import uk.ac.aber.Game.CrewCards.CrewCard;
+import uk.ac.aber.Game.CrewCards.CrewHand;
+import uk.ac.aber.Game.CrewCards.CrewPack;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.Port;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ChancePack {
     private ChanceCard[] cards;
     public int totalSize;
+    private Player[] players;
+    private Player playerCalled;
+    private Port[] ports;
+    private CrewPack crewPack;
 
-    public ChancePack() {
+    public ChancePack(Player[] players, Port[] ports, CrewPack pack) {
+        this.players = players;
+        this.ports = ports;
+        this.crewPack = pack;
+
         this.totalSize = 23;
         this.cards = new ChanceCard[23];
         this.createPack();
+        //this.shuffle();
     }
 
     public ChanceCard getChanceCard(Player ply) {
         if (this.totalSize <= 0) { return null; }
         if (this.cards[0] == null) { return null; }
+        this.playerCalled = ply;
 
         ChanceCard cardGive = this.cards[0];
         this.cards[0] = null;
@@ -29,11 +45,11 @@ public class ChancePack {
 
     public void executeChanceCard(int cardNum) {
         if (cardNum >= 0 && cardNum < 23) {
-            ChanceActions newAction = new ChanceActions(cardNum);
+            ChanceActions newAction = new ChanceActions(cardNum, this.playerCalled, this.ports, this.crewPack);
         }
     }
 
-
+    public void shuffle() { Collections.shuffle(Arrays.asList(this.cards)); }
 
 
     public void shift(ChanceCard[] d){
