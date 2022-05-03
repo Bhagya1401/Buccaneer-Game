@@ -16,21 +16,27 @@ public class Treasure {
     private Image image;
     private int value;
 
+    public Treasure() {
+        this.name = "";
+        this.value = 0;
+        this.image = null;
+    }
+
     public Treasure(String name, int value, Image image) {
         this.name = name;
         this.image = image;
         this.value = value;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 
-    private Image getImage() {
+    public Image getImage() {
         return image;
     }
 
-    private int getValue() {
+    public int getValue() {
         return value;
     }
 

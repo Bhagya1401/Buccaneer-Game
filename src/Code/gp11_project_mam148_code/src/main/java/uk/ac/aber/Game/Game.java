@@ -73,6 +73,10 @@ public class Game {
         this.gameBoard = gameBoard;
     }
 
+    public int getPlayersNumber(){
+        return players.length;
+    }
+
     public void setTurn(int newTurn){
         turn = newTurn;
         moves = 4;

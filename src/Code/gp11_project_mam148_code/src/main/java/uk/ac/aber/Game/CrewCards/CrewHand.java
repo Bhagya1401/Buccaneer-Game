@@ -1,7 +1,6 @@
 package uk.ac.aber.Game.CrewCards;
 
 public class CrewHand {
-
     public CrewCard[] cards;
     public int totalCards;
 
@@ -62,20 +61,18 @@ public class CrewHand {
     }
 
     public int getCombatValue() {
-
-        return java.lang.Math.abs(this.getBlackValue() - this.getRedValue());
-//        if ((this.getBlackValue() - this.getRedValue()) > 0) {
-//            return (this.getBlackValue() - this.getRedValue());
-//        } else {
-//            return (this.getRedValue() - this.getBlackValue());
-//        }
+        if ((this.getBlackValue() - this.getRedValue()) > 0) {
+            return (this.getBlackValue() - this.getRedValue());
+        } else {
+            return (this.getRedValue() - this.getBlackValue());
+        }
     }
 
     public int getBlackValue() {
         int val = 0;
         for (CrewCard card: this.cards) {
             if (card != null) {
-                if (card.getColor().equals("black")) {
+                if (card.getColor() == "black") {
                     val = val + card.getValue();
                 }
             }
@@ -87,7 +84,7 @@ public class CrewHand {
         int val = 0;
         for (CrewCard card: this.cards) {
             if (card != null) {
-                if (card.getColor().equals("red")) {
+                if (card.getColor() == "red") {
                     val = val + card.getValue();
                 }
             }
