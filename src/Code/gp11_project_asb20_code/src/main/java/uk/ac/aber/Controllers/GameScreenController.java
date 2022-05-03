@@ -120,7 +120,7 @@ public class GameScreenController {
 
 
         int[] newPos = {9, 0};
-        bucGame.movePlayerTo(newPos, this);
+        bucGame.getCurrentPlayer().movePlayerTo(newPos, bucGame.gameBoard, this);
 
         //Port closest = bucGame.getCurrentPlayer().getClosestPort(bucGame.ports);
         //System.out.println("CLOSEST PORT: " + closest.getPortName());

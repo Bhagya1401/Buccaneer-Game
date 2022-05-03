@@ -42,6 +42,35 @@ public class Player {
         return false;
     }
 
+    public void movePlayerTo(int[] pos, Tile[][] tile, GameScreenController gController) {
+
+        if (pos[0] >= 0 && pos[1] >= 0) {
+            if (tile[pos[0]][pos[1]] != null) {
+                if (tile[pos[0]][pos[1]].isTraversable()) {
+                    Tile temp = null;
+                    temp = tile[this.getColCoordinate()][this.getRowCoordinate()];
+
+                    OceanTile nTile = new OceanTile();
+                    nTile.setIconName("water_icon");
+                    tile[this.getColCoordinate()][this.getRowCoordinate()] = nTile;
+                    tile[pos[0]][pos[1]] = temp;
+                    this.setColCoordinate(pos[0]); this.setRowCoordinate(pos[1]);
+
+                    gController.updateVisuals();
+                } else {
+                    // other tile, move the player 1 to the right, repeat etc (recursive)
+
+
+
+                }
+            } else {
+                // null/empty?
+                // can move here straight away
+                System.out.println("Move to this place now.");
+            }
+        }
+    }
+
     // move player to X coordinate and update visuals
     // also check if anything is in this position too, if so move further away
 
