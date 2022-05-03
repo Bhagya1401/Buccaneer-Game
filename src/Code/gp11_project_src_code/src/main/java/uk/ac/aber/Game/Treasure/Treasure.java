@@ -15,7 +15,7 @@ public class Treasure {
     String name;
     int value;
 
-    public Treasure(String name, int value, Image image) {
+    public Treasure(String name, int value) {
         this.name = name;
         this.value = value;
     }

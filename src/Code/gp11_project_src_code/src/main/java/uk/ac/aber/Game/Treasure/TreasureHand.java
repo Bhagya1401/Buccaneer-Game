@@ -2,99 +2,74 @@ package uk.ac.aber.Game.Treasure;
 
 import uk.ac.aber.Game.CrewCards.CrewCard;
 
+import java.util.ArrayList;
+
 public class TreasureHand {
 
-    public Treasure[] treasures;
-    public int totalTreasure;
+    private ArrayList<Treasure> treasures;
     private boolean playerHand;
     public TreasureHand() {
-        this.treasures = new Treasure[20];
-        this.totalTreasure = 0;
+        treasures = new ArrayList<Treasure>();
     }
 
-    public boolean addTreasure(Treasure T) {
-        if (playerHand) {
-            if (this.getTotalTreasure() < 2) {
+    public boolean addTreasure(Treasure treasure) {
+        boolean successful = false;
 
-                this.treasures[totalTreasure] = T;
-                this.totalTreasure++;
-                return true;
-            } else {
-                return false;
+        if (playerHand) {
+            if (this.treasures.size() < 2) {
+                treasures.add(treasure);
+                successful = true;
             }
         }else {
-            this.treasures[totalTreasure] = T;
-            this.totalTreasure++;
-            return true;
+            treasures.add(treasure);
+            return successful = true;
         }
+        return successful;
     }
 
-
-
-    public void giveTreasure(TreasureHand hnd) {
-        if (this.totalTreasure > 0) {
-            Treasure toTransfer = this.treasures[0];
-            if (toTransfer != null) {
-                hnd.addTreasure(toTransfer);
-                this.treasures[0] = null;
-                this.shift(this.treasures);
-            }
-        }
+    public boolean giveTreasureFromTopOfHand(TreasureHand hnd){
+        return giveTreasureFromIndex(hnd,0);
     }
 
-    public void shift(Treasure[] d) {
-        Treasure f = d[0];
+    public boolean giveTreasureFromIndex(TreasureHand hnd, int index) {
 
-        int from = 1;
-        for (; from < d.length; from++) {
-            d[from - 1] = d[from];
+        Treasure tempTreasure;
+        boolean successful = false;
+        if (index < treasures.size()){
+            tempTreasure = this.treasures.get(index);
+            hnd.addTreasure(tempTreasure);
+            treasures.remove(index);
+            successful = true;
         }
-
-        d[from - 1] = f;
+        return successful;
     }
 
-    public void printDebug() {
-        System.out.println("---------------------------------------");
-        for (int i = 0; i < this.treasures.length; i++) {
-            if (this.treasures[i] != null) {
-                System.out.println(this.treasures[i].getValue() + " <  > " + this.treasures[i].getName());
-            } else {
-                System.out.println("empty");
-            }
-        }
-        System.out.println("---------------------------------------");
-    }
+//    public void printDebug() {
+//        System.out.println("---------------------------------------");
+//        for (int i = 0; i < this.treasures.length; i++) {
+//            if (this.treasures[i] != null) {
+//                System.out.println(this.treasures[i].getValue() + " <  > " + this.treasures[i].getName());
+//            } else {
+//                System.out.println("empty");
+//            }
+//        }
+//        System.out.println("---------------------------------------");
+//    }
 
     public int getTotalTreasure() {
-        int tmp = 0;
-        for (Treasure treasure : this.treasures) {
-            if (treasure != null) {
-                tmp++;
-            }
-        }
-        return tmp;
+        return treasures.size();
     }
 
     public Treasure highestValue(){
-        Treasure highestVal = null;
-        Treasure tempTreasure = null;
-        for (Treasure treasure : this.treasures) {
-            if (tempTreasure == null){
-                tempTreasure = treasure;
+        Treasure highestValTreasure = null;
+        for (Treasure tempTreasure : this.treasures) {
+            if (highestValTreasure == null) {
+                highestValTreasure = tempTreasure;
+            } else if (tempTreasure.getValue() > highestValTreasure.getValue()) {
+                highestValTreasure = tempTreasure;
             }
-
-
-
-            if (treasure != null) {
-                if (treasure.getValue() > tempTreasure.getValue()){
-                    highestVal = treasure;
-                }
-                tempTreasure = treasure;
-            }
-
         }
-
-        return highestVal;
+        return highestValTreasure;
     }
 }
 

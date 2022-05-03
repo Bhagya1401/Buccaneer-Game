@@ -111,30 +111,31 @@ public class Player {
         return false; // else return false;
     }
 
-//    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard){
-//        return canMoveInStraightLine(desCol,desRow,gameBoard,false);
-//    }
+    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard){
+        return canMoveInStraightLine(desCol,desRow,gameBoard,false);
+    }
 
-//    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard, boolean limitedByMovement){
-//        ArrayList<Tile> passedOverTiles = new ArrayList<>();
-//        boolean canMove = false;
-//        if (desCol < 20 & desCol >=0 & desRow <20 & desRow >=0){
-//            int[] movDir = directionalMovement.get(direction);
-//            int movCol = movDir[0], movRow = movDir[1];
-//            int tempCol = col, tempRow = row;
-//            int tempMoveCounter = this.getMoves();
-//
-//            while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
-//                tempCol += movCol; tempRow += movRow;
-//                if (limitedByMovement) {
-//                    tempMoveCounter--;
-//                }
-//                if (tempRow == desCol & tempRow == desRow){
-//
-//                }
-//            }
-//        }
-//    }
+    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard, boolean limitedByMovement){
+        ArrayList<Tile> passedOverTiles = new ArrayList<>();
+        boolean canMove = false;
+        if (desCol < 20 & desCol >=0 & desRow <20 & desRow >=0){
+            int[] movDir = directionalMovement.get(direction);
+            int movCol = movDir[0], movRow = movDir[1];
+            int tempCol = col, tempRow = row;
+            int tempMoveCounter = this.getMoves();
+
+            while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
+                tempCol += movCol; tempRow += movRow;
+                if (limitedByMovement) {
+                    tempMoveCounter--;
+                }
+                if (tempRow == desCol & tempRow == desRow){
+                    canMove = true;
+                }
+            }
+        }
+        return canMove;
+    }
 
     public void turn(String turnDir){
         int dirIndex;
