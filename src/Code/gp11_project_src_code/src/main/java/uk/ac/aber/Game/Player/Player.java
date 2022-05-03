@@ -144,13 +144,13 @@ public class Player {
                 break;
             }
         }
-        if (turnDir.toUpperCase().equals("L")){
+        if (turnDir.equalsIgnoreCase("L")){
             dirIndex--; dirIndex--; // turn 90 degrees for now. until diagonal movement is implemented
             if (dirIndex < 0){
                 dirIndex = DIRECTIONS.length-2; // set to north west
             }
         }
-        else if (turnDir.toUpperCase().equals("R")){
+        else if (turnDir.equalsIgnoreCase("R")){
             dirIndex++; dirIndex++; // turn 90 degrees for now. until diagonal movement is implemented
             if (dirIndex >DIRECTIONS.length - 1){
                 dirIndex = 0; // set to north

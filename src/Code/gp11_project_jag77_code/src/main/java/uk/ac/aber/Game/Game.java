@@ -2,10 +2,7 @@ package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Tile.PortTile;
-import uk.ac.aber.Game.Tile.OceanTile;
-import uk.ac.aber.Game.Tile.PlayerTile;
-import uk.ac.aber.Game.Tile.Tile;
+import uk.ac.aber.Game.Tile.*;
 import javafx.scene.image.Image;
 import uk.ac.aber.Game.Treasure.Treasure;
 
@@ -49,7 +46,7 @@ public class Game {
         populateTiles();
     }
 
-
+    
 
     public int getTurn(){
         return turn;
@@ -147,6 +144,33 @@ public class Game {
         gameBoard[0][13] = amsterdam;
         gameBoard[0][5] = marseilles;
         gameBoard[6][0] = genoa;
+
+        // Flat Island Tiles
+        for (int i = 1; i <= 3; i++) {
+            for (int j = 15; j <= 18; j++) {
+                IslandTile flatIsland = new IslandTile("Flat Island");
+                flatIsland.setIconName("flatIsland_icon");
+                gameBoard[i][j] = flatIsland;
+            }
+        }
+
+        // Pirate Island
+        for(int i = 16; i <= 18; i++){
+            for(int j = 1; j <= 4; j++){
+                IslandTile pirateIsland = new IslandTile("Pirate Island");
+                pirateIsland.setIconName("pirateIsland_icon");
+                gameBoard[i][j] = pirateIsland;
+            }
+        }
+
+        // Treasure Island
+        for(int i = 8; i <= 11; i++){
+            for(int j = 8; j <= 11; j++){
+                IslandTile treasureIsland = new IslandTile("Treasure Island");
+                treasureIsland.setIconName("treasureIsland_icon");
+                gameBoard[i][j] = treasureIsland;
+            }
+        }
 
         // add player tiles
         for (int i=0; i<4; i++){
