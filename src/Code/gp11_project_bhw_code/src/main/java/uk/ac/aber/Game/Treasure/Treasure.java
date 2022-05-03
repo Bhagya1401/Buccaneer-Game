@@ -22,15 +22,15 @@ public class Treasure {
         this.value = value;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 
-    private Image getImage() {
+    public Image getImage() {
         return image;
     }
 
-    private int getValue() {
+    public int getValue() {
         return value;
     }
 
