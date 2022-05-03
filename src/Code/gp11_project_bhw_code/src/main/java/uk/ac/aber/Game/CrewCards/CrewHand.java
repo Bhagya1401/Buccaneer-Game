@@ -1,130 +1,91 @@
 package uk.ac.aber.Game.CrewCards;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CrewHand {
-    public CrewCard[] cards;
-    public int totalCards;
+
+    public ArrayList<CrewCard> cards;
 
     public CrewHand() {
-        this.cards = new CrewCard[20];
-        this.totalCards = 0;
+        cards = new ArrayList<>();
     }
 
     public void addCard(CrewCard card) {
-        if (this.getTotalCards() < 20) {
-            this.cards[totalCards] = card;
-            this.totalCards++;
+        if (card != null){
+            cards.add(card);
+        }
+        else{
+            throw new IllegalArgumentException();
         }
     }
 
-    public void giveCard(CrewHand hnd) {
-        if (this.totalCards > 0) {
-            CrewCard toTransfer = this.cards[0];
-            if (toTransfer != null) {
-                hnd.addCard(toTransfer);
-                this.cards[0] = null;
-                this.shift(this.cards);
-            }
-        }
+    public boolean giveCardFromTop(CrewHand hnd){
+        return giveCardFromIndex(hnd, 0);
     }
 
-    public void shift(CrewCard[] d){
-        CrewCard f=d[0];
-
-        int from=1;
-        for(;from<d.length;from++){
-            d[from-1]=d[from];
+    public boolean giveCardFromIndex(CrewHand hnd, int index) {
+        CrewCard tempCard;
+        boolean successful = false;
+        if (index < cards.size()){
+            tempCard = this.cards.get(index);
+            hnd.addCard(tempCard);
+            cards.remove(index);
+            successful = true;
         }
+        return successful;
 
-        d[from-1]=f;
     }
 
-    public void printDebug() {
-        System.out.println("---------------------------------------");
-        for (int i = 0; i < this.cards.length; i++) {
-            if (this.cards[i] != null) {
-                System.out.println(this.cards[i].getValue() + " <  > " + this.cards[i].getColor());
-            } else {
-                System.out.println("empty");
-            }
-        }
-        System.out.println("---------------------------------------");
-    }
+//    public void printDebug() {
+//        System.out.println("---------------------------------------");
+//        for (int i = 0; i < this.cards.length; i++) {
+//            if (this.cards[i] != null) {
+//                System.out.println(this.cards[i].getValue() + " <  > " + this.cards[i].getColor());
+//            } else {
+//                System.out.println("empty");
+//            }
+//        }
+//        System.out.println("---------------------------------------");
+//    }
 
     public int getTotalCards() {
-        int tmp = 0;
-        for (CrewCard card : this.cards) {
-            if (card != null) {
-                tmp++;
-            }
-        }
-        return tmp;
+        return cards.size();
     }
 
     public int getCombatValue() {
-        if ((this.getBlackValue() - this.getRedValue()) > 0) {
-            return (this.getBlackValue() - this.getRedValue());
-        } else {
-            return (this.getRedValue() - this.getBlackValue());
-        }
+
+        return java.lang.Math.abs(this.getBlackValue() - this.getRedValue());
+//        if ((this.getBlackValue() - this.getRedValue()) > 0) {
+//            return (this.getBlackValue() - this.getRedValue());
+//        } else {
+//            return (this.getRedValue() - this.getBlackValue());
+//        }
     }
 
     public int getBlackValue() {
         int val = 0;
         for (CrewCard card: this.cards) {
-            if (card != null) {
-                if (card.getColor() == "black") {
-                    val = val + card.getValue();
-                }
+            if (card.getColor().equals("black")) {
+                val = val + card.getValue();
             }
         }
         return val;
-    }
-
-    public void shiftAtVal(CrewCard[] d, int val){
-        CrewCard f=d[0];
-
-        int from=val+1;
-        for(;from<d.length;from++){
-            d[from-1]=d[from];
-        }
-
-        d[from-1]=f;
-        this.cards[19] = null;
-    }
-
-
-
-    // remove a card at a given index
-    public CrewCard removeAtIndex(int ind) {
-        CrewCard tmp = null;
-        if (this.cards[ind] != null) {
-            tmp = this.cards[ind];
-            this.cards[ind] = null;
-            this.shiftAtVal(this.cards, ind);
-        }
-        this.totalCards--;
-        return tmp;
     }
 
     public int getRedValue() {
         int val = 0;
         for (CrewCard card: this.cards) {
-            if (card != null) {
-                if (card.getColor() == "red") {
-                    val = val + card.getValue();
-                }
+            if (card.getColor().equals("red")) {
+                val = val + card.getValue();
             }
         }
         return val;
     }
-
     public int getMoveAbility() {
         // add all values
         int val = 0;
         for (CrewCard card: this.cards) {
-            if (card != null) { val = val + card.getValue(); }
+            val += card.getValue();
         }
         return val;
     }

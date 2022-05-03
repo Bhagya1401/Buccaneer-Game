@@ -32,6 +32,9 @@ public class PortTile implements Tile{
 
     @Override
     public boolean isIsland() {
-        return true;
+        return false;
     }
+
+    @Override
+    public boolean isPort() { return true; }
 }
