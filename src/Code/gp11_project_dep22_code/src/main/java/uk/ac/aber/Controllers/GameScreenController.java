@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
+
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Tile.*;
 
@@ -65,6 +66,8 @@ public class GameScreenController {
         System.out.println("Updating visuals?");
         updateVisuals();
     }
+
+
 
     private void updateVisuals(){
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
