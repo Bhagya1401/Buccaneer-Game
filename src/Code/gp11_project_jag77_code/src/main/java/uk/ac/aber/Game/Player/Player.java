@@ -16,17 +16,17 @@ public class Player {
     private int playerNumber;
     private String playerName;
     private String shipImageName;
-    private int[] coordinate;
+    private int col;
+    private int row;
     private String direction;
 
     public Player(){
-        coordinate = new int[2];
+        ;
     }
 
     public Player(String playerName,int playerNumber){
         this.playerNumber = playerNumber;
         this.playerName = playerName;
-        coordinate = new int[2];
         direction = DIRECTIONS[0];
     }
 
@@ -34,52 +34,66 @@ public class Player {
         return 4;
     }
 
-    // remodle this later.
+    public boolean moveTo(int col, int row, Tile[][] gameBoard){
+        if (gameBoard[col][row].isTraversable()){
+            this.col = col;
+            this.row = row;
+            return true;
+        }
+        return false;
+    }
+
+    // re-model this later.
     // we want the "checking" and the "moving" separate.
     // program should independently check if it can move (when indicating if a player can move in the GUI)
     // then it should, if the checking is done properly, just be able to move regardless
     public boolean moveForward(int spaces, Tile[][] gameBoard){
-        System.out.println("Current coords for player " + playerNumber + " : " + coordinate[0] + " " + coordinate[1]);
+        System.out.println("Current coords for player " + playerNumber + " : " + col + " " + row);
         System.out.println("Current direction for player : " + direction);
-        int[] directionAddition = new int[]{0,0};
-        System.out.println("directionAddition: before" + directionAddition[0] + " " + directionAddition[1]);
+        int dirCol = 0, dirRow = 0;
+        int newCol, newRow;
+        System.out.println("directionAddition: before" + dirCol + " " + dirRow);
 
         switch (direction){
             case "N":
-                directionAddition = new int[]{0, -1};
+                dirRow--;
                 break;
             case "NE":
-                directionAddition = new int[]{1, -1};
+                dirCol++; dirRow--;
                 break;
             case "E":
-                directionAddition = new int[]{1, 0};
+                dirCol++;
                 break;
             case "SE":
-                directionAddition = new int[]{1, 1};
+                dirCol++; dirRow++;
                 break;
             case "S":
-                directionAddition = new int[]{0, 1};
+                dirRow++;
                 break;
             case "SW":
-                directionAddition = new int[]{-1, 1};
+                dirCol--; dirRow++;
                 break;
             case "W":
-                directionAddition = new int[]{-1, 0};
+                dirCol--;
                 break;
             case "NW":
-                directionAddition = new int[]{-1, -1};
+                dirCol--; dirRow--;
                 break;
         }
-        System.out.println("directionAddition after: " + directionAddition[0] + " " + directionAddition[1]);
+        System.out.println("directionAddition after: " + dirCol + " " + dirRow);
 
-        directionAddition[0] *= spaces;
-        directionAddition[1] *= spaces;
-        int[] newCoordinate = {directionAddition[0]+coordinate[0],directionAddition[1]+coordinate[1]};
+        dirCol *= spaces;
+        dirRow *= spaces;
+
+        newRow = dirRow + row;
+        newCol = dirCol + col;
+
         System.out.print("MOVEFORWARD new coords: ");
-        System.out.println(newCoordinate[0] + " " + newCoordinate[1]);
+        System.out.println(newCol + " " + newRow);
 
-        if (gameBoard[newCoordinate[0]][newCoordinate[1]].isTraversable() ){ // if space is empty
-            coordinate = newCoordinate;
+        if (gameBoard[newCol][newRow].isTraversable() ){ // if space is empty
+            row = newRow;
+            col = newCol;
             return true; // successfully moved
         }
         return false; // else return false;
@@ -123,28 +137,27 @@ public class Player {
     }
 
     public void setCoordinate(int col, int row){
-        coordinate[0] = col;
-        coordinate[1] = row;
+        setColCoordinate(col);
+        setRowCoordinate(row);
     }
 
-    public int[] getCoordinate(){
-        return coordinate;
-    }
+//    public int[] getCoordinate(){
+//        return coordinate;
+//    }
 
-    public int getColCoordinate(){
-        return coordinate[0];
+    public int getCol(){
+        return col;
     }
-    public int getRowCoordinate(){
-        return coordinate[1];
+    public int getRow(){
+        return row;
     }
 
     public void setColCoordinate(int col){
-        coordinate[0] = col;
+        this.col = col;
     }
     public void setRowCoordinate(int row){
-        coordinate[1] = row;
+        this.row = row;
     }
-
 
     public void setIconName(String shipImageName){
         this.shipImageName = shipImageName;
@@ -165,5 +178,7 @@ public class Player {
     public String getPlayerName() {
         return playerName;
     }
+
+
 
 }

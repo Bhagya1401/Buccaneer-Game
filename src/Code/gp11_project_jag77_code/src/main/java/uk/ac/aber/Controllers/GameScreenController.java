@@ -2,6 +2,11 @@ package uk.ac.aber.Controllers;
 
 import java.io.IOException;
 
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import uk.ac.aber.App.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,31 +35,22 @@ public class GameScreenController {
     Button rightTurnButton;
     @FXML
     Button moveButton;
-
+    @FXML
+    ImageView displayCurrentPlayerIcon;
     Game bucGame; // model
 
     public void initialize(){
-        //bucGame = new uk.ac.aber.Game();
-        System.out.println("Initialising in GAme screen controller");
-        /*
-        String[] colours = {"blue","yellow","red","black"};
-        int[][] coords = {{1,10},{10,1},{18,10},{10,18}};
+        System.out.println("Initialising in Game screen controller");
+//        for (int i=0;i<20;i++){
+//            for (int j=0;j<20;j++){
+//                boardGridVisual.add(makeTransparentPane(),i,j);
+//            }
+//        }
+        initStyling();
+    }
 
-        // move this to game class
-        for (int i=0, playerNum=1; i<4; i++, playerNum++){
-            String playerName = "Player" + playerNum;
-            Player tempPlayer = new Player(playerName,playerNum);
-            Image shipImage = new Image(String.valueOf(uk.ac.aber.App.class.getResource("/img/" + colours[i] + "_ship.png"))); // make new image
-            tempPlayer.setIcon(shipImage);
-            tempPlayer.setCoordinate(coords[i][0],coords[i][1]);
-            tempPlayer.setDirection(new String[] {"north","west","south","east"}[i]);
-            bucGame.players[i] = tempPlayer;
-        }
-        System.out.println("About to populate the tiles");
-        bucGame.populateTiles();
-        playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
-        updateBoardVisuals();
-         */
+    public void initStyling(){
+        boardGridVisual.getStyleClass().add("custom-gridPane-with-water");
     }
 
     public void newGame(Player[] players){
@@ -66,31 +62,49 @@ public class GameScreenController {
 
     private void updateVisuals(){
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
+        displayCurrentPlayerIcon.setImage(bucGame.images.get(bucGame.getCurrentPlayer().getIconName()));
         updateBoardVisuals();
         updateDirectionArrow();
+    }
+
+    private StackPane makeTransparentPane(){
+        StackPane p = new StackPane();
+        p.getStyleClass().add("transparent-item");
+        p.setPrefSize(35,35);
+        return p;
+    }
+
+    private StackPane makePaneWithImageView(Image img){
+        ImageView i = new ImageView(img);
+        i.setFitWidth(35);
+        i.setFitHeight(35);
+        StackPane p = new StackPane(new ImageView(img));
+        p.setMaxHeight(35);
+        p.setMaxWidth(35);
+        return p;
+    }
+
+    private StackPane makePaneWithImageView(Image img, String styling){
+        StackPane p = makePaneWithImageView(img);
+        p.getStyleClass().add(styling);
+        return p;
     }
 
     private void updateBoardVisuals(){
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
-                ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[i][j].getIconName()));
-                imageV.setFitHeight(35);
-                imageV.setFitWidth(35);
-                String tileType;
-                if (bucGame.gameBoard[i][j] instanceof OceanTile){
-                    tileType = "Ocean";
-                }
-                else if (bucGame.gameBoard[i][j] instanceof PlayerTile){
-                    tileType = "Player";
-                }
-                else if (bucGame.gameBoard[i][j] instanceof PortTile){
-                    tileType = "Island";
+                Tile currTile = bucGame.gameBoard[i][j];
+                if (currTile instanceof PlayerTile){
+                    updatePlayerDirection(((PlayerTile) currTile).getPlayerNumber());
                 }
                 else{
-                    tileType = "Unknown";
+                    Image img = bucGame.images.get(bucGame.gameBoard[i][j].getIconName());
+                    ImageView iv = new ImageView(img);
+                    iv.setFitWidth(35);
+                    iv.setFitHeight(35);
+                    StackPane pane = makePaneWithImageView(img);
+                    boardGridVisual.add(iv,i,j);
                 }
-                //System.out.println("Adding " + tileType + " tile at " + i + " " + j);
-                boardGridVisual.add(imageV,i,j);
             }
         }
     }
@@ -100,16 +114,20 @@ public class GameScreenController {
         bucGame.nextTurn();
         System.out.println("Current player number:");
         System.out.println(bucGame.getCurrentPlayer().getPlayerNumber());
-        updateVisuals(); // this reloads the whole board, not sure if theres a point tbf.
-        //playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
-        //updateDirectionArrow();
+        updateVisuals();
         App.setNextPlayerScreen();
-
-        // would prefer if there was one "save" function
-        // as saving player and game states are intertwined surely?
         System.out.println("Hello, im in 'end turn' about to save players");
-        //handler.saveAllPlayers(bucGame.players); // this isnt working?
-        //handler.saveBoard(bucGame);
+    }
+
+    @FXML
+    public void clickGrid(javafx.scene.input.MouseEvent event) {
+        Node clickedNode = event.getPickResult().getIntersectedNode();
+        if (clickedNode != boardGridVisual) {
+            // click on descendant node
+            Integer colIndex = GridPane.getColumnIndex(clickedNode);
+            Integer rowIndex = GridPane.getRowIndex(clickedNode);
+            System.out.println("Mouse clicked cell: " + colIndex + " And: " + rowIndex);
+        }
     }
 
     @FXML
@@ -121,16 +139,14 @@ public class GameScreenController {
                 endTurn();
             }
         }
+        updatePlayerDirection(bucGame.getTurn());
     }
 
     private void updateDirectionArrow() { // implementation is kinda sketch
         System.out.println("Updating direction arrow");
-        Player tempPlayer = bucGame.getCurrentPlayer();
-        System.out.println("Player name!!! : " + tempPlayer.getPlayerName());
-        System.out.println("Player dir : " + tempPlayer.getDirection());
+        Player currPlayer = bucGame.getCurrentPlayer();
         int rotation;
-        int[] coordinate;
-        switch (bucGame.getCurrentPlayer().getDirection()){
+        switch (currPlayer.getDirection()){
             case "N":
                 System.out.println("N");
                 rotation = 270;
@@ -154,26 +170,53 @@ public class GameScreenController {
         }
         directionArrowImage.setRotate(rotation);
 
-        // not a fan of the fact this is done basically every time the user's turn is done
-        // realistically it could be handled by "playerLeft/RightTurn" methods.
-        coordinate = bucGame.getCurrentPlayer().getCoordinate();
-        ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[coordinate[0]][coordinate[1]].getIconName()));
+    }
+
+    private void updatePlayerDirection(int playerNum){
+        int rotation;
+        Player currPlayer = bucGame.getPlayer(playerNum);
+        switch (currPlayer.getDirection()){
+            case "N":
+                System.out.println("N");
+                rotation = 90;
+                break;
+            case "E":
+                System.out.println("E");
+                rotation = 180;
+                break; // image already faces this direction
+            case "S":
+                System.out.println("S");
+                rotation = 270;
+                break;
+            case "W":
+                System.out.println("W");
+                rotation = 0;
+                break;
+            default:
+                System.out.println("Shouldn't get to this point");
+                rotation = -1; // doesn't matter, just getting rid of error regarding rotation not being assigned a value
+                assert true;
+        }
+        ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[currPlayer.getCol()][currPlayer.getRow()].getIconName()));
         imageV.setFitHeight(35);
         imageV.setFitWidth(35);
-        imageV.setRotate(rotation+180); // the 180 is added to account for the fact the arrow and ships' icons face different ways
-        boardGridVisual.add(imageV,coordinate[0],coordinate[1]);
+        imageV.setRotate(rotation); // the 180 is added to account for the fact the arrow and ships' icons face different ways
+        boardGridVisual.add(imageV,currPlayer.getCol(),currPlayer.getRow());
+
     }
 
     @FXML
     private void playerLeftTurn(){
         bucGame.turn("L");
         updateDirectionArrow();
+        updatePlayerDirection(bucGame.getTurn());
     }
 
     @FXML
     private void playerRightTurn(){
         bucGame.turn("R");
         updateDirectionArrow();
+        updatePlayerDirection(bucGame.getTurn());
     }
 
     @FXML

@@ -12,6 +12,7 @@ import uk.ac.aber.Game.Treasure.Treasure;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 
@@ -91,7 +92,7 @@ public class Game {
         return getPlayer(turn);
     }
 
-    public Player getPlayer(int playerNum){
+    public Player getPlayer(int playerNum){ // player one is at index 0
         return players[playerNum-1];
     }
 
@@ -149,7 +150,7 @@ public class Game {
         for (int i=0; i<4; i++){
             PlayerTile playerTile = new PlayerTile(players[i].getPlayerNumber());
             playerTile.setIconName(players[i].getIconName());
-            gameBoard[players[i].getColCoordinate()][players[i].getRowCoordinate()] = playerTile;
+            gameBoard[players[i].getCol()][players[i].getRow()] = playerTile;
             playerTiles[i] = playerTile;
         }
     }
@@ -191,73 +192,51 @@ public class Game {
         return false;
     }
 
+    public void moveToTest(){
+        int randomCol, randomRow;
+        boolean occupied = true;
+        while (!occupied){
+            randomCol = ThreadLocalRandom.current().nextInt(0,20);
+            randomRow = ThreadLocalRandom.current().nextInt(0,20);
+            occupied = !getCurrentPlayer().moveTo(randomRow,randomCol,gameBoard);
+        }
+    }
+
     public boolean move(int spaces){
         System.out.println("MOVING NEW METHOD IN GAME");
         Player currPlayer = getCurrentPlayer();
-        Tile switchTile = null;
-        int[] oldCoord = Arrays.copyOf(currPlayer.getCoordinate(),2);
-        boolean moved = currPlayer.moveForward(spaces,gameBoard);
-//        if (moved){
-//            int [] newCoord = currPlayer.getCoordinate();
-//
-//            // be sure the col and row are the right way round
-//            Tile tile = gameBoard[newCoord[0]][newCoord[1]]; // get tile that player is moving to (should be an ocean tile)
-//            gameBoard[currPlayer.getRowCoordinate()][currPlayer.getColCoordinate()] = gameBoard[oldCoord[0]][oldCoord[1]];
-//            gameBoard[oldCoord[0]][oldCoord[1]] = tile;
-//            moves--; //decrements movement
-//        }
+        int tempRow = currPlayer.getRow();
+        int tempCol = currPlayer.getCol();
+        boolean moved;
 
-        if (moved){
-            gameBoard[currPlayer.getColCoordinate()][currPlayer.getRowCoordinate()] = playerTiles[turn-1]; // turn - 1 because of indexing
-            gameBoard[oldCoord[0]][oldCoord[1]] = makeOceanTile();
-        }
-        return moved;
-    }
-
-
-    public boolean move(){ // this needs to be redone. Absolutely disgusting code
-        Player p = getCurrentPlayer();
-        String d = p.getDirection();
-        int[] coords = p.getCoordinate();
-        boolean moved = checkImmediateTile(d,coords);
-        Tile switchTile = null;
-        if (moved){
-            moves--;
-            switch (d){
-                case "west":
-                    switchTile = gameBoard[coords[0]-1][coords[1]];
-                    gameBoard[coords[0]-1][coords[1]] = gameBoard[coords[0]][coords[1]];
-                    gameBoard[coords[0]][coords[1]] = switchTile;
-                    p.setColCoordinate(coords[0]-1);
-                    break;
-                case "south":
-                    switchTile = gameBoard[coords[0]][coords[1]+1];
-                    gameBoard[coords[0]][coords[1]+1] = gameBoard[coords[0]][coords[1]];
-                    gameBoard[coords[0]][coords[1]] = switchTile;
-                    p.setRowCoordinate(coords[1]+1);
-                    break;
-                case "east":
-                    switchTile = gameBoard[coords[0]+1][coords[1]];
-                    gameBoard[coords[0]+1][coords[1]] = gameBoard[coords[0]][coords[1]];
-                    gameBoard[coords[0]][coords[1]] = switchTile;
-                    p.setColCoordinate(coords[0]+1);
-                    break;
-                case "north":
-                    switchTile = gameBoard[coords[0]][coords[1]-1];
-                    gameBoard[coords[0]][coords[1]-1] = gameBoard[coords[0]][coords[1]];
-                    gameBoard[coords[0]][coords[1]] = switchTile;
-                    p.setRowCoordinate(coords[1]-1);
-                    break;
+        if (moves>=spaces){
+            moved = currPlayer.moveForward(spaces,gameBoard);
+            if (moved){
+                gameBoard[currPlayer.getCol()][currPlayer.getRow()] = playerTiles[turn-1]; // turn - 1 because of indexing
+                gameBoard[tempCol][tempRow] = makeOceanTile();
+                moves -= spaces;
             }
         }
+        else{
+            moved = false;
+        }
+
         return moved;
     }
+
 
     public void turn(String turnDir){
         getCurrentPlayer().turn(turnDir);
     }
 
+    private void checkVicinityOfPlayer(){
+        Player currPlayer = getCurrentPlayer();
+        int row = currPlayer.getRow();
+        int col = currPlayer.getCol();
+        boolean northCheck = false, eastCheck = false, southCheck = false, westCheck = false;
 
+
+    }
 /*
     public void startGameBoard(){
         gson.load("game_start_template");
