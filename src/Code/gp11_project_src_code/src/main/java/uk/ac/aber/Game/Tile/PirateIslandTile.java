@@ -22,11 +22,6 @@ public class PirateIslandTile implements Tile {
     }
 
     @Override
-    public void setIconName(String icon) {
-
-    }
-
-    @Override
     public String getIconName() {
         return null;
     }

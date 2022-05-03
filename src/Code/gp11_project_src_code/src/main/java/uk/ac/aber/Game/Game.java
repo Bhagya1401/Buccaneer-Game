@@ -104,8 +104,7 @@ public class Game {
             int num = i / 5; // 5 types of icons
             String name = names[num];
             int value = values[num];
-            Image img = new Image(String.valueOf(App.class.getResource("/img/" + name + "_icon.png")));
-            treasure[i] = new Treasure(name,value,img);
+            treasure[i] = new Treasure(name,value);
         }
     }
 
@@ -127,7 +126,7 @@ public class Game {
 
         // add port island tiles
         PortTile venice = new PortTile("Port of Venice");
-        venice.setIconName("venice_icon");
+        venice.setIconName("venice");
         PortTile london = new PortTile("Port of London");
         london.setIconName("london_icon");
         PortTile cadiz = new PortTile("Port of Cadiz");
@@ -149,7 +148,7 @@ public class Game {
         for (int i = 1; i <= 3; i++) {
             for (int j = 15; j <= 18; j++) {
                 IslandTile flatIsland = new IslandTile("Flat Island");
-                flatIsland.setIconName("flatIsland_icon");
+                flatIsland.setIconName("flatIsland");
                 gameBoard[i][j] = flatIsland;
             }
         }
@@ -158,7 +157,7 @@ public class Game {
         for(int i = 16; i <= 18; i++){
             for(int j = 1; j <= 4; j++){
                 IslandTile pirateIsland = new IslandTile("Pirate Island");
-                pirateIsland.setIconName("pirateIsland_icon");
+                pirateIsland.setIconName("pirateIsland");
                 gameBoard[i][j] = pirateIsland;
             }
         }
