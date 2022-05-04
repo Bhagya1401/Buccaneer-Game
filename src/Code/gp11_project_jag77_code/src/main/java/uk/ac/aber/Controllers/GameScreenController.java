@@ -114,10 +114,10 @@ public class GameScreenController {
                 else{
                     Image img = bucGame.images.get(bucGame.gameBoard[i][j].getIconName());
                     ImageView iv = new ImageView(img);
-//                    iv.setFitWidth(35);
-//                    iv.setFitHeight(35);
-                    StackPane pane = makePaneWithImageView(img);
-                    boardGridVisual.add(pane,i,j);
+                    iv.setFitWidth(35);
+                    iv.setFitHeight(35);
+                    //StackPane pane = makePaneWithImageView(img);
+                    boardGridVisual.add(iv,i,j);
                 }
             }
         }
@@ -141,9 +141,13 @@ public class GameScreenController {
             int colIndex = GridPane.getColumnIndex(clickedNode);
             int rowIndex = GridPane.getRowIndex(clickedNode);
             System.out.println("Mouse clicked cell: " + colIndex + " And: " + rowIndex);
-            boolean  actionSuccessful = bucGame.handlePlayerAction(colIndex,rowIndex);
+            boolean actionSuccessful = false;
+            if (!bucGame.hasPlayerMoved()){
+                actionSuccessful =  bucGame.handlePlayerMovement(colIndex,rowIndex);
+            }
             if (actionSuccessful){
                 updateVisuals();
+                bucGame.nextTurn();
             }
         }
     }

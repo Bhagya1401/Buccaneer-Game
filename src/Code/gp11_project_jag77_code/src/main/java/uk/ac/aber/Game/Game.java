@@ -33,6 +33,7 @@ public class Game {
     private PirateIsland pirateIsland;
     public HashMap<String,Port> ports;
     private HashMap<String,Player> portsToPlayers;
+    private boolean hasMoved;
 
 
     public Game(Player[] players){
@@ -318,13 +319,40 @@ public class Game {
         }
     }
 
+    public boolean hasPlayerMoved(){
+        return hasMoved;
+    }
 
-
-    public boolean handlePlayerAction(int col, int row){
-        if (getCurrentPlayer().canMoveInStraightLine(col,row,gameBoard,true)){
+    public boolean handlePlayerMovement(int toCol, int toRow){
+        Tile tempTile;
+        Player currPlayer = getCurrentPlayer();
+        if (toCol <20 & toCol >= 0 & toRow <20 & toRow >= 0){ //are the co-ords in the board
+            if (currPlayer.pathUpToTileFree(toCol,toRow, gameBoard)){ // can the player move up to that space
+                tempTile = gameBoard[toCol][toRow];
+                if (tempTile instanceof PlayerTile){
+                    int tempPlayerNum = ((PlayerTile) tempTile).getPlayerNumber();
+                    if (getCurrentPlayer().getPlayerNumber() == tempPlayerNum){
+                        System.out.println("Can't move to same square");
+                    }
+                    else{
+                        System.out.println("You tried to attack a player you scallywag!");
+//                        FXMLLoader loader = App.getAttackLoader();
+//                        AttackScreenController ctrl = loader.getController();
+//                        ctrl.beginAttack(getCurrentPlayer(), getPlayer(tempPlayerNum))
+//                        App.setAttackScreen();
+                    }
+                }
+                else if ( tempTile instanceof PortTile){
+                    System.out.println("Trying to move to port tile");
+                }
+                else{
+                    currPlayer.moveTo(toCol,toRow,gameBoard);
+                    hasMoved = true;
+                }
+            }
 
         }
-        
+        return hasMoved;
     }
 
     public boolean move(int spaces){
@@ -359,8 +387,6 @@ public class Game {
         int row = currPlayer.getRow();
         int col = currPlayer.getCol();
         boolean northCheck = false, eastCheck = false, southCheck = false, westCheck = false;
-
-
     }
 /*
     public void startGameBoard(){

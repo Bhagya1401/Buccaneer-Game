@@ -50,7 +50,7 @@ public class Player {
     }
 
     public int getMoves(){
-        return 4;
+        return crewHand.getMoveAbility();
     }
 
     public boolean canMoveTo(int col, int row, Tile[][] gameBoard) {
@@ -68,9 +68,9 @@ public class Player {
             col = desCol; row = desRow;
             return true;
         }
-        else if (gameBoard[desCol][desRow].isAttackAble()){
-            System.out.println("TRYING TO ATTACK A PLAYER!!!!!");
-        }
+//        else if (gameBoard[desCol][desRow].isAttackAble()){
+//            System.out.println("TRYING TO ATTACK A PLAYER!!!!!");
+//        }
         return false;
     }
 
@@ -265,41 +265,69 @@ public class Player {
         return false; // else return false;
     }
 
-    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard){
-        return canMoveInStraightLine(desCol,desRow,gameBoard,false);
+//    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard){
+//        return canMoveInStraightLine(desCol,desRow,gameBoard,false);
+//    }
+
+    public boolean inlineWithPlayer(int toCol, int toRow){
+        boolean diagonal = toCol-col == toRow-row;
+        boolean vertical = toCol-col == 0;
+        boolean horizontal = toRow-row == 0;
+
+        return diagonal || vertical || horizontal;
     }
 
-    public boolean isInlineWithPlayer(int toCol, int toRow) {
-        boolean isInline = false;
-        if (toCol < 20 & toCol >= 0 & toRow < 20 & toRow >= 0) {
-            int[] movDir = directionalMovement.get(direction);
-            int movCol = movDir[0], movRow = movDir[1];
-            int tempCol = col, tempRow = row;
-            int tempMoveCounter = this.getMoves();
-        }
+    public boolean withinMovingDistance(int toCol, int toRow){
+        double colLength = Math.abs(toCol-col);
+        double rowLength = Math.abs(toRow-row);
+        double distance = Math.hypot(rowLength, colLength);
+        return distance < getMoves();
     }
 
-    public boolean canMoveInStraightLine(int toCol, int toRow, Tile[][] gameBoard, boolean limitedByMovement){
+    public boolean pathUpToTileFree(int toCol, int toRow, Tile[][] gameBoard){
         ArrayList<Tile> passedOverTiles = new ArrayList<>();
-        boolean canMove = false;
-        if (toCol < 20 & toCol >=0 & toRow <20 & toRow >=0){
-            int[] movDir = directionalMovement.get(direction);
-            int movCol = movDir[0], movRow = movDir[1];
-            int tempCol = col, tempRow = row;
-            int tempMoveCounter = this.getMoves();
-
-            while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
-                tempCol += movCol; tempRow += movRow;
-                if (limitedByMovement) {
-                    tempMoveCounter--;
-                }
-                if (tempRow == desCol & tempRow == desRow){
-                    canMove = true;
+        //boolean pathFree = false;
+        int [] moveDir = directionalMovement.get(direction);
+        int tempCol = col, tempRow = row;
+        if (inlineWithPlayer(toCol,toRow) && withinMovingDistance(toCol,toRow)){
+            while (tempCol != toCol && toRow != tempRow){ // will intersect eventually
+                tempCol += moveDir[0]; tempRow += moveDir[1];
+                Tile tempTile = gameBoard[tempCol][tempRow];
+                if (!tempTile.isTraversable()){
+                    return false;
                 }
             }
         }
-        return canMove;
+        return true;
+//        while (tempCol < 20 && tempCol >=0 && tempRow <20 & tempRow >=0 & tempMoveCounter>0){
+//            tempCol += moveDir[0]; tempRow += moveDir[1];
+//            if (tempRow == toCol & tempRow == toCol){
+//                pathFree = true;
+//              }
+//        }
     }
+
+//    public boolean canMoveInStraightLine(int toCol, int toRow, Tile[][] gameBoard, boolean limitedByMovement){
+//        ArrayList<Tile> passedOverTiles = new ArrayList<>();
+//        boolean canMove = false;
+//        if (toCol < 20 & toCol >=0 & toRow <20 & toRow >=0){
+//            int[] movDir = directionalMovement.get(direction);
+//            int movCol = movDir[0], movRow = movDir[1];
+//            int tempCol = col, tempRow = row;
+//            int tempMoveCounter = this.getMoves();
+//
+//            while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
+//                tempCol += movCol; tempRow += movRow;
+//                if (limitedByMovement) {
+//                    tempMoveCounter--;
+//                }
+//                if (tempRow == desCol & tempRow == desRow){
+//                    canMove = true;
+//                }
+//            }
+//        }
+//        return canMove;
+//    }
 
     public void turn(String turnDir){
         int dirIndex;

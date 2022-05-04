@@ -87,6 +87,9 @@ public class CrewHand {
         for (CrewCard card: this.cards) {
             val += card.getValue();
         }
+        if (val == 0){
+            val++;
+        }
         return val;
     }
 
