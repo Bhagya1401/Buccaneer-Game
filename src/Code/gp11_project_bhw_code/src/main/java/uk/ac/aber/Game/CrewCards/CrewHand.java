@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CrewHand {
 
-    public ArrayList<CrewCard> cards;
+    private ArrayList<CrewCard> cards;
 
     public CrewHand() {
         cards = new ArrayList<>();
@@ -90,6 +90,7 @@ public class CrewHand {
         return val;
     }
 
-
-
+    public ArrayList<CrewCard> getCards() {
+        return cards;
+    }
 }

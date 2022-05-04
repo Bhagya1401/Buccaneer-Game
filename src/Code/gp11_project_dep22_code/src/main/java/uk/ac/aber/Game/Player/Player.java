@@ -1,8 +1,11 @@
 package uk.ac.aber.Game.Player;
 
 import javafx.scene.image.Image;
+import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Tile.Tile;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -12,13 +15,15 @@ public class Player {
     // all of these should be private, temporarily changing them for an easy workaround involving the gamehandler
     // ash will be working on this
     public static final String[] DIRECTIONS = {"N","NE","E","SE","S","SW","W","NW"};
-
+    private HashMap<String, int[]> directionalMovement;
     private int playerNumber;
     private String playerName;
     private String shipImageName;
     private int col;
     private int row;
     private String direction;
+    public CrewHand crewHand = new CrewHand();
+    public TreasureHand treasureHand = new TreasureHand();
 
     public Player(){
         ;
@@ -28,6 +33,15 @@ public class Player {
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         direction = DIRECTIONS[0];
+        directionalMovement = new HashMap<>();
+        directionalMovement.put("N", new int[]{0, -1});
+        directionalMovement.put("NE", new int[]{1, -1});
+        directionalMovement.put("E", new int[]{1, 0});
+        directionalMovement.put("SE", new int[]{1, 1});
+        directionalMovement.put("S", new int[]{0, 1});
+        directionalMovement.put("SW", new int[]{-1, 1});
+        directionalMovement.put("W", new int[]{-1, 0});
+        directionalMovement.put("NW", new int[]{-1, -1});
     }
 
     public int getMoves(){
@@ -97,6 +111,32 @@ public class Player {
             return true; // successfully moved
         }
         return false; // else return false;
+    }
+
+    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard){
+        return canMoveInStraightLine(desCol,desRow,gameBoard,false);
+    }
+
+    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard, boolean limitedByMovement){
+        ArrayList<Tile> passedOverTiles = new ArrayList<>();
+        boolean canMove = false;
+        if (desCol < 20 & desCol >=0 & desRow <20 & desRow >=0){
+            int[] movDir = directionalMovement.get(direction);
+            int movCol = movDir[0], movRow = movDir[1];
+            int tempCol = col, tempRow = row;
+            int tempMoveCounter = this.getMoves();
+
+            while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
+                tempCol += movCol; tempRow += movRow;
+                if (limitedByMovement) {
+                    tempMoveCounter--;
+                }
+                if (tempRow == desCol & tempRow == desRow){
+                    canMove = true;
+                }
+            }
+        }
+        return canMove;
     }
 
     public void turn(String turnDir){

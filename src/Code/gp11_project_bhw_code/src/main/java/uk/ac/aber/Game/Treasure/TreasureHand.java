@@ -71,6 +71,10 @@ public class TreasureHand {
         }
         return highestValTreasure;
     }
+
+    public ArrayList<Treasure> getTreasures(){
+        return treasures;
+    }
 }
 
 

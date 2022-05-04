@@ -14,5 +14,5 @@ public interface Tile {
 
     public boolean isIsland(); // Is it say, treasure or pirate island, or a city
 
-    public  boolean isPort();// Is it port tile
+ //   public  boolean isPort();// Is it port tile
 }

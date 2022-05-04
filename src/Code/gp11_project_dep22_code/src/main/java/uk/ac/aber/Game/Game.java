@@ -2,18 +2,15 @@ package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Tile.PortTile;
-import uk.ac.aber.Game.Tile.OceanTile;
-import uk.ac.aber.Game.Tile.PlayerTile;
-import uk.ac.aber.Game.Tile.Tile;
 import uk.ac.aber.Game.Port.Port;
+import uk.ac.aber.Game.Tile.*;
 import javafx.scene.image.Image;
 import uk.ac.aber.Game.Treasure.Treasure;
 
-import java.util.Random;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
@@ -47,46 +44,74 @@ public class Game {
         if (players != null){
             moves = getCurrentPlayer().getMoves();
         }
-        initTreasure();
-        loadImages();
-        distributeTreasure();
-        populateTiles();
-    }
 
+        loadImages();
+        populateTiles();
+        initTreasure();
+        distributeTreasure();
+
+    }
     public void distributeTreasure(){
         //trade port amsterdam and venice
         Port amsterdam = new Port();
         Port venice = new Port();
         int rndNum1;
-        
+
         int amsterdamCCVal = 0;
-        int veniceCCVal = 0;
-        amsterdamCCVal = amsterdam.crewHand.getMoveAbility();
-        veniceCCVal = venice.crewHand.getMoveAbility();
+        int veniceCCVal = 3;
+        amsterdamCCVal = 2;//amsterdam.getPortCrewHand().getMoveAbility();
+        veniceCCVal = venice.getPortCrewHand().getMoveAbility();
         Random rand = new Random();
-        int targertVal = amsterdamCCVal;
+        int targertValA = amsterdamCCVal;
+        int targertValV = amsterdamCCVal;
+
+        int temp = 8 - targertValA;
+
+        while (temp != 0 ){
+            rndNum1 = rand.nextInt(20);
+            if (treasure[rndNum1] != null) {
+                temp -= treasure[rndNum1].getValue();
+                if (temp < 0 || temp == 1) {
+                    temp += treasure[rndNum1].getValue();
+                } else {
+                    amsterdam.getPortTreasureHand().addTreasure(treasure[rndNum1]);
+                    treasure[rndNum1] = null;
+                }
+            }
+        }
+
+        temp = 8 - targertValV;
+        while (temp != 0 ){
+            rndNum1 = rand.nextInt(20);
+            if (treasure[rndNum1] != null) {
+                temp -= treasure[rndNum1].getValue();
+                if (temp < 0 || temp == 1) {
+                    temp += treasure[rndNum1].getValue();
+                } else {
+                    venice.getPortTreasureHand().addTreasure(treasure[rndNum1]);
+                    treasure[rndNum1] = null;
+                }
+            }
+        }
+
+
+//for (int i = 0;i < treasure.length;i++){
+//    if (treasure[i] != null){
+//        treasureIsland.getIslandTreasureHand().addTreasure(treasure[i]);
+//    }
+//}
+
+//to be implemented when the islands are ready for handling treasure.
 
 
 
 
 
-int temp = 8 - targertVal;
 
-while (temp != 0 ){
-    rndNum1 = rand.nextInt(21);
-    temp -= treasure[rndNum1].getValue();
-    if (temp < 0 || temp == 1){
-        temp += treasure[rndNum1].getValue();
-    }else {
-        targertVal += treasure[rndNum1].getValue();
-        amsterdam.treasureHand.addTreasure(treasure[rndNum1]);
+     //   System.out.println(amsterdam.getPortTreasureHand());
+        System.out.println("penissssss");
     }
-
-    }
-}
-
-
-
+    
 
     public int getTurn(){
         return turn;
@@ -99,14 +124,14 @@ while (temp != 0 ){
 
     private void loadImages(){
         System.out.println("Listing all the images and stuff");
-        String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
+        String filePath = "Users/MacBook-Pro/Desktop/gp11/src/Code/gp11_project_dep22_code/src/main/resources/img";
         //Image tempImage = new Image(filePath + "/" + "arrow.png");
         System.out.println("Filepath!!! \n" + filePath);
         File folder = new File(filePath);
         String[] imageNames = folder.list();
         //
         if (imageNames == null){
-            System.out.println("Its null!");
+           System.out.println("Its null!");
         }
         else{
             for (String fileName : imageNames){
@@ -141,12 +166,11 @@ while (temp != 0 ){
         int[] values = {5,5,4,3,2};
 
         for (int i = 0; i<20;i++){
-            int num = i / 5; // 5 types of icons
+            int num = i / 4; // 5 types of icons
             String name = names[num];
             int value = values[num];
-            images.get(name);
-            Image img = new Image(String.valueOf(App.class.getResource("/img/" + name + "_icon.png")));
-            treasure[i] = new Treasure(name,value,img);
+            //Image img = new Image(String.valueOf(App.class.getResource("/img/" + name + ".png")));
+            treasure[i] = new Treasure(name,value);
         }
     }
 
@@ -168,13 +192,13 @@ while (temp != 0 ){
 
         // add port island tiles
         PortTile venice = new PortTile("Port of Venice");
-        venice.setIconName("venice_icon");//trade port
+        venice.setIconName("venice_icon");
         PortTile london = new PortTile("Port of London");
         london.setIconName("london_icon");
         PortTile cadiz = new PortTile("Port of Cadiz");
         cadiz.setIconName("cadiz_icon");
         PortTile amsterdam = new PortTile("Port of Amsterdam");
-        amsterdam.setIconName("amsterdam_icon");//trade port
+        amsterdam.setIconName("amsterdam_icon");
         PortTile marseilles = new PortTile("Port of Marseilles");
         marseilles.setIconName("marseilles_icon");
         PortTile genoa = new PortTile("Port of Genoa");
@@ -185,6 +209,33 @@ while (temp != 0 ){
         gameBoard[0][13] = amsterdam;
         gameBoard[0][5] = marseilles;
         gameBoard[6][0] = genoa;
+
+        // Flat Island Tiles
+        for (int i = 1; i <= 3; i++) {
+            for (int j = 15; j <= 18; j++) {
+                IslandTile flatIsland = new IslandTile("Flat Island");
+                flatIsland.setIconName("flatIsland_icon");
+                gameBoard[i][j] = flatIsland;
+            }
+        }
+
+        // Pirate Island
+        for(int i = 16; i <= 18; i++){
+            for(int j = 1; j <= 4; j++){
+                IslandTile pirateIsland = new IslandTile("Pirate Island");
+                pirateIsland.setIconName("pirateIsland_icon");
+                gameBoard[i][j] = pirateIsland;
+            }
+        }
+
+        // Treasure Island
+        for(int i = 8; i <= 11; i++){
+            for(int j = 8; j <= 11; j++){
+                IslandTile treasureIsland = new IslandTile("Treasure Island");
+                treasureIsland.setIconName("treasureIsland_icon");
+                gameBoard[i][j] = treasureIsland;
+            }
+        }
 
         // add player tiles
         for (int i=0; i<4; i++){
