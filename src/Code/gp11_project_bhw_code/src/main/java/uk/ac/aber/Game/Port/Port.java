@@ -9,6 +9,15 @@ import uk.ac.aber.Game.Treasure.TreasureHand;
 public class Port {
     private String portName;
 
+    private int col;
+    private int row;
+
+    public Port(String name, int col, int row) {
+        this.col = col;
+        this.row = row;
+        this.portName = name;
+    }
+
 
     private CrewHand crewHand = new CrewHand();
     private TreasureHand treasureHand = new TreasureHand();
@@ -72,14 +81,16 @@ public class Port {
     }
 
 
+    public boolean isHomePort(){
+        return false;
+    }
 
-
-
-
-
-
-
-
+    public int getCol(){
+        return col;
+    }
+    public int getRow(){
+        return row;
+    }
 
  /*
 

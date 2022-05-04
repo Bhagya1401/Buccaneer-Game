@@ -12,12 +12,15 @@ import java.util.Map;
 public class HomePort extends Port{
     private Integer playerNumber;
     private TreasureHand safeZone = new TreasureHand();
-    private final boolean isHomePort = true;
+
+    public HomePort(String name, int x, int y, int playerNum){
+        super(name,x,y);
+        this.playerNumber = playerNum;
+    }
 
     //holds only treasure
 
     //safe zone , 3 identical treasure
-
 
 
 
@@ -60,20 +63,19 @@ public class HomePort extends Port{
                 for (int i = 0; i < getPortTreasureHand().getTreasures().size(); i++) {
 
                     //moves exactly 3 treasures from treasureHand to safeZone
-                    if(getPortTreasureHand().getTreasures().get(i).getName().equals(key) && count <4 ){
+                    if(getPortTreasureHand().getTreasures().get(i).getName().equals(key) && count < 4 ){
                         getPortTreasureHand().giveTreasureFromIndex(safeZone,i);
                     }
                     count ++;
                 }
             }
         }
-
     }
 
 
 
-
-
-
-
+    @Override
+    public boolean isHomePort() {
+        return true;
+    }
 }
