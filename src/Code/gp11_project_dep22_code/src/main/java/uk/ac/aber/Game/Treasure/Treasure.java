@@ -8,12 +8,13 @@
 package uk.ac.aber.Game.Treasure;
 
 import javafx.scene.image.Image;
+import uk.ac.aber.Game.Displayable;
 
 import java.util.Objects;
 
-public class Treasure {
-    String name;
-    int value;
+public class Treasure implements Displayable {
+    private String name;
+    private int value;
 
     public Treasure(String name, int value) {
         this.name = name;
@@ -34,5 +35,11 @@ public class Treasure {
         if (o == null || getClass() != o.getClass()) return false;
         Treasure treasure = (Treasure) o;
         return Objects.equals(name, treasure.name);
+    }
+
+    @Override
+    public String getIconName() {
+        String iconString = name.replaceAll(" ", "_");
+        return iconString;
     }
 }

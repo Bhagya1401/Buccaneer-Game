@@ -14,7 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
+import uk.ac.aber.Game.ChanceCards.ChanceCard;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
 
 public class GameScreenController {
@@ -132,14 +134,20 @@ public class GameScreenController {
 
     @FXML
     private void playerMove() throws IOException {
-        boolean moved = bucGame.move(1);
-        if (moved){
-            updateBoardVisuals();
-            if (bucGame.getMovesLeft() == 0){
-                endTurn();
-            }
-        }
-        updatePlayerDirection(bucGame.getTurn());
+
+        //ChanceCard nw = bucGame.getChancePack().getChanceCard();
+        //System.out.println(nw.getDescription());
+        //nw.useChanceCard(bucGame);
+
+
+//        boolean moved = bucGame.move(1);
+//        if (moved){
+//            updateBoardVisuals();
+//            if (bucGame.getMovesLeft() == 0){
+//                endTurn();
+//            }
+//        }
+//        updatePlayerDirection(bucGame.getTurn());
     }
 
     private void updateDirectionArrow() { // implementation is kinda sketch
