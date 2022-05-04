@@ -78,4 +78,8 @@ public class HomePort extends Port{
     public boolean isHomePort() {
         return true;
     }
+
+    public Integer getPlayerNumber() {
+        return playerNumber;
+    }
 }
