@@ -25,8 +25,8 @@ public class Player {
     private int col;
     private int row;
     private String direction;
-    public CrewHand crewHand;
-    public TreasureHand treasureHand;
+    public CrewHand crewHand = new CrewHand();
+    public TreasureHand treasureHand = new TreasureHand();
 
     public Player(){
         ;
@@ -36,8 +36,6 @@ public class Player {
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         direction = DIRECTIONS[0];
-        crewHand = new CrewHand();
-        treasureHand = new TreasureHand();
         directionalMovement = new HashMap<>();
         directionalMovement.put("N", new int[]{0, -1});
         directionalMovement.put("NE", new int[]{1, -1});

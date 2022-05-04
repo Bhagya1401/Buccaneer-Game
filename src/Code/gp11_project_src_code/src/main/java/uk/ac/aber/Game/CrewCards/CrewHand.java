@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CrewHand {
 
-    public ArrayList<CrewCard> cards;
+    private ArrayList<CrewCard> cards;
 
     public CrewHand() {
         cards = new ArrayList<>();
@@ -33,7 +33,6 @@ public class CrewHand {
             successful = true;
         }
         return successful;
-
     }
 
 //    public void printDebug() {
@@ -91,5 +90,7 @@ public class CrewHand {
     }
 
 
-
+    public ArrayList<CrewCard> getCards() {
+        return cards;
+    }
 }
