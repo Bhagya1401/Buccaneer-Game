@@ -1,8 +1,12 @@
 package uk.ac.aber.Game.Player;
 
 import javafx.scene.image.Image;
+import uk.ac.aber.Controllers.GameScreenController;
 import uk.ac.aber.Game.CrewCards.CrewHand;
+import uk.ac.aber.Game.Port.Port;
+import uk.ac.aber.Game.Tile.OceanTile;
 import uk.ac.aber.Game.Tile.Tile;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +25,8 @@ public class Player {
     private int col;
     private int row;
     private String direction;
-    public CrewHand crewHand = new CrewHand();
+    public CrewHand crewHand;
+    public TreasureHand treasureHand;
 
     public Player(){
         ;
@@ -31,6 +36,8 @@ public class Player {
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         direction = DIRECTIONS[0];
+        crewHand = new CrewHand();
+        treasureHand = new TreasureHand();
         directionalMovement = new HashMap<>();
         directionalMovement.put("N", new int[]{0, -1});
         directionalMovement.put("NE", new int[]{1, -1});
@@ -46,14 +53,161 @@ public class Player {
         return 4;
     }
 
-    public boolean moveTo(int col, int row, Tile[][] gameBoard){
+    public boolean canMoveTo(int col, int row, Tile[][] gameBoard) {
         if (gameBoard[col][row].isTraversable()){
-            this.col = col;
-            this.row = row;
             return true;
         }
         return false;
     }
+
+    public boolean moveTo(int desCol, int desRow, Tile[][] gameBoard){
+        if (gameBoard[desCol][desRow].isTraversable()){
+            Tile tempTile = gameBoard[desCol][desRow];
+            gameBoard[desCol][desRow] = gameBoard[col][row]; // move playerTile to this location
+            gameBoard[col][row] = tempTile; // move the other tile to where the playerTile was
+            col = desCol; row = desRow;
+            return true;
+        }
+        else if (gameBoard[desCol][desRow].isAttackAble()){
+            System.out.println("TRYING TO ATTACK A PLAYER!!!!!");
+        }
+        return false;
+    }
+
+    // move player to X coordinate and update visuals
+    // also check if anything is in this position too, if so move further away
+
+
+    // get closest port
+    // array of port coordinates and compare them
+    // get a position (direction) too and return perhaps?
+
+
+//    public Port getClosestPort(Port[] ports) {
+//        double value = 50; // max distance away? - ask ash
+//        Port closest;
+//        Port[] checkedPorts = null;
+//
+//        if (this.direction.equals("N")) {
+//            for (Port port : ports) {
+//                if (port.getRowCoordinate() < row) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else if (this.direction.equals("S")) {
+//            for (Port port : ports) {
+//                if (port.getRowCoordinate() > this.getRowCoordinate()) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else if (this.direction.equals("E")) {
+//            for (Port port : ports) {
+//                if (port.getColCoordinate() > this.getColCoordinate()) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else if (this.direction.equals("W")) {
+//            for (Port port : ports) {
+//                if (port.getColCoordinate() < this.getColCoordinate()) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else if (this.direction.equals("NE")) {
+//            for (Port port : ports) {
+//                if (port.getColCoordinate() > this.getColCoordinate() && port.getRowCoordinate() < this.getRowCoordinate()) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else if (this.direction.equals("SE")) {
+//            for (Port port : ports) {
+//                if (port.getColCoordinate() > this.getColCoordinate() && port.getRowCoordinate() > this.getRowCoordinate()) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else if (this.direction.equals("SW")) {
+//            for (Port port : ports) {
+//                if (port.getColCoordinate() < this.getColCoordinate() && port.getRowCoordinate() > this.getRowCoordinate()) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else if (this.direction.equals("NW")) {
+//            for (Port port : ports) {
+//                if (port.getColCoordinate() < this.getColCoordinate() && port.getRowCoordinate() < this.getRowCoordinate()) {
+//                    double distance = this.calcDistanceToPoint(port.getCoordinate());
+//
+//                    if (distance < value) {
+//                        value = distance;
+//                        close = port;
+//                    }
+//                }
+//            }
+//        } else {
+//            close = null;
+//        }
+//
+//        return close;
+//    }
+//
+//    // get closest player
+//    public Player getClosestPlayer(Player[] players) {
+//        int[] currentCoordinates = this.getCoordinate();
+//        double value = 50;
+//        Player close = null;
+//
+//        for (int i = 0; i < players.length; i++) {
+//            int[] otherPlayer = players[i].getCoordinate();
+//            double x1 = currentCoordinates[0]; double y1 = players[i].getRowCoordinate();
+//            double x2 = players[i].getColCoordinate(); double y2 = currentCoordinates[1];
+//
+//            double ac = Math.abs(y2 - y1);
+//            double cb = Math.abs(x2 - x1);
+//            double distance = Math.hypot(ac, cb);
+//
+//            if (distance != 0) {
+//                if (distance < value) {
+//                    value = distance;
+//                    close = players[i];
+//                }
+//            }
+//        }
+//        return close;
+//    }
+
 
     // re-model this later.
     // we want the "checking" and the "moving" separate.
@@ -115,10 +269,20 @@ public class Player {
         return canMoveInStraightLine(desCol,desRow,gameBoard,false);
     }
 
-    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard, boolean limitedByMovement){
+    public boolean isInlineWithPlayer(int toCol, int toRow) {
+        boolean isInline = false;
+        if (toCol < 20 & toCol >= 0 & toRow < 20 & toRow >= 0) {
+            int[] movDir = directionalMovement.get(direction);
+            int movCol = movDir[0], movRow = movDir[1];
+            int tempCol = col, tempRow = row;
+            int tempMoveCounter = this.getMoves();
+        }
+    }
+
+    public boolean canMoveInStraightLine(int toCol, int toRow, Tile[][] gameBoard, boolean limitedByMovement){
         ArrayList<Tile> passedOverTiles = new ArrayList<>();
         boolean canMove = false;
-        if (desCol < 20 & desCol >=0 & desRow <20 & desRow >=0){
+        if (toCol < 20 & toCol >=0 & toRow <20 & toRow >=0){
             int[] movDir = directionalMovement.get(direction);
             int movCol = movDir[0], movRow = movDir[1];
             int tempCol = col, tempRow = row;
@@ -145,13 +309,13 @@ public class Player {
             }
         }
         if (turnDir.equalsIgnoreCase("L")){
-            dirIndex--; dirIndex--; // turn 90 degrees for now. until diagonal movement is implemented
+            dirIndex--; dirIndex--; // rotate 90 degrees for now. until diagonal movement is implemented
             if (dirIndex < 0){
                 dirIndex = DIRECTIONS.length-2; // set to north west
             }
         }
         else if (turnDir.equalsIgnoreCase("R")){
-            dirIndex++; dirIndex++; // turn 90 degrees for now. until diagonal movement is implemented
+            dirIndex++; dirIndex++; // rotate 90 degrees for now. until diagonal movement is implemented
             if (dirIndex >DIRECTIONS.length - 1){
                 dirIndex = 0; // set to north
             }

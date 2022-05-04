@@ -2,17 +2,14 @@ package uk.ac.aber.Controllers;
 
 import java.io.IOException;
 
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import uk.ac.aber.App.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Tile.*;
@@ -46,7 +43,23 @@ public class GameScreenController {
 //                boardGridVisual.add(makeTransparentPane(),i,j);
 //            }
 //        }
+        constrainGridPane();
         initStyling();
+    }
+
+    private void constrainGridPane(){
+        for (int col=0; col < 20; col++){
+            ColumnConstraints  cc = new ColumnConstraints();
+            cc.setFillWidth(true);
+            cc.setHgrow(Priority.ALWAYS);
+            boardGridVisual.getColumnConstraints().add(cc);
+        }
+        for (int row=0; row<20; row++){
+            RowConstraints rc = new RowConstraints();
+            rc.setFillHeight(true);
+            rc.setVgrow(Priority.ALWAYS);
+            boardGridVisual.getRowConstraints().add(rc);
+        }
     }
 
     public void initStyling(){
@@ -75,12 +88,13 @@ public class GameScreenController {
     }
 
     private StackPane makePaneWithImageView(Image img){
-        ImageView i = new ImageView(img);
-        i.setFitWidth(35);
-        i.setFitHeight(35);
-        StackPane p = new StackPane(new ImageView(img));
-        p.setMaxHeight(35);
-        p.setMaxWidth(35);
+        ImageView imgView = new ImageView(img);
+//        i.setFitWidth(35);
+//        i.setFitHeight(35);
+        StackPane p = new StackPane();
+        p.getChildren().add(imgView);
+//        p.setMaxHeight(35);
+//        p.setMaxWidth(35);
         return p;
     }
 
@@ -100,10 +114,10 @@ public class GameScreenController {
                 else{
                     Image img = bucGame.images.get(bucGame.gameBoard[i][j].getIconName());
                     ImageView iv = new ImageView(img);
-                    iv.setFitWidth(35);
-                    iv.setFitHeight(35);
+//                    iv.setFitWidth(35);
+//                    iv.setFitHeight(35);
                     StackPane pane = makePaneWithImageView(img);
-                    boardGridVisual.add(iv,i,j);
+                    boardGridVisual.add(pane,i,j);
                 }
             }
         }
@@ -116,7 +130,7 @@ public class GameScreenController {
         System.out.println(bucGame.getCurrentPlayer().getPlayerNumber());
         updateVisuals();
         App.setNextPlayerScreen();
-        System.out.println("Hello, im in 'end turn' about to save players");
+        System.out.println("Hello, im in 'end rotate' about to save players");
     }
 
     @FXML
@@ -124,9 +138,13 @@ public class GameScreenController {
         Node clickedNode = event.getPickResult().getIntersectedNode();
         if (clickedNode != boardGridVisual) {
             // click on descendant node
-            Integer colIndex = GridPane.getColumnIndex(clickedNode);
-            Integer rowIndex = GridPane.getRowIndex(clickedNode);
+            int colIndex = GridPane.getColumnIndex(clickedNode);
+            int rowIndex = GridPane.getRowIndex(clickedNode);
             System.out.println("Mouse clicked cell: " + colIndex + " And: " + rowIndex);
+            boolean  actionSuccessful = bucGame.handlePlayerAction(colIndex,rowIndex);
+            if (actionSuccessful){
+                updateVisuals();
+            }
         }
     }
 
@@ -207,14 +225,14 @@ public class GameScreenController {
 
     @FXML
     private void playerLeftTurn(){
-        bucGame.turn("L");
+        bucGame.rotate("L");
         updateDirectionArrow();
         updatePlayerDirection(bucGame.getTurn());
     }
 
     @FXML
     private void playerRightTurn(){
-        bucGame.turn("R");
+        bucGame.rotate("R");
         updateDirectionArrow();
         updatePlayerDirection(bucGame.getTurn());
     }
