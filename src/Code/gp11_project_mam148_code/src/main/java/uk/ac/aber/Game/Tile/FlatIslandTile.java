@@ -6,6 +6,8 @@ public class FlatIslandTile implements Tile {
     private Game game;
     private String islandIconName;
     private String islandName;
+    private int[] col;
+    private int[] row;
 
     public FlatIslandTile() {
         game = new Game();
@@ -21,9 +23,13 @@ public class FlatIslandTile implements Tile {
         }
     }
 
+
     @Override
     public void setIconName(String icon) {
+    }
 
+    public String getIslandName(){
+        return islandName;
     }
 
     @Override

@@ -59,9 +59,6 @@ public class Player {
                     gController.updateVisuals();
                 } else {
                     // other tile, move the player 1 to the right, repeat etc (recursive)
-
-
-
                 }
             } else {
                 // null/empty?

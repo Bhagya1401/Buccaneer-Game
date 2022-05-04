@@ -1,14 +1,19 @@
 package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
+import uk.ac.aber.Game.ChanceCards.ChanceCard;
+import uk.ac.aber.Game.Islands.FlatIsland;
+import uk.ac.aber.Game.Islands.PirateIsland;
+import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.HomePort;
+import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
 import javafx.scene.image.Image;
 import uk.ac.aber.Game.Treasure.Treasure;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
@@ -20,14 +25,12 @@ public class Game {
     private Treasure[] treasure;
     private int moves;
     public HashMap<String,Image> images;
+    private FlatIsland flatIsland;
+    private TreasureIsland treasureIsland;
+    private PirateIsland pirateIsland;
+    public HashMap<String,Port> ports;
+    private HashMap<String,Player> portsToPlayers;
 
-    public Game(){
-        this.gameBoard = new Tile[20][20];
-        this.players = new Player[4];
-        this.treasure = new Treasure[20];
-        this.images = new HashMap<>();
-        this.playerTiles = new Tile[4];
-    }
 
     public Game(Player[] players){
         this.gameBoard = new Tile[20][20];
@@ -35,18 +38,47 @@ public class Game {
         this.treasure = new Treasure[20];
         this.images = new HashMap<>();
         this.playerTiles = new Tile[4];
+        this.flatIsland = new FlatIsland();
+        this.pirateIsland = new PirateIsland();
+        this.treasureIsland = new TreasureIsland();
+        this.portsToPlayers = new HashMap<>();
+        this.ports = new HashMap<>();
+    }
+
+    public List<Port> getPorts(){
+        return (List<Port>) ports.values();
     }
 
     public void startGame(){
         turn = 1;
-        if (players != null){
-            moves = getCurrentPlayer().getMoves();
-        }
+//        if (players != null){
+//            moves = getCurrentPlayer().getMoves();
+//        }
+        initialisePorts();
         loadImages();
         populateTiles();
     }
 
-    
+
+    private void initialisePorts(){
+        ArrayList<Integer> playerNums = new ArrayList<>();
+        playerNums.add(1); playerNums.add(2);
+        playerNums.add(3); playerNums.add(4);
+        Collections.shuffle(playerNums);
+
+        Port london = new HomePort("London",19,13,playerNums.get(0));
+        ports.put(london.getPortName(),london);
+        Port genoa = new HomePort("Genoa",6,0, playerNums.get(1));
+        ports.put(genoa.getPortName(),genoa);
+        Port marseilles = new HomePort("Marseilles",0,5,playerNums.get(2));
+        ports.put(marseilles.getPortName(),marseilles);
+        Port cadiz = new HomePort("Cadiz",6,19,playerNums.get(3));
+        ports.put(cadiz.getPortName(),cadiz);
+        Port venice = new Port("Venice",19,6);
+        ports.put(venice.getPortName(),venice);
+        Port amsterdam = new Port("Amsterdam",0,13);
+        ports.put(amsterdam.getPortName(),amsterdam);
+    }
 
     public int getTurn(){
         return turn;
@@ -59,7 +91,12 @@ public class Game {
 
     private void loadImages(){
         System.out.println("Listing all the images and stuff");
-        String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
+        //String filePath = App.class.getResource("/img");
+
+        // Wtf
+        String filePath = "C:\\UniDocs\\year_2\\CS22120\\gp11\\src\\Code\\gp11_project_src_code\\src\\main\\resources\\img";
+
+        //String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
         //Image tempImage = new Image(filePath + "/" + "arrow.png");
         System.out.println("Filepath!!! \n" + filePath);
         File folder = new File(filePath);
@@ -80,7 +117,7 @@ public class Game {
     }
 
     public void nextTurn(){ // increment with rollover
-        setTurn((turn%4)+1);
+        turn++;
     }
 
     public int getMovesLeft(){
@@ -88,7 +125,17 @@ public class Game {
     }
 
     public Player getCurrentPlayer(){
-        return getPlayer(turn);
+        String[] turnOrderByPortName = {"London","Genoa","Marseilles","Cadiz"};
+        String currentTurnByPort = turnOrderByPortName[(turn%4)-1];
+        System.out.println(ports);
+        System.out.println("Turn by port: " + currentTurnByPort);
+        int playerNumber = ((HomePort) ports.get(currentTurnByPort)).getPlayerNumber();
+//        for (Player p : players){
+//            if (p.getPlayerNumber() == playerNumber){
+//                return p;
+//            }
+//        }
+        return getPlayer(playerNumber);
     }
 
     public Player getPlayer(int playerNum){ // player one is at index 0
@@ -148,7 +195,7 @@ public class Game {
         for (int i = 1; i <= 3; i++) {
             for (int j = 15; j <= 18; j++) {
                 IslandTile flatIsland = new IslandTile("Flat Island");
-                flatIsland.setIconName("flatIsland");
+                flatIsland.setIconName("flat_island");
                 gameBoard[i][j] = flatIsland;
             }
         }
@@ -157,7 +204,7 @@ public class Game {
         for(int i = 16; i <= 18; i++){
             for(int j = 1; j <= 4; j++){
                 IslandTile pirateIsland = new IslandTile("Pirate Island");
-                pirateIsland.setIconName("pirateIsland");
+                pirateIsland.setIconName("pirate_island");
                 gameBoard[i][j] = pirateIsland;
             }
         }
@@ -166,7 +213,7 @@ public class Game {
         for(int i = 8; i <= 11; i++){
             for(int j = 8; j <= 11; j++){
                 IslandTile treasureIsland = new IslandTile("Treasure Island");
-                treasureIsland.setIconName("treasureIsland_icon");
+                treasureIsland.setIconName("treasure_island");
                 gameBoard[i][j] = treasureIsland;
             }
         }
@@ -180,9 +227,32 @@ public class Game {
         }
     }
 
+    private void interactWithIsland(String nameOfIsland){
+        if (nameOfIsland.equalsIgnoreCase("TreasureIsland")){
+            treasureIslandHandler();
+        }
+        else if (nameOfIsland.equalsIgnoreCase("FlatIsland")){
+            flatIslandHandler();
+        }
+        else if (nameOfIsland.equalsIgnoreCase("PirateIsland")){
+            pirateIslandHandler();
+        }
+    }
+
+    private void treasureIslandHandler(){
+        ChanceCard card = treasureIsland.getChanceCard();
+
+    }
+    private void flatIslandHandler(){
+
+    }
+    private void pirateIslandHandler(){
+        ;
+    }
+
     private OceanTile makeOceanTile(){
         OceanTile oTile = new OceanTile();
-        oTile.setIconName("water_icon");
+        oTile.setIconName("water");
         return oTile;
     }
 

@@ -1,18 +1,28 @@
 package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
+import uk.ac.aber.Game.Game;
+import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Tile.FlatIslandTile;
+import uk.ac.aber.Game.Tile.TreasureIslandTile;
 import uk.ac.aber.Game.Treasure.Treasure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class TreasureIsland {
+public class TreasureIsland implements Island{
     private ArrayList<Treasure> treasures;
     private ArrayList<ChanceCard> chanceCards;
+    private Game game;
+    private HashMap<String, Island> islandHashMap;
+    private TreasureIslandTile treasureIslandTile;
 
 
     public TreasureIsland() {
         treasures = new ArrayList<Treasure>();
         chanceCards = new ArrayList<ChanceCard>();
+        treasureIslandTile = new TreasureIslandTile();
+        treasureIslandTile.setTiles();
     }
 
 
@@ -61,6 +71,11 @@ public class TreasureIsland {
     }
 
 
-
-
+    public Island beginInteraction(Player player) {
+        Island island = new PirateIsland();
+        if(game.gameBoard[player.getRow() + 1][player.getCol()] == treasureIslandTile || game.gameBoard[player.getRow() - 1][player.getCol()] == treasureIslandTile ||
+                game.gameBoard[player.getRow()][player.getCol() + 1] == treasureIslandTile || game.gameBoard[player.getRow()][player.getCol() - 1] == treasureIslandTile){
+        }
+        return island;
+    }
 }
