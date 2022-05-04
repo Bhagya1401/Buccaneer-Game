@@ -20,6 +20,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
         FXMLLoader startLoader, gameLoader, charLoader;
 
         startLoader = getLoader("start_screen");
