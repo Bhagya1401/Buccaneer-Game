@@ -1,13 +1,16 @@
 package uk.ac.aber.Game.Port;
 
-import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
 public class Port {
     private String portName;
+
+
+    private CrewHand crewHand = new CrewHand();
+    private TreasureHand treasureHand = new TreasureHand();
+
 
     private int col;
     private int row;
@@ -18,9 +21,6 @@ public class Port {
         this.portName = name;
     }
 
-
-    private CrewHand crewHand = new CrewHand();
-    private TreasureHand treasureHand = new TreasureHand();
 
 
 
@@ -33,7 +33,7 @@ public class Port {
 
 
 
-
+    //Port trades Cards in exchange for treasure
     public void tradeCardsForTreasure(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure, int[] tradeCards){
 
         if (totalCrewCards == totalTreasure){ // if the total of selected items are equal then trade is valid
@@ -57,23 +57,31 @@ public class Port {
     }
 
 
-
+    //Port trades Treasure in exchange for cards
     public void tradeTreasureForCards(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure, int[] tradeCards){
 
         if (totalCrewCards == totalTreasure){ // if the total of selected items are equal then trade is valid
             //trade crewcards for treasure
 
 
-            //
+
             for (int cardIndex : tradeCards) {
                 //Takes the treasure from the players storage and deposits it at port
+                //System.out.println("traded from player: " + player.crewHand.getCards().get(cardIndex).getColor() + "/" + player.crewHand.getCards().get(cardIndex).getValue());
                 player.crewHand.giveCardFromIndex(crewHand, cardIndex);
+
+
             }
 
 
             for (int itemIndex : tradeTreasure) {
+                //System.out.println("traded from port: " + treasureHand.getTreasures().get(itemIndex).getName());
                 treasureHand.giveTreasureFromIndex(player.treasureHand, itemIndex);
+
+
             }
+
+
         }
         else{
             System.out.println("Trade is invalid please make sure the value of treasure and cards are equal");

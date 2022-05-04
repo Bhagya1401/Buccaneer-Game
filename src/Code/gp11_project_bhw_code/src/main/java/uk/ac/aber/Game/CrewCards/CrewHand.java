@@ -33,7 +33,6 @@ public class CrewHand {
             successful = true;
         }
         return successful;
-
     }
 
 //    public void printDebug() {
@@ -89,6 +88,7 @@ public class CrewHand {
         }
         return val;
     }
+
 
     public ArrayList<CrewCard> getCards() {
         return cards;

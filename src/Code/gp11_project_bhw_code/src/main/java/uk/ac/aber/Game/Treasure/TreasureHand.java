@@ -37,6 +37,7 @@ public class TreasureHand {
         boolean successful = false;
         if (index < treasures.size()){
             tempTreasure = this.treasures.get(index);
+
             hnd.addTreasure(tempTreasure);
             treasures.remove(index);
             successful = true;
@@ -71,7 +72,6 @@ public class TreasureHand {
         }
         return highestValTreasure;
     }
-
     public ArrayList<Treasure> getTreasures(){
         return treasures;
     }

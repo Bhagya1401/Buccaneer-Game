@@ -1,8 +1,8 @@
 package uk.ac.aber.Game.Tile;
 
-import javafx.scene.image.Image;
+import uk.ac.aber.Game.Displayable;
 
-public interface Tile {
+public interface Tile extends Displayable {
 
     public void setIconName(String icon); // sets icon for storage purposes
 
@@ -13,6 +13,4 @@ public interface Tile {
     public boolean isTraversable(); // can a ship move here
 
     public boolean isIsland(); // Is it say, treasure or pirate island, or a city
-
- //   public  boolean isPort();// Is it port tile
 }

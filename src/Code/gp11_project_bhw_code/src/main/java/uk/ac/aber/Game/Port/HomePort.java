@@ -1,13 +1,9 @@
 package uk.ac.aber.Game.Port;
 
-import uk.ac.aber.Game.CrewCards.CrewCard;
-import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class HomePort extends Port{
     private Integer playerNumber;
@@ -72,14 +68,12 @@ public class HomePort extends Port{
         }
     }
 
-
+    public Integer getPlayerNumber() {
+        return playerNumber;
+    }
 
     @Override
     public boolean isHomePort() {
         return true;
-    }
-
-    public Integer getPlayerNumber() {
-        return playerNumber;
     }
 }
