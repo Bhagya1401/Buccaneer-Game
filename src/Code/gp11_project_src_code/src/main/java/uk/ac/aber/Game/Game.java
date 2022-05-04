@@ -2,6 +2,8 @@ package uk.ac.aber.Game;
 
 import uk.ac.aber.App.App;
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
+import uk.ac.aber.Game.CrewCards.CrewCard;
+import uk.ac.aber.Game.CrewCards.CrewPack;
 import uk.ac.aber.Game.Islands.FlatIsland;
 import uk.ac.aber.Game.Islands.PirateIsland;
 import uk.ac.aber.Game.Islands.TreasureIsland;
@@ -30,6 +32,7 @@ public class Game {
     private PirateIsland pirateIsland;
     public HashMap<String,Port> ports;
     private HashMap<String,Player> portsToPlayers;
+    public CrewPack crewPack;
 
 
     public Game(Player[] players){
@@ -43,6 +46,7 @@ public class Game {
         this.treasureIsland = new TreasureIsland();
         this.portsToPlayers = new HashMap<>();
         this.ports = new HashMap<>();
+        this.crewPack = new CrewPack();
     }
 
     public List<Port> getPorts(){
@@ -55,9 +59,92 @@ public class Game {
 //            moves = getCurrentPlayer().getMoves();
 //        }
         initialisePorts();
+        initTreasure();
+
+        cardDistribution();
+        distributeTreasure();
+
         loadImages();
         populateTiles();
+
     }
+    public void distributeTreasure() {
+        //trade port amsterdam and venice
+
+
+        int rndNum1;
+
+        int amsterdamCCVal = 0;
+        int veniceCCVal = 0;
+        amsterdamCCVal = this.ports.get("Amsterdam").getPortCrewHand().getMoveAbility();
+        veniceCCVal = this.ports.get("Venice").getPortCrewHand().getMoveAbility();
+        Random rand = new Random();
+        int targertValA = amsterdamCCVal;
+        int targertValV = veniceCCVal;
+
+        int temp = 8 - targertValA;
+
+        while (temp != 0 ){
+            rndNum1 = rand.nextInt(20);
+            if (treasure[rndNum1] != null) {
+                temp -= treasure[rndNum1].getValue();
+                if (temp < 0 || temp == 1) {
+                    temp += treasure[rndNum1].getValue();
+                } else {
+                    this.ports.get("Amsterdam").getPortTreasureHand().addTreasure(treasure[rndNum1]);
+                    treasure[rndNum1] = null;
+                }
+            }
+        }
+
+        temp = 8 - targertValV;
+        while (temp != 0 ){
+            rndNum1 = rand.nextInt(20);
+            if (treasure[rndNum1] != null) {
+                temp -= treasure[rndNum1].getValue();
+                if (temp < 0 || temp == 1) {
+                    temp += treasure[rndNum1].getValue();
+                } else {
+                    this.ports.get("Venice").getPortTreasureHand().addTreasure(treasure[rndNum1]);
+                    treasure[rndNum1] = null;
+                }
+            }
+        }
+
+
+//for (int i = 0;i < treasure.length;i++){
+//    if (treasure[i] != null){
+//        treasureIsland.getIslandTreasureHand().addTreasure(treasure[i]);
+//    }
+//}
+
+//to be implemented when the islands are ready for handling treasure.
+
+    }
+
+
+
+    public void cardDistribution() {
+        for (Player ply: this.players) {
+            for (int i = 0; i < 5; i++) {
+                this.crewPack.addCardToPlayer(ply);
+            }
+        }
+
+
+
+        this.crewPack.addCardToHand(this.ports.get("Venice").getPortCrewHand());
+        this.crewPack.addCardToHand(this.ports.get("Venice").getPortCrewHand());
+
+        this.crewPack.addCardToHand(this.ports.get("Amsterdam").getPortCrewHand());
+        this.crewPack.addCardToHand(this.ports.get("Amsterdam").getPortCrewHand());
+    }
+
+
+
+
+
+
 
 
     private void initialisePorts(){
@@ -148,7 +235,7 @@ public class Game {
         int[] values = {5,5,4,3,2};
 
         for (int i = 0; i<20;i++){
-            int num = i / 5; // 5 types of icons
+            int num = i / 4; // 4 of each treasure.
             String name = names[num];
             int value = values[num];
             treasure[i] = new Treasure(name,value);

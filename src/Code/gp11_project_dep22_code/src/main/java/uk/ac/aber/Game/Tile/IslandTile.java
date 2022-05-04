@@ -32,7 +32,7 @@ public class IslandTile implements Tile{
 
     @Override
     public boolean isIsland() {
-        return false;
+        return true;
     }
 
 }

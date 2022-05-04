@@ -1,12 +1,14 @@
 package uk.ac.aber.Game.CrewCards;
 
-public class CrewCard {
+import uk.ac.aber.Game.Displayable;
+
+public class CrewCard implements Displayable {
     private int value;
-    private String color;
+    private String colour;
 
     public CrewCard(int val, String col) {
         this.value = val;
-        this.color = col;
+        this.colour = col;
     }
 
     public int getValue() {
@@ -14,6 +16,12 @@ public class CrewCard {
     }
 
     public String getColor() {
-        return this.color;
+        return this.colour;
     }
+
+    @Override
+    public String getIconName() {
+        return colour + "_crew_card";
+    }
+
 }

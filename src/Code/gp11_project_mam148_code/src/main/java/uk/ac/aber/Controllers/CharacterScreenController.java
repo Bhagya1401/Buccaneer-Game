@@ -35,7 +35,6 @@ public class CharacterScreenController {
     public void initialize(){
         // base information for characters
         coords = new int[][]{{1,10},{10,1},{18,10},{10,18}};
-        directions = new String[]{"north","east","south","west"};
         shipColoursReserved = new String[4];
         shipColoursUnreserved = new String[]{"black", "blue", "brown", "green", "yellow", "red","purple"};
         setData();
@@ -53,7 +52,7 @@ public class CharacterScreenController {
             reRollColour(i);
             updateImage(i);
             players[i].setCoordinate(coords[i][0],coords[i][1]);
-            players[i].setDirection(directions[i]);
+            players[i].setDirection(Player.DIRECTIONS[(i*2)]);
         }
     }
 

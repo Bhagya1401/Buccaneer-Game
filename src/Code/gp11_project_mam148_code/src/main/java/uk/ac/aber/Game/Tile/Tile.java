@@ -1,8 +1,8 @@
 package uk.ac.aber.Game.Tile;
 
-import javafx.scene.image.Image;
+import uk.ac.aber.Game.Displayable;
 
-public interface Tile {
+public interface Tile extends Displayable {
 
     public void setIconName(String icon); // sets icon for storage purposes
 

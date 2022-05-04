@@ -94,9 +94,9 @@ public class ChanceCard {
         public void stealCrewCards(Player pl, Player toRob) {
             // UI stuff, will pass who to rob and current player
 
-            if (toRob.crewHand.cards.size() >= 3) {
+            if (toRob.crewHand.getCards().size() >= 3) {
                 for (int i = 0; i < 3; i++) {
-                    pl.crewHand.addCard(toRob.crewHand.cards.get(i));
+                    pl.crewHand.addCard(toRob.crewHand.getCards().get(i));
                 }
             }
         }

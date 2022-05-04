@@ -1,35 +1,30 @@
 package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
-import uk.ac.aber.Game.Game;
+import uk.ac.aber.Game.ChanceCards.ChanceCard_Old;
+import uk.ac.aber.Game.ChanceCards.ChancePack;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Tile.FlatIslandTile;
-import uk.ac.aber.Game.Tile.TreasureIslandTile;
 import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+public class TreasureIsland{
+    private TreasureHand treasures;
+    private ChancePack chanceCards;
 
-public class TreasureIsland implements Island{
-    private ArrayList<Treasure> treasures;
-    private ArrayList<ChanceCard> chanceCards;
-    private Game game;
-    private HashMap<String, Island> islandHashMap;
-    private TreasureIslandTile treasureIslandTile;
 
 
     public TreasureIsland() {
-        treasures = new ArrayList<Treasure>();
-        chanceCards = new ArrayList<ChanceCard>();
-        treasureIslandTile = new TreasureIslandTile();
-        treasureIslandTile.setTiles();
+        treasures = new TreasureHand();
+        chanceCards = new ChancePack();
     }
 
 
     public ChanceCard getChanceCard(){
-        ChanceCard currentChanceCard = chanceCards.get(0);
-        chanceCards.remove(0);
-        return currentChanceCard;
+        return chanceCards.getChanceCard();
+    }
+
+    public void putTreasure(Treasure treasure){
+        treasures.addTreasure(treasure);
     }
 
     /*public Treasure takeTreasure(int value) {
@@ -56,26 +51,19 @@ public class TreasureIsland implements Island{
         }
     }*/
 
-    public boolean isTreasureAvailable(String name){
-        boolean treasureAvailable = false;
-        for(int i = 0; i < treasures.size(); i++){
-            if(treasures.get(i).getName().equals(name)){
-                treasureAvailable = true;
-            }
-        }
-        return treasureAvailable;
-    }
+
+    // Is this needed?
+//    public boolean isTreasureAvailable(String name){
+//        boolean treasureAvailable = false;
+//        for(int i = 0; i < treasures.getTotalTreasure(); i++){
+//            if(treasures.get(i).getName().equals(name)){
+//                treasureAvailable = true;
+//            }
+//        }
+//        return treasureAvailable;
+//    }
 
     public int getNumberOfTreasures(){
-        return treasures.size();
-    }
-
-
-    public Island beginInteraction(Player player) {
-        Island island = new PirateIsland();
-        if(game.gameBoard[player.getRow() + 1][player.getCol()] == treasureIslandTile || game.gameBoard[player.getRow() - 1][player.getCol()] == treasureIslandTile ||
-                game.gameBoard[player.getRow()][player.getCol() + 1] == treasureIslandTile || game.gameBoard[player.getRow()][player.getCol() - 1] == treasureIslandTile){
-        }
-        return island;
+        return treasures.getTotalTreasure();
     }
 }

@@ -2,7 +2,6 @@ package uk.ac.aber.Game.Treasure;
 
 import uk.ac.aber.Game.CrewCards.CrewCard;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TreasureHand {
@@ -12,14 +11,6 @@ public class TreasureHand {
     public TreasureHand() {
         treasures = new ArrayList<Treasure>();
     }
-
-
-//public Array T(){
-
-//        return n;
-//    }
-
-
 
     public boolean addTreasure(Treasure treasure) {
         boolean successful = false;
@@ -46,6 +37,7 @@ public class TreasureHand {
         boolean successful = false;
         if (index < treasures.size()){
             tempTreasure = this.treasures.get(index);
+
             hnd.addTreasure(tempTreasure);
             treasures.remove(index);
             successful = true;
@@ -79,6 +71,9 @@ public class TreasureHand {
             }
         }
         return highestValTreasure;
+    }
+    public ArrayList<Treasure> getTreasures(){
+        return treasures;
     }
 }
 

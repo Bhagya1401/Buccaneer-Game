@@ -1,41 +1,47 @@
 package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.CrewCards.CrewCard;
+import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Game;
-import uk.ac.aber.Game.Tile.FlatIslandTile;
-import uk.ac.aber.Game.Tile.PirateIslandTile;
-import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Player.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class PirateIsland {
-    private ArrayList<CrewCard> crewCards;
-    private PirateIslandTile pirateIslandTile;
-    private Game game;
+public class PirateIsland{
+    private CrewHand hand;
 
     public PirateIsland(){
-        crewCards = new ArrayList<CrewCard>();
-        pirateIslandTile = new PirateIslandTile();
-        pirateIslandTile.setTiles();
+        this.hand = new CrewHand();
     }
 
-    public ArrayList<CrewCard> getCrewCards(){
-        return crewCards;
+    public CrewHand getCrewCards(){
+        return this.hand;
     }
 
-    /*public void takeCrewCard(int number){
-        for(int i = 0; i < number; i++){
-            crewCards.remove(i);
+    public void transferCrewCard(CrewHand newHand) {
+        if (this.hand.getTotalCards() > 0) {
+            this.hand.giveCardFromTop(newHand);
         }
     }
 
-    public void putCrewCard(CrewCard crewCard){
-        crewCards.add(crewCard);
+    public CrewHand getHand() {
+        return hand;
+    }
+
+    public void putCrewCard(CrewCard card) {
+        this.hand.addCard(card);
     }
 
     public void exchangeCrewCards(int num){
 
-    }*/
+    }
+
+    public void debug() {
+        for (int i = 0; i < this.hand.getCards().size(); i++) {
+            System.out.println("card: " + this.hand.getCards().get(i).getColor() + ", " + this.hand.getCards().get(i).getValue());
+        }
+    }
 
 }
 
