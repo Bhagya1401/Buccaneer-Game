@@ -1,10 +1,6 @@
 package uk.ac.aber.Game.Player;
 
-import javafx.scene.image.Image;
-import uk.ac.aber.Controllers.GameScreenController;
 import uk.ac.aber.Game.CrewCards.CrewHand;
-import uk.ac.aber.Game.Port.Port;
-import uk.ac.aber.Game.Tile.OceanTile;
 import uk.ac.aber.Game.Tile.Tile;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
@@ -291,29 +287,8 @@ public class Player {
         return canMove;
     }
 
-    public void turn(String turnDir){
-        int dirIndex;
-        for (dirIndex = 0; dirIndex < 8; dirIndex++){
-            if (direction.toUpperCase().equals(DIRECTIONS[dirIndex])){
-                break;
-            }
-        }
-        if (turnDir.equalsIgnoreCase("L")){
-            dirIndex--; dirIndex--; // turn 90 degrees for now. until diagonal movement is implemented
-            if (dirIndex < 0){
-                dirIndex = DIRECTIONS.length-2; // set to north west
-            }
-        }
-        else if (turnDir.equalsIgnoreCase("R")){
-            dirIndex++; dirIndex++; // turn 90 degrees for now. until diagonal movement is implemented
-            if (dirIndex >DIRECTIONS.length - 1){
-                dirIndex = 0; // set to north
-            }
-        }
-        else{
-            throw new IllegalArgumentException();
-        }
-        direction = DIRECTIONS[dirIndex];
+    public void rotate(String turnDir){
+        direction = turnDir;
     }
 
     public void setPlayerNumber(int num){
@@ -333,9 +308,36 @@ public class Player {
         setRowCoordinate(row);
     }
 
-//    public int[] getCoordinate(){
-//        return coordinate;
-//    }
+
+    public boolean inlineWithPlayer(int toCol, int toRow){
+        boolean diagonal = toCol-col == toRow-row;
+        boolean vertical = toCol-col == 0;
+        boolean horizontal = toRow-row == 0;
+
+        return diagonal || vertical || horizontal;
+    }
+
+    public boolean withinMovingDistance(int toCol, int toRow){
+        double colLength = Math.abs(toCol-col);
+        double rowLength = Math.abs(toRow-row);
+        double distance = Math.hypot(rowLength, colLength);
+        return distance < getMoves();
+    }
+
+    public boolean pathUpToTileFree(int toCol, int toRow, Tile[][] gameBoard){
+        int [] moveDir = directionalMovement.get(direction);
+        int tempCol = col, tempRow = row;
+        if (inlineWithPlayer(toCol,toRow) && withinMovingDistance(toCol,toRow)){
+            while (tempCol != toCol && toRow != tempRow){ // will intersect eventually
+                tempCol += moveDir[0]; tempRow += moveDir[1];
+                Tile tempTile = gameBoard[tempCol][tempRow];
+                if (!tempTile.isTraversable()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public int getCol(){
         return col;

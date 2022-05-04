@@ -2,10 +2,10 @@ package uk.ac.aber.Controllers;
 
 import java.io.IOException;
 
-import javafx.scene.Group;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import uk.ac.aber.App.App;
 import javafx.fxml.FXML;
@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
 
 public class GameScreenController {
@@ -92,18 +91,26 @@ public class GameScreenController {
     }
 
     private void updateBoardVisuals(){
+        boardGridVisual.setAlignment(Pos.CENTER);
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
                 Tile currTile = bucGame.gameBoard[i][j];
                 if (currTile instanceof PlayerTile){
-                    updatePlayerDirection(((PlayerTile) currTile).getPlayerNumber());
+                    updatePlayerDirection(bucGame.getPlayer(((PlayerTile) currTile).getPlayerNumber()));
                 }
                 else{
                     Image img = bucGame.images.get(bucGame.gameBoard[i][j].getIconName());
                     ImageView iv = new ImageView(img);
                     iv.setFitWidth(35);
                     iv.setFitHeight(35);
-                    StackPane pane = makePaneWithImageView(img);
+
+                    // this is getting closer to being right
+//                    AnchorPane pane = new AnchorPane();
+//                    pane.setMaxHeight(Double.MAX_VALUE);
+//                    pane.setMaxWidth(Double.MAX_VALUE);
+//                    iv.fitWidthProperty().bind(pane.widthProperty());
+//                    iv.fitHeightProperty().bind(pane.heightProperty());
+                    //StackPane pane = makePaneWithImageView(img);
                     boardGridVisual.add(iv,i,j);
                 }
             }
@@ -117,7 +124,7 @@ public class GameScreenController {
         System.out.println(bucGame.getCurrentPlayer().getPlayerNumber());
         updateVisuals();
         App.setNextPlayerScreen();
-        System.out.println("Hello, im in 'end turn' about to save players");
+        System.out.println("Hello, im in 'end rotate' about to save players");
     }
 
     @FXML
@@ -125,23 +132,31 @@ public class GameScreenController {
         Node clickedNode = event.getPickResult().getIntersectedNode();
         if (clickedNode != boardGridVisual) {
             // click on descendant node
-            Integer colIndex = GridPane.getColumnIndex(clickedNode);
-            Integer rowIndex = GridPane.getRowIndex(clickedNode);
+            int colIndex = GridPane.getColumnIndex(clickedNode);
+            int rowIndex = GridPane.getRowIndex(clickedNode);
             System.out.println("Mouse clicked cell: " + colIndex + " And: " + rowIndex);
+            boolean actionSuccessful = false;
+            if (!bucGame.hasPlayerMoved()){
+                actionSuccessful =  bucGame.handlePlayerMovement(colIndex,rowIndex);
+            }
+            if (actionSuccessful){
+                updateVisuals();
+                //bucGame.nextTurn();
+            }
         }
     }
 
-    @FXML
-    private void playerMove() throws IOException {
-        boolean moved = bucGame.move(1);
-        if (moved){
-            updateBoardVisuals();
-            if (bucGame.getMovesLeft() == 0){
-                endTurn();
-            }
-        }
-        updatePlayerDirection(bucGame.getTurn());
-    }
+//    @FXML
+//    private void playerMove() throws IOException {
+//        boolean moved = bucGame.move(1);
+//        if (moved){
+//            updateBoardVisuals();
+//            if (bucGame.getMovesLeft() == 0){
+//                endTurn();
+//            }
+//        }
+//        updatePlayerDirection(bucGame.getTurn());
+//    }
 
     private void updateDirectionArrow() { // implementation is kinda sketch
         System.out.println("Updating direction arrow");
@@ -173,10 +188,9 @@ public class GameScreenController {
 
     }
 
-    private void updatePlayerDirection(int playerNum){
+    private void updatePlayerDirection(Player p){
         int rotation;
-        Player currPlayer = bucGame.getPlayer(playerNum);
-        switch (currPlayer.getDirection()){
+        switch (p.getDirection()){
             case "N":
                 System.out.println("N");
                 rotation = 90;
@@ -198,27 +212,72 @@ public class GameScreenController {
                 rotation = -1; // doesn't matter, just getting rid of error regarding rotation not being assigned a value
                 assert true;
         }
-        ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[currPlayer.getCol()][currPlayer.getRow()].getIconName()));
+        ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[p.getCol()][p.getRow()].getIconName()));
         imageV.setFitHeight(35);
         imageV.setFitWidth(35);
         imageV.setRotate(rotation); // the 180 is added to account for the fact the arrow and ships' icons face different ways
-        boardGridVisual.add(imageV,currPlayer.getCol(),currPlayer.getRow());
+        boardGridVisual.add(imageV,p.getCol(),p.getRow());
 
+    }
+
+    private void rotatePlayerMaster(String direction){
+        bucGame.rotate(direction);
+        updateDirectionArrow();
+        updatePlayerDirection(bucGame.getCurrentPlayer());
     }
 
     @FXML
-    private void playerLeftTurn(){
-        bucGame.turn("L");
-        updateDirectionArrow();
-        updatePlayerDirection(bucGame.getTurn());
+    private void rotatePlayerNorth(){
+        rotatePlayerMaster(Player.DIRECTIONS[0]);
     }
 
     @FXML
-    private void playerRightTurn(){
-        bucGame.turn("R");
-        updateDirectionArrow();
-        updatePlayerDirection(bucGame.getTurn());
+    private void rotatePlayerNorthEast(){
+        rotatePlayerMaster(Player.DIRECTIONS[1]);
     }
+
+    @FXML
+    private void rotatePlayerEast(){
+        rotatePlayerMaster(Player.DIRECTIONS[2]);
+    }
+
+    @FXML
+    private void rotatePlayerSouthEast(){
+        rotatePlayerMaster(Player.DIRECTIONS[3]);
+    }
+
+    @FXML
+    private void rotatePlayerSouth(){
+        rotatePlayerMaster(Player.DIRECTIONS[4]);
+    }
+
+    @FXML
+    private void rotatePlayerSouthWest(){
+        rotatePlayerMaster(Player.DIRECTIONS[5]);
+    }
+
+    @FXML
+    private void rotatePlayerWest(){
+        rotatePlayerMaster(Player.DIRECTIONS[6]);
+    }
+
+    @FXML
+    private void rotatePlayerNorthWest(){
+        rotatePlayerMaster(Player.DIRECTIONS[7]);
+    }
+
+
+//    @FXML
+//    private void playerLeftTurn(){
+//        bucGame.rotate("L");
+//    }
+//
+//    @FXML
+//    private void playerRightTurn(){
+//        bucGame.rotate("R");
+//        updateDirectionArrow();
+//        updatePlayerDirection(bucGame.getCurrentPlayer());
+//    }
 
     @FXML
     private void switchToStart() throws IOException { // calls a scene switch from the app class
