@@ -35,6 +35,6 @@ public class PortTile implements Tile{
         return false;
     }
 
-    @Override
-    public boolean isPort() { return true; }
+//    @Override
+//    public boolean isPort() { return true; }
 }

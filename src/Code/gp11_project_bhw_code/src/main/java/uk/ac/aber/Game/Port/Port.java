@@ -15,18 +15,31 @@ public class Port {
 
 
 
+    //use an array to store values of treasure and crew cards being traded
+    //use the sum of the array to get total values, and check if totals are equal , if so trade
+    //when trading use two arrays to store indexs of the items that are being traded,
+    //One array has the indexes from the player's hand the other has the indexes of items being traded from the port
+    //loop over this array and add the items the player is trading to port
+    //loop over the ports array and add items from port into player's hand
 
-    //Port trades treasure in exchange for cards
-    public void tradeTreasureForCards(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure){
-        //if the treasure hand of the player has treasure that adds up to a picked crew card value then initiate trade
-        //player crew total value compared against picked treasure total value
-        //else return error message
 
 
-        if (totalCrewCards == totalTreasure){
+
+    public void tradeCardsForTreasure(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure, int[] tradeCards){
+
+        if (totalCrewCards == totalTreasure){ // if the total of selected items are equal then trade is valid
             //trade crewcards for treasure
-            for (int i = 0; i < tradeTreasure.length; i++) {
-                player.treasureHand.giveTreasureFromIndex(treasureHand,i);
+
+
+            //
+            for (int itemIndex : tradeTreasure) {
+                //Takes the treasure from the players storage and deposits it at port
+                player.treasureHand.giveTreasureFromIndex(treasureHand, itemIndex);
+            }
+
+
+            for (int cardIndex: tradeCards) {
+                crewHand.giveCardFromIndex(player.crewHand, cardIndex);
             }
         }
         else{
@@ -35,7 +48,71 @@ public class Port {
     }
 
 
+
+    public void tradeTreasureForCards(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure, int[] tradeCards){
+
+        if (totalCrewCards == totalTreasure){ // if the total of selected items are equal then trade is valid
+            //trade crewcards for treasure
+
+
+            //
+            for (int cardIndex : tradeCards) {
+                //Takes the treasure from the players storage and deposits it at port
+                player.crewHand.giveCardFromIndex(crewHand, cardIndex);
+            }
+
+
+            for (int itemIndex : tradeTreasure) {
+                treasureHand.giveTreasureFromIndex(player.treasureHand, itemIndex);
+            }
+        }
+        else{
+            System.out.println("Trade is invalid please make sure the value of treasure and cards are equal");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+ /*
+
+
     //Port trades Cards in exchange for treasure
+    public void tradeTreasureForCards(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure){
+        //if the treasure hand of the player has treasure that adds up to a picked crew card value then initiate trade
+        //player crew total value compared against picked treasure total value
+        //else return error message
+
+        //int [] is the number of items selected for trade, e.g, 2 pearls are selected and traded for crew cards that total a value of 6
+
+
+        if (totalCrewCards == totalTreasure){ // if the total of selected items are equal then trade is valid
+            //trade crewcards for treasure
+
+
+            //
+            for (int i = 0; i < tradeTreasure.length; i++) {
+                //Takes the treasure from the players storage and deposits it at port
+                player.treasureHand.giveTreasureFromIndex(treasureHand,tradeTreasure[i]);
+                //get the crewCards
+                crewHand.
+            }
+        }
+        else{
+            System.out.println("Trade is invalid please make sure the value of treasure and cards are equal");
+        }
+    }
+
+
+
+    //Port trades treasure in exchange for cards
     public void tradeCardsForTreasure(Player player,int totalCrewCards, int totalTreasure, int[] tradeCards){
         //if the crew hand of the player has crew cards that add up to a picked treasure value then initiate trade
 
@@ -51,7 +128,7 @@ public class Port {
             System.out.println("Trade is invalid please make sure the value of treasure and cards are equal");
         }
     }
-
+*/
 
     public CrewHand getPortCrewHand() {
         return crewHand;
@@ -61,7 +138,10 @@ public class Port {
         return portName;
     }
 
-    public TreasureHand getTreasureHand() {
+    public TreasureHand getPortTreasureHand() {
         return treasureHand;
     }
+
+
+
 }
