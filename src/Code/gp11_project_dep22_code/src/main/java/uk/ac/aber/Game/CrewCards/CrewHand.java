@@ -35,6 +35,8 @@ public class CrewHand {
         return successful;
     }
 
+
+
 //    public void printDebug() {
 //        System.out.println("---------------------------------------");
 //        for (int i = 0; i < this.cards.length; i++) {
@@ -88,6 +90,36 @@ public class CrewHand {
         }
         return val;
     }
+
+
+
+
+    public CrewCard highestValue(){
+        CrewCard highestValCard = null;
+        for (CrewCard tempCard : this.cards) {
+            if (highestValCard == null) {
+                highestValCard = tempCard;
+            } else if (tempCard.getValue() > highestValCard.getValue()) {
+                highestValCard = tempCard;
+            }
+        }
+        return highestValCard;
+    }
+    public CrewCard lowestValue(){
+        CrewCard lowestValCard = null;
+        for (CrewCard tempCard : this.cards) {
+            if (lowestValCard == null) {
+                lowestValCard = tempCard;
+            } else if (tempCard.getValue() < lowestValCard.getValue()) {
+                lowestValCard = tempCard;
+            }
+        }
+        return lowestValCard;
+    }
+
+
+
+
 
 
     public ArrayList<CrewCard> getCards() {

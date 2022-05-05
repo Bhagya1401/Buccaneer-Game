@@ -29,10 +29,11 @@ public class Player {
     public TreasureHand treasureHand = new TreasureHand();
 
     public Player(){
-        ;
+        this.treasureHand.isPlayerHandPlayer();
     }
 
     public Player(String playerName,int playerNumber){
+
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         direction = DIRECTIONS[0];
@@ -45,6 +46,7 @@ public class Player {
         directionalMovement.put("SW", new int[]{-1, 1});
         directionalMovement.put("W", new int[]{-1, 0});
         directionalMovement.put("NW", new int[]{-1, -1});
+
     }
 
     public int getMoves(){
