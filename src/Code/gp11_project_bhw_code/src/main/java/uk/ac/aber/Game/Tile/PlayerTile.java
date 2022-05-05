@@ -12,6 +12,8 @@ public class PlayerTile implements Tile {
         playerNum = num;
     }
 
+    public String getTileName() { return "player"; };
+
     public int getPlayerNumber(){
         return playerNum;
     }

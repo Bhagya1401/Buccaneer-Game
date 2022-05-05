@@ -1,6 +1,8 @@
 package uk.ac.aber.Game.ChanceCards;
 
 import uk.ac.aber.Game.Game;
+import uk.ac.aber.Game.Islands.FlatIsland;
+import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Port.Port;
 
@@ -209,6 +211,34 @@ public class ChanceCard {
 
         }
 
+        //card 20
+        public void tradeWithTIsland(Game game){
+
+            ArrayList<Player> choice = new ArrayList<>();
+
+            for (int i = 1; i < 5; i++) {
+
+                //As long as the player is not the current player
+                if(game.getCurrentPlayer().getPlayerNumber() != i){
+
+                    //check if that player is around an Island
+                    Object island = game.checkIfIslandAround(game.getPlayer(i).getRow(),game.getPlayer(i).getCol());
+
+                    //If that island is treasure island add it to a choice arraylist
+                    if(island instanceof TreasureIsland){
+                        choice.add(game.getPlayer(i));
+                    }
+
+
+                }
+
+                //Give the current player the choice to pick a player from the list that they want to trade with
+                //popup display array list and check box, using checkbox value return player num
+                //trade with player
+                
+
+            }
+        }
 
 
 

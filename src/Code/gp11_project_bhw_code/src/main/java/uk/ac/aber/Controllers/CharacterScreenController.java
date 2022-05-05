@@ -45,10 +45,10 @@ public class CharacterScreenController {
         playerTwoName.setText("PlayerTwo");
         playerThreeName.setText("PlayerThree");
         playerFourName.setText("PlayerFour");
-
+        String[] basePlayerNames = {"PlayerOne", "PlayerTwo", "PlayerThree", "PlayerFour"};
         players = new Player[4];
         for (int i=0;i<players.length;i++){
-            players[i] = new Player();
+            players[i] = new Player(basePlayerNames[i],i+1);
             reRollColour(i);
             updateImage(i);
             players[i].setCoordinate(coords[i][0],coords[i][1]);
@@ -70,10 +70,6 @@ public class CharacterScreenController {
             players[1].setPlayerName(playerTwoName.getText());
             players[2].setPlayerName(playerThreeName.getText());
             players[3].setPlayerName(playerFourName.getText());
-
-            for (int i=1;i<5;i++){
-                players[i-1].setPlayerNumber(i);
-            }
 
             FXMLLoader loader = App.getGameLoader();
             GameScreenController ctrl = loader.getController();
@@ -108,12 +104,6 @@ public class CharacterScreenController {
     }
 
     private void reRollColour(int num){
-//        System.out.println("Rerolling colour");
-//        System.out.println("Colours unused before:");
-//        System.out.println(Arrays.toString(shipColoursUnreserved));
-//        System.out.println("Colours used before:");
-//        System.out.println(Arrays.toString(shipColoursReserved));
-
 
         boolean change = false; // has not changed yet
         int randomNum;

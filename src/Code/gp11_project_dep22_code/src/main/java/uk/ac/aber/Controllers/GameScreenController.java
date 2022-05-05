@@ -15,9 +15,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
+import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
+import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
 public class GameScreenController {
 
@@ -135,9 +138,23 @@ public class GameScreenController {
     @FXML
     private void playerMove() throws IOException {
 
-        //ChanceCard nw = bucGame.getChancePack().getChanceCard();
-        //System.out.println(nw.getDescription());
-        //nw.useChanceCard(bucGame);
+        CrewCard c = new CrewCard(2,"test");
+        CrewCard a = new CrewCard(1,"test2");
+        CrewCard b = new CrewCard(1,"test3");
+        CrewCard n = new CrewCard(4,"test4");
+        Treasure g = new Treasure("Ttest",2);
+
+        bucGame.getCurrentPlayer().crewHand.addCard(a);
+        bucGame.getCurrentPlayer().crewHand.addCard(b);
+        bucGame.getCurrentPlayer().crewHand.addCard(c);
+        bucGame.getCurrentPlayer().crewHand.addCard(n);
+ //       bucGame.getCurrentPlayer().treasureHand.addTreasure(g);
+
+
+
+        ChanceCard nw = bucGame.getChancePack().getChanceCard();
+        System.out.println(nw.getDescription());
+        nw.useChanceCard(bucGame);
 
 
 //        boolean moved = bucGame.move(1);

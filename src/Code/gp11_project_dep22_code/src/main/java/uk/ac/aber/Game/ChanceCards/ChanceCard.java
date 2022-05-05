@@ -1,8 +1,12 @@
 package uk.ac.aber.Game.ChanceCards;
 
 import uk.ac.aber.Game.Game;
+import uk.ac.aber.Game.Islands.PirateIsland;
+import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Port.Port;
+import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
 import java.util.ArrayList;
 
@@ -26,7 +30,7 @@ public class ChanceCard {
     public void useChanceCard(Game game){
         switch (num){
             case 0:
-                ChanceActions.takeTwoPirateIsland(game);
+                ChanceActions.takeTreasureOf4And2CrewCards(game);
                 break;
             case 2:
                 break;
@@ -56,7 +60,7 @@ public class ChanceCard {
             case 14:
                 break;
             case 15:
-
+                ChanceActions.takeTwoPirateIsland(game);
                 break;
             case 16:
                 break;
@@ -69,10 +73,12 @@ public class ChanceCard {
             case 20:
                 break;
             case 21:
+                ChanceActions.yellowFever(game);
                 break;
             case 22:
                 break;
             case 23:
+                ChanceActions.takeTwoPirateIsland(game);
                 break;
         }
     }
@@ -201,6 +207,8 @@ public class ChanceCard {
             // return back to pirate island
         }
 
+
+
         // card 15 & card 23
         public static void takeTwoPirateIsland(Game game) {
             Player currPlayer = game.getCurrentPlayer();
@@ -208,14 +216,64 @@ public class ChanceCard {
             game.getPirateIsland().transferCrewCard(currPlayer.crewHand);
             // take two, give to player
         }
+        //card 18
+        public static void takeTreasureOf4And2CrewCards(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            TreasureIsland treasureIsland = game.getTreasureIsland();
+
+            if (currPlayer.treasureHand.getTotalTreasure() < 2){
+              //  if (currPlayer.treasureHand.getTotalTreasure() == 1){
+                    treasureIsland.getIslandTreasureHand();
+
+
+
+
+
+
+                    Treasure tempTreasure;
+                    int temp = 4;
+                    int i = 0;
+
+                    while (temp != 0 ){
+                        tempTreasure = treasureIsland.getIslandTreasureHand().getTreasures().get(i);
+                        if (tempTreasure != null) {
+                            temp -= tempTreasure.getValue();
+
+                            if (currPlayer.treasureHand.getTotalTreasure() == 2){return;}
+                            if (temp < 0 || temp == 1 ) {
+                                temp += tempTreasure.getValue();
+                            } else {
+                                currPlayer.treasureHand.addTreasure(tempTreasure);
+                                treasureIsland.getIslandTreasureHand().getTreasures().remove(tempTreasure);
+                            }
+                        }
+                        i++;
+                    }
+
+                    System.out.println("done");
+                }
+            }
+        }
+
+
+
 
         // card 19
         public void exchangeCrewCards() {
 
         }
 
+        //card 21
+        public static void yellowFever(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland PI = game.getPirateIsland();
 
+            while (currPlayer.crewHand.getTotalCards()>7 ){
+                PI.putCrewCard(currPlayer.crewHand.lowestValue());
+                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValue());
+            }
 
+        }
 
 
     }

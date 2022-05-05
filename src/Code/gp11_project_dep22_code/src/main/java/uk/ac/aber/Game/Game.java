@@ -190,7 +190,7 @@ for (int i = 0;i < treasure.length;i++){
         //String filePath = App.class.getResource("/img");
 
         // Wtf
-        String filePath = "C:\\UniDocs\\year_2\\CS22120\\gp11\\src\\Code\\gp11_project_src_code\\src\\main\\resources\\img";
+        String filePath = "Users\\MacBook-Pro\\Desktop\\gp11\\gp11\\src\\Code\\gp11_project_dep22_code\\src\\main\\resources\\img";
 
         //String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
         //Image tempImage = new Image(filePath + "/" + "arrow.png");
@@ -432,6 +432,14 @@ for (int i = 0;i < treasure.length;i++){
 
     public PirateIsland getPirateIsland(){
         return pirateIsland;
+    }
+
+    public FlatIsland getFlatIsland() {
+        return flatIsland;
+    }
+
+    public TreasureIsland getTreasureIsland() {
+        return treasureIsland;
     }
 
     public ChancePack getChancePack() {

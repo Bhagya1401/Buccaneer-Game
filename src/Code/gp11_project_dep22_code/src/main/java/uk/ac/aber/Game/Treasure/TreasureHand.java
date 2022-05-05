@@ -75,6 +75,10 @@ public class TreasureHand {
     public ArrayList<Treasure> getTreasures(){
         return treasures;
     }
+
+     public void isPlayerHandPlayer() {
+         playerHand = true;
+    }
 }
 
 
