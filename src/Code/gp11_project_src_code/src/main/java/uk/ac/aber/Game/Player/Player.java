@@ -281,12 +281,15 @@ public class Player {
             while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
                 tempCol += movCol; tempRow += movRow;
                 System.out.println("col check : " + tempCol);
+                System.out.println("col des : " + desCol);
                 System.out.println("row check : " + tempRow);
+                System.out.println("rpw des : " + desRow);
                 if (limitedByMovement) {
                     tempMoveCounter--;
                 }
-                if (tempRow == desCol && tempRow == desRow){
+                if (tempCol == desCol && tempRow == desRow){
                     canMove = true;
+                    break;
                 }
             }
         }

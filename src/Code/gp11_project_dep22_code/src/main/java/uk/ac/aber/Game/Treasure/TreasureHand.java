@@ -76,7 +76,42 @@ public class TreasureHand {
         return treasures;
     }
 
-     public void isPlayerHandPlayer() {
+    public void moveFromHandToHand(Treasure obj, TreasureHand hand) {
+        Treasure l = obj;
+        treasures.remove(obj);
+        hand.addTreasure(l);
+    }
+    public ArrayList<Treasure> lookupTreasureByValue(int tValue){
+        ArrayList<Treasure> treasuresLookedUp = new ArrayList<>();
+
+        for (Treasure t: treasures){
+            if (t.getValue() == tValue){
+                treasuresLookedUp.add(t);
+            }
+        }
+        return treasuresLookedUp;
+    }
+
+    public ArrayList<Treasure> lookupTreasureByName(String tName){
+        ArrayList<Treasure> treasuresLookedUp = new ArrayList<Treasure>();
+
+        for (Treasure t: treasures){
+            if (t.getName().equals(tName)){
+                treasuresLookedUp.add(t);
+            }
+        }
+        return treasuresLookedUp;
+    }
+    public int getTreasureIndexByName(String name){
+        for (int i=0; i<treasures.size(); i++){
+            if (treasures.get(i).getName().equals(name)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void isPlayerHandPlayer() {
          playerHand = true;
     }
 }

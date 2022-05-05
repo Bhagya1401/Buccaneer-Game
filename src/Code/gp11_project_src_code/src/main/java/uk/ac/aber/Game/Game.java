@@ -200,7 +200,12 @@ public class Game {
     }
 
     public Player getPlayer(int playerNum){ // player one is at index 0
-        return players.get(playerNum-1);
+        for (Player p : players){
+            if (p.getPlayerNumber() == playerNum){
+                return p;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     private void initTreasure(){
@@ -284,6 +289,8 @@ public class Game {
 
     public boolean handlePlayerMovement(int toCol, int toRow){
         System.out.println("HANDLEPLAYERMOVEMENTCALLED");
+        System.out.println("DESTINATION COL: " + toCol);
+        System.out.println("DESTINATION ROW: " + toRow);
         Tile tempTile;
         Player currPlayer = getCurrentPlayer();
         if (toCol <20 & toCol >= 0 & toRow <20 & toRow >= 0){ //are the co-ords in the board

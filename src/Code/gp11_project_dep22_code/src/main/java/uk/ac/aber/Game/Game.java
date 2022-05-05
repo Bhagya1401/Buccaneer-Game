@@ -65,7 +65,7 @@ public class Game {
         initTreasure();
 
         cardDistribution();
-       // distributeTreasure();
+        distributeTreasure();
 
         loadImages();
         populateTiles();

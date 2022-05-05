@@ -1,5 +1,10 @@
-.custom-gridPane-with-water {
+.custom--gridPane-with-water {
     -fx-background-image:url('/img/water_icon.png');
+}
+
+.custom--itemcells {
+    -fx-stroke-width: 4;
+    -fx-stroke   : red;
 }
 
 .custom-gridPane {

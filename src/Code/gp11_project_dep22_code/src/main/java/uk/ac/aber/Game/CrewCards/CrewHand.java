@@ -1,5 +1,8 @@
 package uk.ac.aber.Game.CrewCards;
 
+import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Treasure.TreasureHand;
+
 import java.util.ArrayList;
 
 public class CrewHand {
@@ -69,6 +72,17 @@ public class CrewHand {
 //        }
     }
 
+    public int getTotalValueOfCards(){
+        int val = 0;
+        for (CrewCard card: this.cards) {
+
+                val = val + card.getValue();
+
+        }
+        return val;
+    }
+
+
     public int getBlackValue() {
         int val = 0;
         for (CrewCard card: this.cards) {
@@ -123,7 +137,11 @@ public class CrewHand {
         return lowestValCard;
     }
 
-
+    public void moveFromHandToHand(CrewCard obj, CrewHand hand) {
+        CrewCard l = obj;
+        cards.remove(obj);
+        hand.addCard(l);
+    }
 
 
 
