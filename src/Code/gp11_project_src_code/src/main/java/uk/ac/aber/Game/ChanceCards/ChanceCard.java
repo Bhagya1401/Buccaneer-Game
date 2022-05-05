@@ -3,8 +3,11 @@ package uk.ac.aber.Game.ChanceCards;
 import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Port.Port;
+import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ChanceCard {
     private int num;
@@ -78,6 +81,59 @@ public class ChanceCard {
     private static class ChanceActions {
 
         ChanceActions(){;}
+
+
+        private void giveTreasureClosestToValue(int valueDesired, TreasureHand toHnd, TreasureHand fromHnd){
+            int treasureSlotsAvailable = toHnd.getTreasures().size();
+            Treasure[] doubleTreasure = new Treasure[2];
+            Treasure singleTreasure = null;
+            int doubleTreasureValue = 0;
+            ArrayList<Treasure> doubleTreasures = new ArrayList<>();
+            // check if there are any treasures available to collecct
+            if (treasureSlotsAvailable == 0){
+                return;
+            }
+            ArrayList<Treasure> lookedUpTreasures = new ArrayList<>();
+            for (int i=valueDesired; i>= 2; i--){
+                lookedUpTreasures = fromHnd.lookupTreasureByValue(i);
+                if (lookedUpTreasures.size()>0){
+                    singleTreasure = lookedUpTreasures.get(0);
+                }
+            }
+            if (singleTreasure != null){
+                if (singleTreasure.getValue()<valueDesired && treasureSlotsAvailable == 2){
+                    for (int i = valueDesired; i >=2; i--){
+                        Treasure iTreasure = null;
+                        Treasure jTreasure = null;
+                        if (fromHnd.lookupTreasureByValue(i).size()>0){
+                            iTreasure = fromHnd.lookupTreasureByValue(i).get(0);
+                            for (int j=i; j>=2; j--){
+                                if (fromHnd.lookupTreasureByValue(i).size()>0){
+                                    if (fromHnd.lookupTreasureByValue(i).size()>1 && i==j){
+                                        jTreasure = fromHnd.lookupTreasureByValue(i).get(1);
+                                    }
+                                    else{
+                                        jTreasure = fromHnd.lookupTreasureByValue(j).get(0);
+                                    }
+                                    int sum = iTreasure.getValue() + jTreasure.getValue();
+                                    if (doubleTreasureValue < sum && sum <= valueDesired){
+                                        doubleTreasureValue = iTreasure.getValue() + jTreasure.getValue();
+                                        doubleTreasure[0] = iTreasure; doubleTreasure[1] = jTreasure;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (singleTreasure.getValue() > doubleTreasureValue){
+                        toHnd.giveTreasureFromIndex(fromHnd, toHnd.getTreasureIndexByName(singleTreasure.getName()));
+                    }
+                    else{
+                        toHnd.giveTreasureFromIndex(fromHnd, toHnd.getTreasureIndexByName(doubleTreasure[0].getName()));
+                        toHnd.giveTreasureFromIndex(fromHnd, toHnd.getTreasureIndexByName(doubleTreasure[1].getName()));
+                    }
+                }
+            }
+        }
 
         private static double calcDistanceToPoint(int col1, int row1, int col2, int row2) {
             double colLength = Math.abs(col1-col2);

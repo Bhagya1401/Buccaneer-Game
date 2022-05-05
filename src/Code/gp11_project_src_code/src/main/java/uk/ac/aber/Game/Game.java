@@ -112,8 +112,6 @@ public class Game {
 
     }
 
-
-
     public void cardDistribution() {
         for (Player ply: this.players) {
             for (int i = 0; i < 5; i++) {

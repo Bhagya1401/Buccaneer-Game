@@ -57,9 +57,10 @@ public class App extends Application {
         System.out.println("Listing all the images and stuff");
         //String filePath = App.class.getResource("/img");
 
-        //String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
-        String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
-        //Image tempImage = new Image(filePath + "/" + "arrow.png");
+        String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
+        filePath = filePath.substring(6,filePath.length()-1);
+        //String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
+        //Image tempImage = new Image(filePath + "arrow.png");
         System.out.println("Filepath!!! \n" + filePath);
         File folder = new File(filePath);
         String[] imageNames = folder.list();
