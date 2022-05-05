@@ -43,9 +43,17 @@ Trading system for treasure
 PortTile class
 
 
+popups needed 
+====================
+
+choose player to give items, crew cards or treasure
+take treasure or crew , displaying values 
+
+1 
+
 
 island need to fixed
-movement needs to 
+movement needs to fixed
 
 
 
