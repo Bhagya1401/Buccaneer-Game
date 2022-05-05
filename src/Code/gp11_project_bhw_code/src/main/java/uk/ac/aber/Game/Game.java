@@ -1,8 +1,6 @@
 package uk.ac.aber.Game;
 
-import uk.ac.aber.App.App;
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
-import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.CrewCards.CrewPack;
 import uk.ac.aber.Game.Islands.FlatIsland;
 import uk.ac.aber.Game.Islands.PirateIsland;
@@ -16,7 +14,6 @@ import uk.ac.aber.Game.Treasure.Treasure;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 
@@ -33,6 +30,7 @@ public class Game {
     public HashMap<String,Port> ports;
     private HashMap<String,Player> portsToPlayers;
     public CrewPack crewPack;
+    private boolean moved;
 
 
     public Game(Player[] players){
@@ -47,6 +45,7 @@ public class Game {
         this.portsToPlayers = new HashMap<>();
         this.ports = new HashMap<>();
         this.crewPack = new CrewPack();
+        this.moved = false;
     }
 
     public List<Port> getPorts(){
@@ -55,25 +54,21 @@ public class Game {
 
     public void startGame(){
         turn = 1;
-//        if (players != null){
-//            moves = getCurrentPlayer().getMoves();
-//        }
         initialisePorts();
         initTreasure();
-
         cardDistribution();
         distributeTreasure();
-
         loadImages();
         populateTiles();
+        if (players != null){
+            moves = getCurrentPlayer().getMoves();
+        }
 
+        getCurrentPlayer().setDirection("N");
     }
     public void distributeTreasure() {
         //trade port amsterdam and venice
-
-
         int rndNum1;
-
         int amsterdamCCVal = 0;
         int veniceCCVal = 0;
         amsterdamCCVal = this.ports.get("Amsterdam").getPortCrewHand().getMoveAbility();
@@ -112,15 +107,67 @@ public class Game {
         }
 
 
-//for (int i = 0;i < treasure.length;i++){
-//    if (treasure[i] != null){
-//        treasureIsland.getIslandTreasureHand().addTreasure(treasure[i]);
-//    }
-//}
+        for (int i = 0;i < treasure.length;i++){
+            if (treasure[i] != null){
+                treasureIsland.getIslandTreasureHand().addTreasure(treasure[i]);
+            }
+        }
 
-//to be implemented when the islands are ready for handling treasure.
+        //to be implemented when the islands are ready for handling treasure.
 
     }
+
+
+
+
+
+
+
+
+
+    public int[] getClosestFreePosition(int x, int y) {
+        int[][] possible = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        int[] newFree = new int[] {};
+        for (int[] pos : possible) {
+            int[] newPos = {(x + pos[0]), (y + pos[1])};
+            if (this.gameBoard[newPos[0]][newPos[1]] instanceof OceanTile) {
+                newFree = newPos;
+            }
+        }
+        return newFree;
+    }
+
+    public Object checkIfIslandAround(int x, int y) {
+        int[][] possible = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        Object island = null;
+        for (int[] pos : possible) {
+            int[] newPos = {(x + pos[0]), (y + pos[1])};
+            if (newPos[0] > 1 && newPos[0] < 20 && newPos[1] > 1 && newPos[1] < 20) {
+                Tile gameTile = this.gameBoard[newPos[0]][newPos[1]];
+
+
+                if (gameTile instanceof IslandTile) {
+                    String islandName = gameTile.getTileName();
+                    if (islandName == "FlatIsland") {
+                        island = this.flatIsland;
+                    } else if (islandName == "PirateIsland") {
+                        island = this.pirateIsland;
+                    } else {
+                        island = this.treasureIsland;
+                    }
+                }
+            }
+        }
+
+        return island;
+    }
+
+
+
+
+
+
+
 
 
 
@@ -130,15 +177,18 @@ public class Game {
                 this.crewPack.addCardToPlayer(ply);
             }
         }
-
-
-
         this.crewPack.addCardToHand(this.ports.get("Venice").getPortCrewHand());
         this.crewPack.addCardToHand(this.ports.get("Venice").getPortCrewHand());
 
         this.crewPack.addCardToHand(this.ports.get("Amsterdam").getPortCrewHand());
         this.crewPack.addCardToHand(this.ports.get("Amsterdam").getPortCrewHand());
     }
+
+
+
+
+
+
 
 
     private void initialisePorts(){
@@ -167,7 +217,7 @@ public class Game {
 
     public void setTurn(int newTurn){
         turn = newTurn;
-        moves = 4;
+        moves = getCurrentPlayer().getMoves();
     }
 
     private void loadImages(){
@@ -175,7 +225,7 @@ public class Game {
         //String filePath = App.class.getResource("/img");
 
         // Wtf
-        String filePath = "C:\\Users\\bhagy\\Documents\\Bhagya\\University\\CS22120\\gp11\\src\\Code\\gp11_project_bhw_code\\src\\main\\resources\\img";
+        String filePath = "F:\\gp11_project_src_code\\src\\main\\resources\\img";
 
         //String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
         //Image tempImage = new Image(filePath + "/" + "arrow.png");
@@ -199,6 +249,7 @@ public class Game {
 
     public void nextTurn(){ // increment with rollover
         turn++;
+        moved = false;
     }
 
     public int getMovesLeft(){
@@ -207,7 +258,12 @@ public class Game {
 
     public Player getCurrentPlayer(){
         String[] turnOrderByPortName = {"London","Genoa","Marseilles","Cadiz"};
-        String currentTurnByPort = turnOrderByPortName[(turn%4)-1];
+
+        int calcTurn = (turn-1)%4;
+        // rotate 1 will return 0, rotate 4 will return 0,
+        // rotate 12 will return 3
+
+        String currentTurnByPort = turnOrderByPortName[calcTurn];
         System.out.println(ports);
         System.out.println("Turn by port: " + currentTurnByPort);
         int playerNumber = ((HomePort) ports.get(currentTurnByPort)).getPlayerNumber();
@@ -236,34 +292,24 @@ public class Game {
         }
     }
 
-
-    // im thinking, add coordinates to each tile type,
-    // when loading them in, the program could just fill with ocean like it does now,
-    // then instead of just placing the tiles in the grid, give the tiles a location.
-    // this could lead to a solution on the larger islands
-    // may need a "isLarge" on the tile object? not sure.
-    // actually, could do with making an "island" class, just like a player object.
-    // "island" interface, with the 3 islands deriving from that.
-    // then a port interface? or maybe that can just be a class
-    public void populateTiles(){ // purely used for testing purposes.
+    public void populateTiles(){
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
                 gameBoard[i][j] = makeOceanTile();
             }
         }
-
         // add port island tiles
-        PortTile venice = new PortTile("Port of Venice");
+        PortTile venice = new PortTile(" Venice");
         venice.setIconName("venice");
-        PortTile london = new PortTile("Port of London");
+        PortTile london = new PortTile("London");
         london.setIconName("london_icon");
-        PortTile cadiz = new PortTile("Port of Cadiz");
+        PortTile cadiz = new PortTile("Cadiz");
         cadiz.setIconName("cadiz_icon");
-        PortTile amsterdam = new PortTile("Port of Amsterdam");
+        PortTile amsterdam = new PortTile("Amsterdam");
         amsterdam.setIconName("amsterdam_icon");
-        PortTile marseilles = new PortTile("Port of Marseilles");
+        PortTile marseilles = new PortTile("Marseilles");
         marseilles.setIconName("marseilles_icon");
-        PortTile genoa = new PortTile("Port of Genoa");
+        PortTile genoa = new PortTile("Genoa");
         genoa.setIconName("genoa_icon");
         gameBoard[19][6] = venice;
         gameBoard[19][13] = london;
@@ -308,6 +354,42 @@ public class Game {
         }
     }
 
+    public boolean hasPlayerMoved(){
+        return moved;
+    }
+
+    public boolean handlePlayerMovement(int toCol, int toRow){
+        Tile tempTile;
+        Player currPlayer = getCurrentPlayer();
+        if (toCol <20 & toCol >= 0 & toRow <20 & toRow >= 0){ //are the co-ords in the board
+            if (currPlayer.pathUpToTileFree(toCol,toRow, gameBoard)){ // can the player move up to that space
+                tempTile = gameBoard[toCol][toRow];
+                if (tempTile instanceof PlayerTile){
+                    int tempPlayerNum = ((PlayerTile) tempTile).getPlayerNumber();
+                    if (getCurrentPlayer().getPlayerNumber() == tempPlayerNum){
+                        System.out.println("Can't move to same square");
+                    }
+                    else{
+                        System.out.println("You tried to attack a player you scallywag!");
+//                        FXMLLoader loader = App.getAttackLoader();
+//                        AttackScreenController ctrl = loader.getController();
+//                        ctrl.beginAttack(getCurrentPlayer(), getPlayer(tempPlayerNum))
+//                        App.setAttackScreen();
+                    }
+                }
+                else if ( tempTile instanceof PortTile){
+                    System.out.println("Trying to move to port tile");
+                }
+                else{
+                    currPlayer.moveTo(toCol,toRow,gameBoard);
+                    moved = true;
+                }
+            }
+
+        }
+        return moved;
+    }
+
     private void interactWithIsland(String nameOfIsland){
         if (nameOfIsland.equalsIgnoreCase("TreasureIsland")){
             treasureIslandHandler();
@@ -324,6 +406,7 @@ public class Game {
         ChanceCard card = treasureIsland.getChanceCard();
 
     }
+
     private void flatIslandHandler(){
 
     }
@@ -337,72 +420,8 @@ public class Game {
         return oTile;
     }
 
-    private boolean checkImmediateTile(String d, int[] coords){ //also not a fan of how this has been done
-        // switch statement here
-        Tile tile = null;
-        switch (d){
-            case "W":
-                if (coords[0]-1 >= 0){
-                    tile = gameBoard[coords[0]-1][coords[1]];
-                }
-                break;
-            case "S":
-                if (coords[1]+1 <= 19){
-                    tile = gameBoard[coords[0]][coords[1]+1];
-                }
-                break;
-            case "E":
-                if (coords[0]-1 >= 0){
-                    tile = gameBoard[coords[0]+1][coords[1]];
-                }
-                break;
-            case "N":
-                if (coords[0]-1 >= 0){
-                    tile = gameBoard[coords[0]][coords[1]-1];
-                }
-                break;
-        }
-        if (tile != null){
-            return (tile.isTraversable() & !tile.isIsland());
-        }
-        return false;
-    }
-
-    public void moveToTest(){
-        int randomCol, randomRow;
-        boolean occupied = true;
-        while (!occupied){
-            randomCol = ThreadLocalRandom.current().nextInt(0,20);
-            randomRow = ThreadLocalRandom.current().nextInt(0,20);
-            occupied = !getCurrentPlayer().moveTo(randomRow,randomCol,gameBoard);
-        }
-    }
-
-    public boolean move(int spaces){
-        System.out.println("MOVING NEW METHOD IN GAME");
-        Player currPlayer = getCurrentPlayer();
-        int tempRow = currPlayer.getRow();
-        int tempCol = currPlayer.getCol();
-        boolean moved;
-
-        if (moves>=spaces){
-            moved = currPlayer.moveForward(spaces,gameBoard);
-            if (moved){
-                gameBoard[currPlayer.getCol()][currPlayer.getRow()] = playerTiles[turn-1]; // turn - 1 because of indexing
-                gameBoard[tempCol][tempRow] = makeOceanTile();
-                moves -= spaces;
-            }
-        }
-        else{
-            moved = false;
-        }
-
-        return moved;
-    }
-
-
-    public void turn(String turnDir){
-        getCurrentPlayer().turn(turnDir);
+    public void rotate(String turnDir){
+        getCurrentPlayer().rotate(turnDir);
     }
 
     private void checkVicinityOfPlayer(){

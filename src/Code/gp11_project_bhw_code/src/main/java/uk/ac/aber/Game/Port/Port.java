@@ -7,11 +7,6 @@ import uk.ac.aber.Game.Treasure.TreasureHand;
 public class Port {
     private String portName;
 
-
-    private CrewHand crewHand = new CrewHand();
-    private TreasureHand treasureHand = new TreasureHand();
-
-
     private int col;
     private int row;
 
@@ -21,6 +16,9 @@ public class Port {
         this.portName = name;
     }
 
+
+    private CrewHand crewHand = new CrewHand();
+    private TreasureHand treasureHand = new TreasureHand();
 
 
 
@@ -33,7 +31,7 @@ public class Port {
 
 
 
-    //Port trades Cards in exchange for treasure
+
     public void tradeCardsForTreasure(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure, int[] tradeCards){
 
         if (totalCrewCards == totalTreasure){ // if the total of selected items are equal then trade is valid
@@ -57,7 +55,7 @@ public class Port {
     }
 
 
-    //Port trades Treasure in exchange for cards
+
     public void tradeTreasureForCards(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure, int[] tradeCards){
 
         if (totalCrewCards == totalTreasure){ // if the total of selected items are equal then trade is valid
