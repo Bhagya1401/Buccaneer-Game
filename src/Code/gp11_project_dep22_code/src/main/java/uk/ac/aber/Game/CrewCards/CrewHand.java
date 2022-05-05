@@ -23,6 +23,12 @@ public class CrewHand {
         return giveCardFromIndex(hnd, 0);
     }
 
+
+    public void insertAtBottom(CrewCard card){
+        cards.add(card);
+
+    }
+
     public boolean giveCardFromIndex(CrewHand hnd, int index) {
         CrewCard tempCard;
         boolean successful = false;

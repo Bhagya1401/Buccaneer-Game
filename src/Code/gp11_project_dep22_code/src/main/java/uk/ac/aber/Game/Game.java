@@ -65,7 +65,7 @@ public class Game {
         initTreasure();
 
         cardDistribution();
-        distributeTreasure();
+       // distributeTreasure();
 
         loadImages();
         populateTiles();
@@ -143,7 +143,7 @@ for (int i = 0;i < treasure.length;i++){
         this.crewPack.addCardToHand(this.ports.get("Amsterdam").getPortCrewHand());
 
         for (int i = 0; i < 12; i++) {
-            this.crewPack.addCardToHand(pirateIsland.getHand());
+            this.crewPack.addCardToHand(pirateIsland.getCrewCards());
         }
 
         pirateIsland.debug();
