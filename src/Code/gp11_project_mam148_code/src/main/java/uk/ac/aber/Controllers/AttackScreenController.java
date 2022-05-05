@@ -48,39 +48,59 @@ public class AttackScreenController {
             winnerLabel.setText("The winner is");
         }
 
-        Player attack(Player playerOne, Player playerTwo){
+        Player attack(Player playerOne, Player playerTwo) {
             Player winner = new Player();
             Player loser = new Player();
             TreasureIsland treasureIsland = new TreasureIsland();
             int combatValueOne = playerOne.crewHand.getCombatValue();
             int combatValueTwo = playerTwo.crewHand.getCombatValue();
-            if(combatValueOne > combatValueTwo){
+            if (combatValueOne > combatValueTwo) {
                 winner = playerOne;
                 loser = playerTwo;
-            } else if (combatValueOne < combatValueTwo){
+            } else if (combatValueOne < combatValueTwo) {
                 winner = playerTwo;
                 loser = playerOne;
             }
-            if(loser.treasureHand.getTotalTreasure() != 0){
+            if (loser.treasureHand.getTotalTreasure() != 0) {
                 winner.treasureHand.addTreasure(loser.treasureHand.getTreasures().get(0));
-                if(winner.treasureHand.getTreasures().size() > 2){
+                if (winner.treasureHand.getTreasures().size() > 2) {
                     treasureIsland.putTreasure(loser.treasureHand.getTreasures().get(0));
                 }
-            } else if(loser.treasureHand.getTotalTreasure() == 0){
-                //Loser has to give 2 the lowest value crew cards
-                if(loser.crewHand.getCards().size() >= 2){
-                    int num = 0;
-                    ArrayList<CrewCard> crewCards = new ArrayList<>();
-                    for(CrewCard crewCard : loser.crewHand.getCards()) {
-                        crewCards.add(crewCard);
+            } else if (loser.treasureHand.getTotalTreasure() == 0) {
+                if (loser.crewHand.getCards().size() >= 2) {
+                    ArrayList<CrewCard> crewCardsNotSorted = new ArrayList<>();
+                    ArrayList<CrewCard> crewCardsSorted = new ArrayList<>();
+                    for (CrewCard crewCard : loser.crewHand.getCards()) {
+                        crewCardsNotSorted.add(crewCard);
                     }
-                } else if(loser.crewHand.getCards().size() == 1){
+                    int num = crewCardsNotSorted.size();
+                    while (num == 0) {
+                        for (int i = 0; i < crewCardsNotSorted.size(); i++) {
+                            if (crewCardsNotSorted.get(i).getValue() < 3) {
+                                if (crewCardsNotSorted.get(i).getValue() < 2) {
+                                    if (crewCardsNotSorted.get(i).getValue() == 1) {
+                                        crewCardsSorted.add(crewCardsNotSorted.get(i));
+                                        num--;
+                                        break;
+                                    }
+                                } else if (crewCardsNotSorted.get(i).getValue() == 2){
+                                    crewCardsSorted.add(crewCardsNotSorted.get(i));
+                                    num--;
+                                    break;
+                                }
+                            } else if (crewCardsNotSorted.get(i).getValue() == 3){
+                                crewCardsSorted.add(crewCardsNotSorted.get(i));
+                                num--;
+                                break;
+                            }
+                        }
+                    }
+                } else if (loser.crewHand.getCards().size() == 1) {
                     winner.crewHand.addCard(loser.crewHand.getCards().get(0));
                 }
             }
             return winner;
         }
-
 
 
     }
