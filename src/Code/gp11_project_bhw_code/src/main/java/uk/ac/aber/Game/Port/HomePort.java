@@ -12,6 +12,7 @@ public class HomePort extends Port{
     public HomePort(String name, int x, int y, int playerNum){
         super(name,x,y);
         this.playerNumber = playerNum;
+
     }
 
     //holds only treasure
@@ -38,7 +39,7 @@ public class HomePort extends Port{
         map.put("Diamond",0);
         map.put("Rubies",0);
         map.put("Gold bars",0);
-        map.put("Pearls",0);
+        map.put("Pearl",0);
         map.put("Barrels of rum",0);
 
         //Loops through treasure hand of port
@@ -61,6 +62,7 @@ public class HomePort extends Port{
                     //moves exactly 3 treasures from treasureHand to safeZone
                     if(getPortTreasureHand().getTreasures().get(i).getName().equals(key) && count < 4 ){
                         getPortTreasureHand().giveTreasureFromIndex(safeZone,i);
+
                     }
                     count ++;
                 }

@@ -141,12 +141,6 @@ public class Game {
     }
 
 
-
-
-
-
-
-
     private void initialisePorts(){
         ArrayList<Integer> playerNums = new ArrayList<>();
         playerNums.add(1); playerNums.add(2);
@@ -181,7 +175,7 @@ public class Game {
         //String filePath = App.class.getResource("/img");
 
         // Wtf
-        String filePath = "C:\\UniDocs\\year_2\\CS22120\\gp11\\src\\Code\\gp11_project_src_code\\src\\main\\resources\\img";
+        String filePath = "C:\\Users\\bhagy\\Documents\\Bhagya\\University\\CS22120\\gp11\\src\\Code\\gp11_project_bhw_code\\src\\main\\resources\\img";
 
         //String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
         //Image tempImage = new Image(filePath + "/" + "arrow.png");
