@@ -25,10 +25,6 @@ public class PirateIsland{
         }
     }
 
-    public CrewHand getHand() {
-        return hand;
-    }
-
     public void putCrewCard(CrewCard card) {
         this.hand.addCard(card);
     }

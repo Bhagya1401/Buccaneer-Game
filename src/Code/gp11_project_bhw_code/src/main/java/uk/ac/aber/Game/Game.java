@@ -11,6 +11,8 @@ import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
 import javafx.scene.image.Image;
 import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Popup.ConfirmBox;
+import uk.ac.aber.Popup.Popups;
 
 import java.io.File;
 import java.util.*;
@@ -46,6 +48,10 @@ public class Game {
         this.ports = new HashMap<>();
         this.crewPack = new CrewPack();
         this.moved = false;
+
+        ConfirmBox popup = new ConfirmBox();
+        popup.d
+
     }
 
     public List<Port> getPorts(){

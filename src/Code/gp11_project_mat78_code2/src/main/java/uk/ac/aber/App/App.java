@@ -34,6 +34,8 @@ public class App extends Application {
         gameScreen = new Scene(gameLoader.load());
         gameScreen.setUserData(gameLoader);
 
+
+
         /*
         startScreen = new Scene(loadFXML("start_screen"));
 
@@ -54,6 +56,7 @@ public class App extends Application {
 
     public static void setCharacterScreen(){
         stage.setScene(characterScreen);
+
     }
 
     public static void setGameScreen(){

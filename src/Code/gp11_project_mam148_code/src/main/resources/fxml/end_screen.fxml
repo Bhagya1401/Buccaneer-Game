@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="539.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.EndScreen">
+   <children>
+      <ImageView fitHeight="615.0" fitWidth="1048.0" layoutX="-15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@C:\Users\mateu\IdeaProjects\gp11_project_mam148_code\src\main\resources\img\pirate-island-1.jpg" />
+         </image>
+         <effect>
+            <InnerShadow height="123.59" radius="66.30250000000001" width="143.62" />
+         </effect>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="170.0" layoutY="-16.0" prefHeight="130.0" prefWidth="670.0" text="You are the winner!">
+         <font>
+            <Font name="Curlz MT" size="76.0" />
+         </font>
+      </Label>
+      <Label fx:id="winnerName" alignment="CENTER" layoutX="193.0" layoutY="178.0" prefHeight="300.0" prefWidth="624.0" text="Player's name!">
+         <font>
+            <Font size="96.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.9833333492279053" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>

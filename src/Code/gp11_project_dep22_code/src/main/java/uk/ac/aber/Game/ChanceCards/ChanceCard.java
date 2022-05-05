@@ -1,5 +1,6 @@
 package uk.ac.aber.Game.ChanceCards;
 
+import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Islands.PirateIsland;
 import uk.ac.aber.Game.Islands.TreasureIsland;
@@ -27,10 +28,10 @@ public class ChanceCard {
         return this.desc;
     }
 
-    public void useChanceCard(Game game){
-        switch (num){
+    public void useChanceCard(Game game) {
+        switch (num) {
             case 0:
-                ChanceActions.takeTreasureOf4And2CrewCards(game);
+                ChanceActions.exchangeCrewCards(game);
                 break;
             case 2:
                 break;
@@ -85,13 +86,17 @@ public class ChanceCard {
 
     private static class ChanceActions {
 
-        ChanceActions(){;}
+        ChanceActions() {
+            ;
+        }
 
         private static double calcDistanceToPoint(int col1, int row1, int col2, int row2) {
-            double colLength = Math.abs(col1-col2);
-            double rowLength = Math.abs(row1-row2);
+            double colLength = Math.abs(col1 - col2);
+            double rowLength = Math.abs(row1 - row2);
             return Math.hypot(rowLength, colLength);
         }
+
+
 
         // card 1
         public void blowShipAway() {
@@ -123,23 +128,23 @@ public class ChanceCard {
 
 
             String direction = currPlayer.getDirection();
-            if (direction.contains("N")){
-                portsCopy.removeIf(s -> s.getRow()>currPlayer.getRow());
+            if (direction.contains("N")) {
+                portsCopy.removeIf(s -> s.getRow() > currPlayer.getRow());
             }
-            if (direction.contains("E")){
-                portsCopy.removeIf(s -> s.getCol()<currPlayer.getCol());
+            if (direction.contains("E")) {
+                portsCopy.removeIf(s -> s.getCol() < currPlayer.getCol());
             }
-            if (direction.contains("S")){
-                portsCopy.removeIf(s -> s.getRow()<currPlayer.getRow());
+            if (direction.contains("S")) {
+                portsCopy.removeIf(s -> s.getRow() < currPlayer.getRow());
             }
-            if (direction.contains("W")){
-                portsCopy.removeIf(s -> s.getRow()>currPlayer.getRow());
+            if (direction.contains("W")) {
+                portsCopy.removeIf(s -> s.getRow() > currPlayer.getRow());
             }
             // need to check maybe in debug if this works
             double distance;
-            for (Port port: portsCopy){
-                distance = calcDistanceToPoint(port.getCol(),port.getRow(),currPlayer.getCol(),currPlayer.getRow());
-                if (distance < value){
+            for (Port port : portsCopy) {
+                distance = calcDistanceToPoint(port.getCol(), port.getRow(), currPlayer.getCol(), currPlayer.getRow());
+                if (distance < value) {
                     value = distance;
                     closest = port;
                 }
@@ -175,7 +180,7 @@ public class ChanceCard {
 //                    break;
 //            }
 
-            if (closest == null){
+            if (closest == null) {
                 throw new ArithmeticException();
             }
             System.out.println("Chance: Player blown to nearest port (" + closest.getPortName() + ").");
@@ -208,7 +213,6 @@ public class ChanceCard {
         }
 
 
-
         // card 15 & card 23
         public static void takeTwoPirateIsland(Game game) {
             Player currPlayer = game.getCurrentPlayer();
@@ -216,68 +220,82 @@ public class ChanceCard {
             game.getPirateIsland().transferCrewCard(currPlayer.crewHand);
             // take two, give to player
         }
+
         //card 18
-        public static void takeTreasureOf4And2CrewCards(Game game){
+        public static void takeTreasureOf4And2CrewCards(Game game) {
             Player currPlayer = game.getCurrentPlayer();
             TreasureIsland treasureIsland = game.getTreasureIsland();
 
-            if (currPlayer.treasureHand.getTotalTreasure() < 2){
-              //  if (currPlayer.treasureHand.getTotalTreasure() == 1){
-                    treasureIsland.getIslandTreasureHand();
+            if (currPlayer.treasureHand.getTotalTreasure() < 2) {
+                //  if (currPlayer.treasureHand.getTotalTreasure() == 1){
+                treasureIsland.getIslandTreasureHand();
 
 
+                Treasure tempTreasure;
+                int temp = 4;
+                int i = 0;
 
+                while (temp != 0) {
+                    tempTreasure = treasureIsland.getIslandTreasureHand().getTreasures().get(i);
+                    if (tempTreasure != null) {
+                        temp -= tempTreasure.getValue();
 
-
-
-                    Treasure tempTreasure;
-                    int temp = 4;
-                    int i = 0;
-
-                    while (temp != 0 ){
-                        tempTreasure = treasureIsland.getIslandTreasureHand().getTreasures().get(i);
-                        if (tempTreasure != null) {
-                            temp -= tempTreasure.getValue();
-
-                            if (currPlayer.treasureHand.getTotalTreasure() == 2){return;}
-                            if (temp < 0 || temp == 1 ) {
-                                temp += tempTreasure.getValue();
-                            } else {
-                                currPlayer.treasureHand.addTreasure(tempTreasure);
-                                treasureIsland.getIslandTreasureHand().getTreasures().remove(tempTreasure);
-                            }
+                        if (currPlayer.treasureHand.getTotalTreasure() == 2) {
+                            return;
                         }
-                        i++;
+                        if (temp < 0 || temp == 1) {
+                            temp += tempTreasure.getValue();
+                        } else {
+                            currPlayer.treasureHand.addTreasure(tempTreasure);
+                            treasureIsland.getIslandTreasureHand().getTreasures().remove(tempTreasure);
+                        }
                     }
-
-                    System.out.println("done");
+                    i++;
                 }
+
+                System.out.println("done");
             }
         }
 
 
 
+    // card 19
+    public static void exchangeCrewCards(Game game) {
+        Player currPlayer = game.getCurrentPlayer();
+        PirateIsland island = game.getPirateIsland();
+        CrewHand tempHand = currPlayer.crewHand;
+        int tempHandAmount = currPlayer.crewHand.getTotalCards();
 
-        // card 19
-        public void exchangeCrewCards() {
-
-        }
-
-        //card 21
-        public static void yellowFever(Game game){
-            Player currPlayer = game.getCurrentPlayer();
-            PirateIsland PI = game.getPirateIsland();
-
-            while (currPlayer.crewHand.getTotalCards()>7 ){
-                PI.putCrewCard(currPlayer.crewHand.lowestValue());
-                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValue());
-            }
+        for (int i = 0; i < ; i++) {
+            System.out.println(currPlayer.crewHand.getCards().get(0).getColor());
+            island.getCrewCards().insertAtBottom(currPlayer.crewHand.getCards().get(0));
+            currPlayer.crewHand.getCards().remove(0);
 
         }
+        System.out.println("---------------------------------");
+        for (int i = 0; i < tempHandAmount; i++) {
+            island.getCrewCards().giveCardFromTop(currPlayer.crewHand);
+            System.out.println(currPlayer.crewHand.getCards().get(i).getColor());
+        }
 
+    }
+
+    //card 21
+
+
+    public static void yellowFever(Game game) {
+        Player currPlayer = game.getCurrentPlayer();
+        PirateIsland PI = game.getPirateIsland();
+
+        while (currPlayer.crewHand.getTotalCards() > 7) {
+            PI.putCrewCard(currPlayer.crewHand.lowestValue());
+            currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValue());
+        }
+
+    }
+}
 
     }
 
 
 
-}

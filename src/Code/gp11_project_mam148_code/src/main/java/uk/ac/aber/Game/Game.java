@@ -49,6 +49,10 @@ public class Game {
         this.crewPack = new CrewPack();
     }
 
+    public Game() {
+
+    }
+
     public List<Port> getPorts(){
         return (List<Port>) ports.values();
     }

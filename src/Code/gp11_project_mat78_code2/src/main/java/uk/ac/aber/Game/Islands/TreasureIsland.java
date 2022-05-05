@@ -22,6 +22,10 @@ public class TreasureIsland{
         return chanceCards.getChanceCard();
     }
 
+    public TreasureHand getIslandTreasureHand(){
+        return treasures;
+    }
+
     /*public Treasure takeTreasure(int value) {
         int num = 0;
         while (value > 5) {

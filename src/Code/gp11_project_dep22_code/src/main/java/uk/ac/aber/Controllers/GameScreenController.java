@@ -142,15 +142,17 @@ public class GameScreenController {
         CrewCard a = new CrewCard(1,"test2");
         CrewCard b = new CrewCard(1,"test3");
         CrewCard n = new CrewCard(4,"test4");
-        Treasure g = new Treasure("Ttest",2);
+        Treasure g = new Treasure("Ttest",3);
 
         bucGame.getCurrentPlayer().crewHand.addCard(a);
-        bucGame.getCurrentPlayer().crewHand.addCard(b);
-        bucGame.getCurrentPlayer().crewHand.addCard(c);
-        bucGame.getCurrentPlayer().crewHand.addCard(n);
+  //      bucGame.getCurrentPlayer().crewHand.addCard(b);
+//        bucGame.getCurrentPlayer().crewHand.addCard(c);
+//        bucGame.getCurrentPlayer().crewHand.addCard(n);
  //       bucGame.getCurrentPlayer().treasureHand.addTreasure(g);
-
-
+//        bucGame.getTreasureIsland().getIslandTreasureHand().addTreasure(g);
+//        bucGame.getTreasureIsland().getIslandTreasureHand().addTreasure(g);
+//        bucGame.getTreasureIsland().getIslandTreasureHand().addTreasure(g);
+//        bucGame.getTreasureIsland().getIslandTreasureHand().addTreasure(g);
 
         ChanceCard nw = bucGame.getChancePack().getChanceCard();
         System.out.println(nw.getDescription());
