@@ -62,7 +62,7 @@ public class GameScreenController {
 
     private void updateVisuals(){
         playerNameLabel.setText(bucGame.getCurrentPlayer().getPlayerName());
-        displayCurrentPlayerIcon.setImage(bucGame.images.get(bucGame.getCurrentPlayer().getIconName()));
+        displayCurrentPlayerIcon.setImage(App.images.get(bucGame.getCurrentPlayer().getIconName()));
         updateBoardVisuals();
         updateDirectionArrow();
     }
@@ -99,7 +99,7 @@ public class GameScreenController {
                     updatePlayerDirection(bucGame.getPlayer(((PlayerTile) currTile).getPlayerNumber()));
                 }
                 else{
-                    Image img = bucGame.images.get(bucGame.gameBoard[i][j].getIconName());
+                    Image img = App.images.get(bucGame.gameBoard[i][j].getIconName());
                     ImageView iv = new ImageView(img);
                     iv.setFitWidth(35);
                     iv.setFitHeight(35);
@@ -160,31 +160,9 @@ public class GameScreenController {
 
     private void updateDirectionArrow() { // implementation is kinda sketch
         System.out.println("Updating direction arrow");
-        Player currPlayer = bucGame.getCurrentPlayer();
-        int rotation;
-        switch (currPlayer.getDirection()){
-            case "N":
-                System.out.println("N");
-                rotation = 270;
-                break;
-            case "E":
-                System.out.println("E");
-                rotation = 0;
-                break; // image already faces this direction
-            case "S":
-                System.out.println("S");
-                rotation = 90;
-                break;
-            case "W":
-                System.out.println("W");
-                rotation = 180;
-                break;
-            default:
-                System.out.println("Shouldn't get to this point");
-                rotation = -1; // doesn't matter, just getting rid of error regarding rotation not being assigned a value
-                assert true;
-        }
-        directionArrowImage.setRotate(rotation);
+        String arrowIconName = "arrow_" + bucGame.getCurrentPlayer().getDirection();
+        System.out.println("Arrow icon name: "+ arrowIconName);
+        directionArrowImage = new ImageView(App.images.get(arrowIconName));
 
     }
 
@@ -212,7 +190,7 @@ public class GameScreenController {
                 rotation = -1; // doesn't matter, just getting rid of error regarding rotation not being assigned a value
                 assert true;
         }
-        ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[p.getCol()][p.getRow()].getIconName()));
+        ImageView imageV = new ImageView(App.images.get(bucGame.gameBoard[p.getCol()][p.getRow()].getIconName()));
         imageV.setFitHeight(35);
         imageV.setFitWidth(35);
         imageV.setRotate(rotation); // the 180 is added to account for the fact the arrow and ships' icons face different ways
@@ -278,6 +256,12 @@ public class GameScreenController {
 //        updateDirectionArrow();
 //        updatePlayerDirection(bucGame.getCurrentPlayer());
 //    }
+
+
+    @FXML
+    private void movePlayer(){
+        ;
+    }
 
     @FXML
     private void switchToStart() throws IOException { // calls a scene switch from the app class

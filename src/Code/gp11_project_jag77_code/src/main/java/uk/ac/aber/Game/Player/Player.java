@@ -1,10 +1,6 @@
 package uk.ac.aber.Game.Player;
 
-import javafx.scene.image.Image;
-import uk.ac.aber.Controllers.GameScreenController;
 import uk.ac.aber.Game.CrewCards.CrewHand;
-import uk.ac.aber.Game.Port.Port;
-import uk.ac.aber.Game.Tile.OceanTile;
 import uk.ac.aber.Game.Tile.Tile;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
@@ -25,8 +21,8 @@ public class Player {
     private int col;
     private int row;
     private String direction;
-    public CrewHand crewHand;
-    public TreasureHand treasureHand;
+    public CrewHand crewHand = new CrewHand();
+    public TreasureHand treasureHand = new TreasureHand();
 
     public Player(){
         ;
@@ -36,8 +32,6 @@ public class Player {
         this.playerNumber = playerNumber;
         this.playerName = playerName;
         direction = DIRECTIONS[0];
-        crewHand = new CrewHand();
-        treasureHand = new TreasureHand();
         directionalMovement = new HashMap<>();
         directionalMovement.put("N", new int[]{0, -1});
         directionalMovement.put("NE", new int[]{1, -1});
@@ -50,7 +44,7 @@ public class Player {
     }
 
     public int getMoves(){
-        return crewHand.getMoveAbility();
+        return 4;
     }
 
     public boolean canMoveTo(int col, int row, Tile[][] gameBoard) {
@@ -68,9 +62,9 @@ public class Player {
             col = desCol; row = desRow;
             return true;
         }
-//        else if (gameBoard[desCol][desRow].isAttackAble()){
-//            System.out.println("TRYING TO ATTACK A PLAYER!!!!!");
-//        }
+        else if (gameBoard[desCol][desRow].isAttackAble()){
+            System.out.println("TRYING TO ATTACK A PLAYER!!!!!");
+        }
         return false;
     }
 
@@ -209,6 +203,8 @@ public class Player {
 //    }
 
 
+
+
     // re-model this later.
     // we want the "checking" and the "moving" separate.
     // program should independently check if it can move (when indicating if a player can move in the GUI)
@@ -265,93 +261,34 @@ public class Player {
         return false; // else return false;
     }
 
-//    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard){
-//        return canMoveInStraightLine(desCol,desRow,gameBoard,false);
-//    }
-
-    public boolean inlineWithPlayer(int toCol, int toRow){
-        boolean diagonal = toCol-col == toRow-row;
-        boolean vertical = toCol-col == 0;
-        boolean horizontal = toRow-row == 0;
-
-        return diagonal || vertical || horizontal;
+    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard){
+        return canMoveInStraightLine(desCol,desRow,gameBoard,false);
     }
 
-    public boolean withinMovingDistance(int toCol, int toRow){
-        double colLength = Math.abs(toCol-col);
-        double rowLength = Math.abs(toRow-row);
-        double distance = Math.hypot(rowLength, colLength);
-        return distance < getMoves();
-    }
-
-    public boolean pathUpToTileFree(int toCol, int toRow, Tile[][] gameBoard){
+    public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard, boolean limitedByMovement){
         ArrayList<Tile> passedOverTiles = new ArrayList<>();
-        //boolean pathFree = false;
-        int [] moveDir = directionalMovement.get(direction);
-        int tempCol = col, tempRow = row;
-        if (inlineWithPlayer(toCol,toRow) && withinMovingDistance(toCol,toRow)){
-            while (tempCol != toCol && toRow != tempRow){ // will intersect eventually
-                tempCol += moveDir[0]; tempRow += moveDir[1];
-                Tile tempTile = gameBoard[tempCol][tempRow];
-                if (!tempTile.isTraversable()){
-                    return false;
+        boolean canMove = false;
+        if (desCol < 20 & desCol >=0 & desRow <20 & desRow >=0){
+            int[] movDir = directionalMovement.get(direction);
+            int movCol = movDir[0], movRow = movDir[1];
+            int tempCol = col, tempRow = row;
+            int tempMoveCounter = this.getMoves();
+
+            while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
+                tempCol += movCol; tempRow += movRow;
+                if (limitedByMovement) {
+                    tempMoveCounter--;
+                }
+                if (tempRow == desCol & tempRow == desRow){
+                    canMove = true;
                 }
             }
         }
-        return true;
-//        while (tempCol < 20 && tempCol >=0 && tempRow <20 & tempRow >=0 & tempMoveCounter>0){
-//            tempCol += moveDir[0]; tempRow += moveDir[1];
-//            if (tempRow == toCol & tempRow == toCol){
-//                pathFree = true;
-//              }
-//        }
+        return canMove;
     }
 
-//    public boolean canMoveInStraightLine(int toCol, int toRow, Tile[][] gameBoard, boolean limitedByMovement){
-//        ArrayList<Tile> passedOverTiles = new ArrayList<>();
-//        boolean canMove = false;
-//        if (toCol < 20 & toCol >=0 & toRow <20 & toRow >=0){
-//            int[] movDir = directionalMovement.get(direction);
-//            int movCol = movDir[0], movRow = movDir[1];
-//            int tempCol = col, tempRow = row;
-//            int tempMoveCounter = this.getMoves();
-//
-//            while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
-//                tempCol += movCol; tempRow += movRow;
-//                if (limitedByMovement) {
-//                    tempMoveCounter--;
-//                }
-//                if (tempRow == desCol & tempRow == desRow){
-//                    canMove = true;
-//                }
-//            }
-//        }
-//        return canMove;
-//    }
-
-    public void turn(String turnDir){
-        int dirIndex;
-        for (dirIndex = 0; dirIndex < 8; dirIndex++){
-            if (direction.toUpperCase().equals(DIRECTIONS[dirIndex])){
-                break;
-            }
-        }
-        if (turnDir.equalsIgnoreCase("L")){
-            dirIndex--; dirIndex--; // rotate 90 degrees for now. until diagonal movement is implemented
-            if (dirIndex < 0){
-                dirIndex = DIRECTIONS.length-2; // set to north west
-            }
-        }
-        else if (turnDir.equalsIgnoreCase("R")){
-            dirIndex++; dirIndex++; // rotate 90 degrees for now. until diagonal movement is implemented
-            if (dirIndex >DIRECTIONS.length - 1){
-                dirIndex = 0; // set to north
-            }
-        }
-        else{
-            throw new IllegalArgumentException();
-        }
-        direction = DIRECTIONS[dirIndex];
+    public void rotate(String turnDir){
+        direction = turnDir;
     }
 
     public void setPlayerNumber(int num){
@@ -371,9 +308,36 @@ public class Player {
         setRowCoordinate(row);
     }
 
-//    public int[] getCoordinate(){
-//        return coordinate;
-//    }
+
+    public boolean inlineWithPlayer(int toCol, int toRow){
+        boolean diagonal = toCol-col == toRow-row;
+        boolean vertical = toCol-col == 0;
+        boolean horizontal = toRow-row == 0;
+
+        return diagonal || vertical || horizontal;
+    }
+
+    public boolean withinMovingDistance(int toCol, int toRow){
+        double colLength = Math.abs(toCol-col);
+        double rowLength = Math.abs(toRow-row);
+        double distance = Math.hypot(rowLength, colLength);
+        return distance < getMoves();
+    }
+
+    public boolean pathUpToTileFree(int toCol, int toRow, Tile[][] gameBoard){
+        int [] moveDir = directionalMovement.get(direction);
+        int tempCol = col, tempRow = row;
+        if (inlineWithPlayer(toCol,toRow) && withinMovingDistance(toCol,toRow)){
+            while (tempCol != toCol && toRow != tempRow){ // will intersect eventually
+                tempCol += moveDir[0]; tempRow += moveDir[1];
+                Tile tempTile = gameBoard[tempCol][tempRow];
+                if (!tempTile.isTraversable()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public int getCol(){
         return col;

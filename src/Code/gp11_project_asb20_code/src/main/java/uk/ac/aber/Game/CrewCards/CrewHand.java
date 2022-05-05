@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CrewHand {
 
-    public ArrayList<CrewCard> cards;
+    private ArrayList<CrewCard> cards;
 
     public CrewHand() {
         cards = new ArrayList<>();
@@ -33,7 +33,6 @@ public class CrewHand {
             successful = true;
         }
         return successful;
-
     }
 
 //    public void printDebug() {
@@ -53,7 +52,13 @@ public class CrewHand {
     }
 
     public int getCombatValue() {
+
         return java.lang.Math.abs(this.getBlackValue() - this.getRedValue());
+//        if ((this.getBlackValue() - this.getRedValue()) > 0) {
+//            return (this.getBlackValue() - this.getRedValue());
+//        } else {
+//            return (this.getRedValue() - this.getBlackValue());
+//        }
     }
 
     public int getBlackValue() {
@@ -85,5 +90,7 @@ public class CrewHand {
     }
 
 
-
+    public ArrayList<CrewCard> getCards() {
+        return cards;
+    }
 }

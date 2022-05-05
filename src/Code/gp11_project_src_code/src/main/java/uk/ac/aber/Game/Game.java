@@ -23,7 +23,6 @@ public class Game {
     public Tile[] playerTiles;
     private Treasure[] treasure;
     private int moves;
-    public HashMap<String,Image> images;
     private FlatIsland flatIsland;
     private TreasureIsland treasureIsland;
     private PirateIsland pirateIsland;
@@ -37,7 +36,6 @@ public class Game {
         this.gameBoard = new Tile[20][20];
         this.players = players;
         this.treasure = new Treasure[20];
-        this.images = new HashMap<>();
         this.playerTiles = new Tile[4];
         this.flatIsland = new FlatIsland();
         this.pirateIsland = new PirateIsland();
@@ -58,7 +56,6 @@ public class Game {
         initTreasure();
         cardDistribution();
         distributeTreasure();
-        loadImages();
         populateTiles();
         if (players != null){
             moves = getCurrentPlayer().getMoves();
@@ -166,32 +163,7 @@ public class Game {
         moves = getCurrentPlayer().getMoves();
     }
 
-    private void loadImages(){
-        System.out.println("Listing all the images and stuff");
-        //String filePath = App.class.getResource("/img");
 
-        // Wtf
-        String filePath = "C:\\UniDocs\\year_2\\CS22120\\gp11\\src\\Code\\gp11_project_src_code\\src\\main\\resources\\img";
-
-        //String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
-        //Image tempImage = new Image(filePath + "/" + "arrow.png");
-        System.out.println("Filepath!!! \n" + filePath);
-        File folder = new File(filePath);
-        String[] imageNames = folder.list();
-        //
-        if (imageNames == null){
-           System.out.println("Its null!");
-        }
-        else{
-            for (String fileName : imageNames){
-                Image img = new Image(filePath + "/" + fileName);
-                String name = fileName.substring(0,fileName.length() - 4); // remove the ".png"
-                images.put(name,img);
-            }
-            System.out.println(Arrays.toString(imageNames));
-        }
-
-    }
 
     public void nextTurn(){ // increment with rollover
         turn++;

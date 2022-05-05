@@ -77,16 +77,16 @@ public class CharacterScreenController {
             App.setNextPlayerScreen();
         }
     }
-
-    private Image makeImage(String imageName){
-        return new Image (String.valueOf(uk.ac.aber.App.App.class.getResource("/img/" + imageName + ".png")));
-    }
+//
+//    private Image makeImage(String imageName){
+//        return new Image (String.valueOf(uk.ac.aber.App.App.class.getResource("/img/" + imageName + ".png")));
+//    }
 
     @FXML
     private void updateImage(int num){
         System.out.printf("Updating image %d\n",num);
         ImageView[] images = {shipImage1,shipImage2,shipImage3,shipImage4};
-        images[num].setImage(makeImage(players[num].getIconName()));
+        images[num].setImage(App.images.get(players[num].getIconName()));
 //        switch (num){
 //            case 0:
 //                shipImage1.setImage(makeImage(players[num].getIconName()));
@@ -104,10 +104,8 @@ public class CharacterScreenController {
     }
 
     private void reRollColour(int num){
-
-        boolean change = false; // has not changed yet
         int randomNum;
-        String storeColour = null; // store colour name
+        String storeColour; // store colour name
 
         do{
             randomNum = ThreadLocalRandom.current().nextInt(0, shipColoursUnreserved.length); // get random number

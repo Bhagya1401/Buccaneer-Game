@@ -4,8 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 
 
 /**
@@ -17,11 +22,13 @@ public class App extends Application {
     private static Scene characterScreen;
     private static Scene gameScreen;
     private static Stage stage;
+    public static HashMap<String, Image> images;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader startLoader, gameLoader, charLoader;
-
+        images = new HashMap<>();
+        loadImages();
         startLoader = getLoader("start_screen");
         startScreen = new Scene(startLoader.load());
         startScreen.setUserData(startLoader);
@@ -46,7 +53,30 @@ public class App extends Application {
         stage.show();
     }
 
+    private void loadImages(){
+        System.out.println("Listing all the images and stuff");
+        //String filePath = App.class.getResource("/img");
 
+        //String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
+        String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
+        //Image tempImage = new Image(filePath + "/" + "arrow.png");
+        System.out.println("Filepath!!! \n" + filePath);
+        File folder = new File(filePath);
+        String[] imageNames = folder.list();
+        //
+        if (imageNames == null){
+            System.out.println("Its null!");
+        }
+        else{
+            for (String fileName : imageNames){
+                Image img = new Image(filePath + "/" + fileName);
+                String name = fileName.substring(0,fileName.length() - 4); // remove the ".png"
+                images.put(name,img);
+            }
+            System.out.println(Arrays.toString(imageNames));
+        }
+
+    }
 
     public static void setStartScreen(){
         stage.setScene(startScreen);
