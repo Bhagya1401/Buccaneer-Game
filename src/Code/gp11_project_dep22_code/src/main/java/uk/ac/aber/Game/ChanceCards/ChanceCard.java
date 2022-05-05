@@ -1,7 +1,9 @@
 package uk.ac.aber.Game.ChanceCards;
 
+import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Game;
+import uk.ac.aber.Game.Islands.FlatIsland;
 import uk.ac.aber.Game.Islands.PirateIsland;
 import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
@@ -10,6 +12,7 @@ import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChanceCard {
     private int num;
@@ -31,7 +34,7 @@ public class ChanceCard {
     public void useChanceCard(Game game) {
         switch (num) {
             case 0:
-                ChanceActions.exchangeCrewCards(game);
+
                 break;
             case 2:
                 break;
@@ -66,10 +69,13 @@ public class ChanceCard {
             case 16:
                 break;
             case 17:
+
                 break;
             case 18:
+                ChanceActions.takeTreasure4InVal(game);
                 break;
             case 19:
+                ChanceActions.exchangeCrewCards(game);
                 break;
             case 20:
                 break;
@@ -199,17 +205,30 @@ public class ChanceCard {
         }
 
         // card 9
-        public void takeMostValuableTreasure() {
-            // take highest treasure
-            // else, take highest value crew card to flat island
+        public void takeMostValuableTreasure(Game game) {
+            Player currPlayer = game.getCurrentPlayer();
+            FlatIsland Fisland = game.getFlatIsland();
+
+
+            if(currPlayer.treasureHand.getTreasures().get(0) != null){
+                Fisland.addTreasure(currPlayer.treasureHand.highestValue());
+                currPlayer.treasureHand.getTreasures().remove(currPlayer.treasureHand.highestValue());
+
+            }else{
+                Fisland.addCrewCard(currPlayer.crewHand.highestValue());
+                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.highestValue());
+            }
+
         }
 
         // card 10
-        public void bestCrewCardDeserted() {
-            //CrewCard bestCard = this.playerCalled.crewHand.getHighestValue(true);
+        public void bestCrewCardDeserted(Game game) {
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland Pisland = game.getPirateIsland();
 
-            //System.out.println("Player's best card is : " + bestCard.getValue() + " / " + bestCard.getColor());
-            // return back to pirate island
+            Pisland.putCrewCard(currPlayer.crewHand.highestValue());
+            currPlayer.crewHand.getCards().remove(currPlayer.crewHand.highestValue());
+
         }
 
 
@@ -220,42 +239,132 @@ public class ChanceCard {
             game.getPirateIsland().transferCrewCard(currPlayer.crewHand);
             // take two, give to player
         }
+        //card 16
+        public static void takeTreasure7InVal(Game game){
 
-        //card 18
-        public static void takeTreasureOf4And2CrewCards(Game game) {
             Player currPlayer = game.getCurrentPlayer();
-            TreasureIsland treasureIsland = game.getTreasureIsland();
-
-            if (currPlayer.treasureHand.getTotalTreasure() < 2) {
-                //  if (currPlayer.treasureHand.getTotalTreasure() == 1){
-                treasureIsland.getIslandTreasureHand();
+            TreasureIsland Tisland = game.getTreasureIsland();
+            PirateIsland Pisland = game.getPirateIsland();
+            giveTreasureClosestToValue(7,currPlayer.treasureHand,Tisland.getIslandTreasureHand());
 
 
-                Treasure tempTreasure;
-                int temp = 4;
-                int i = 0;
-
-                while (temp != 0) {
-                    tempTreasure = treasureIsland.getIslandTreasureHand().getTreasures().get(i);
-                    if (tempTreasure != null) {
-                        temp -= tempTreasure.getValue();
-
-                        if (currPlayer.treasureHand.getTotalTreasure() == 2) {
-                            return;
-                        }
-                        if (temp < 0 || temp == 1) {
-                            temp += tempTreasure.getValue();
-                        } else {
-                            currPlayer.treasureHand.addTreasure(tempTreasure);
-                            treasureIsland.getIslandTreasureHand().getTreasures().remove(tempTreasure);
-                        }
-                    }
-                    i++;
-                }
-
-                System.out.println("done");
+            while (currPlayer.crewHand.getTotalCards() > 10) {
+                Pisland.putCrewCard(currPlayer.crewHand.lowestValue());
+                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValue());
             }
         }
+
+        //card 17
+        public static void takeTreasure6InVal(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            TreasureIsland Tisland = game.getTreasureIsland();
+            PirateIsland Pisland = game.getPirateIsland();
+            giveTreasureClosestToValue(6,currPlayer.treasureHand,Tisland.getIslandTreasureHand());
+
+
+            while (currPlayer.crewHand.getTotalCards() > 11) {
+                Pisland.putCrewCard(currPlayer.crewHand.lowestValue());
+                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValue());
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+        //card 18
+
+        private static void takeTreasure4InVal(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            TreasureIsland Tisland = game.getTreasureIsland();
+            PirateIsland Pisland = game.getPirateIsland();
+            giveTreasureClosestToValue(4,currPlayer.treasureHand,Tisland.getIslandTreasureHand());
+            int tempHandAmount = currPlayer.crewHand.getTotalCards();
+            List<CrewCard> toRemove = new ArrayList<>();
+
+
+
+
+            if (currPlayer.crewHand.getTotalValueOfCards() < 7) {
+                Pisland.transferCrewCard(currPlayer.crewHand);
+                Pisland.transferCrewCard(currPlayer.crewHand);
+            }
+
+        }
+
+
+
+
+
+
+
+//transfers treasure from treasure island to a player using a combined val.
+        private static void giveTreasureClosestToValue(int valueDesired, TreasureHand toHnd, TreasureHand fromHnd){
+            int treasureSlotsAvailable =2 - toHnd.getTreasures().size();
+            Treasure[] doubleTreasure = new Treasure[2];
+            Treasure singleTreasure = null;
+            int doubleTreasureValue = 0;
+            ArrayList<Treasure> doubleTreasures = new ArrayList<>();
+            // check if there are any treasures available to collecct
+            if (treasureSlotsAvailable == 0){
+                return;
+            }
+            ArrayList<Treasure> lookedUpTreasures = new ArrayList<>();
+            for (int i=valueDesired; i>= 2; i--){
+                lookedUpTreasures = fromHnd.lookupTreasureByValue(i);
+                if (lookedUpTreasures.size()>0 ){
+                    singleTreasure = lookedUpTreasures.get(0);
+                    break;
+                }
+            }
+            if (singleTreasure != null){
+                if (singleTreasure.getValue()<valueDesired && treasureSlotsAvailable == 2){
+                    for (int i = valueDesired; i >=2; i--){
+                        Treasure iTreasure = null;
+                        Treasure jTreasure = null;
+                        if (fromHnd.lookupTreasureByValue(i).size()>0){
+                            iTreasure = fromHnd.lookupTreasureByValue(i).get(0);
+                            for (int j=i; j>=2; j--){
+                                if (fromHnd.lookupTreasureByValue(i).size()>0){
+                                    if (fromHnd.lookupTreasureByValue(i).size()>1 && i==j){
+                                        jTreasure = fromHnd.lookupTreasureByValue(i).get(1);
+                                    }
+                                    else{
+                                        jTreasure = fromHnd.lookupTreasureByValue(j).get(0);
+                                    }
+                                    int sum = iTreasure.getValue() + jTreasure.getValue();
+                                    if (doubleTreasureValue < sum && sum <= valueDesired){
+                                        doubleTreasureValue = iTreasure.getValue() + jTreasure.getValue();
+                                        doubleTreasure[0] = iTreasure; doubleTreasure[1] = jTreasure;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+                if(singleTreasure.getValue() > 0){
+                    if (singleTreasure.getValue() > doubleTreasureValue ){
+                        fromHnd.giveTreasureFromIndex(toHnd, fromHnd.getTreasureIndexByName(singleTreasure.getName()));
+                    }
+                    else{
+                        fromHnd.giveTreasureFromIndex(toHnd, fromHnd.getTreasureIndexByName(doubleTreasure[0].getName()));
+                        fromHnd.giveTreasureFromIndex(toHnd, fromHnd.getTreasureIndexByName(doubleTreasure[1].getName()));
+                    }
+            }
+
+            }
+            System.out.println("the end");
+        }
+
+
+
 
 
 
@@ -263,21 +372,31 @@ public class ChanceCard {
     public static void exchangeCrewCards(Game game) {
         Player currPlayer = game.getCurrentPlayer();
         PirateIsland island = game.getPirateIsland();
-        CrewHand tempHand = currPlayer.crewHand;
         int tempHandAmount = currPlayer.crewHand.getTotalCards();
+        List<CrewCard> toRemove = new ArrayList<>();
 
-        for (int i = 0; i < ; i++) {
-            System.out.println(currPlayer.crewHand.getCards().get(0).getColor());
-            island.getCrewCards().insertAtBottom(currPlayer.crewHand.getCards().get(0));
-            currPlayer.crewHand.getCards().remove(0);
+
+
+
+        for (int i = 0; i < currPlayer.crewHand.getTotalCards(); i++) {
+            System.out.println(currPlayer.crewHand.getCards().get(i).getColor());
+            island.getCrewCards().insertAtBottom(currPlayer.crewHand.getCards().get(i));
+            toRemove.add(currPlayer.crewHand.getCards().get(i));
 
         }
         System.out.println("---------------------------------");
+
+        for (CrewCard rem : toRemove) {
+            currPlayer.crewHand.getCards().remove(rem);
+        }
+
+
+
         for (int i = 0; i < tempHandAmount; i++) {
             island.getCrewCards().giveCardFromTop(currPlayer.crewHand);
             System.out.println(currPlayer.crewHand.getCards().get(i).getColor());
         }
-
+        System.out.println("fewewf");
     }
 
     //card 21
