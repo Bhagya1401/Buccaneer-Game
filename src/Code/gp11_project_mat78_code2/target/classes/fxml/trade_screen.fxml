@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.TradeScreen"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="507.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.TradeScreenController">
+    <children>
+        <ImageView fitHeight="537.0" fitWidth="964.0" layoutX="-69.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/trade_background.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="finishTradeButton" alignment="TOP_CENTER" layoutX="354.0" layoutY="67.0" mnemonicParsing="false" onAction="#finishTrade" prefHeight="123.0" prefWidth="178.0" text="Cards for treasure">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </Button>
+        <Button fx:id="cancelTradeButton" layoutX="392.0" layoutY="459.0" mnemonicParsing="false" onAction="#cancelTrade" prefHeight="43.0" prefWidth="104.0" text="Cancel trade">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="79.0" fitWidth="73.0" layoutX="407.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/trade_sign.png" />
+            </image>
+        </ImageView>
+        <ScrollPane fx:id="playerCardScrollPane" layoutX="6.0" layoutY="31.0" prefHeight="195.0" prefWidth="319.0">
+         <content>
+            <ImageView fitHeight="407.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/wooden_floor.jpg" />
+               </image></ImageView>
+         </content></ScrollPane>
+        <ScrollPane layoutX="8.0" layoutY="258.0" prefHeight="195.0" prefWidth="313.0" />
+        <ScrollPane layoutX="565.0" layoutY="31.0" prefHeight="195.0" prefWidth="313.0" />
+        <ScrollPane layoutX="565.0" layoutY="258.0" prefHeight="195.0" prefWidth="313.0" />
+        <Button fx:id="finishTradeButton1" alignment="TOP_CENTER" layoutX="354.0" layoutY="294.0" mnemonicParsing="false" onAction="#finishTrade" prefHeight="123.0" prefWidth="178.0" text="Treasure for cards">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="79.0" fitWidth="73.0" layoutX="407.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/trade_sign.png" />
+            </image>
+        </ImageView>
+        <Label alignment="CENTER" layoutX="354.0" layoutY="-7.0" prefHeight="73.0" prefWidth="178.0" text="Trade:">
+            <font>
+                <Font name="Curlz MT" size="39.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="14.0" layoutY="-8.0" prefHeight="43.0" prefWidth="303.0" text="Player's name">
+            <font>
+                <Font name="Colonna MT" size="28.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="565.0" layoutY="-7.0" prefHeight="43.0" prefWidth="303.0" text="Port">
+            <font>
+                <Font name="Colonna MT" size="28.0" />
+            </font>
+        </Label>
+    </children>
 </AnchorPane>
