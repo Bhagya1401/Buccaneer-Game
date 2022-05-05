@@ -17,7 +17,7 @@ import java.util.*;
 
 public class Game {
 
-    private Player[] players;
+    private ArrayList<Player> players;
     private int turn;
     public  Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
     public Tile[] playerTiles;
@@ -29,10 +29,11 @@ public class Game {
     public HashMap<String,Port> ports;
     private HashMap<String,Player> portsToPlayers;
     public CrewPack crewPack;
+    public  static  final String[] turnOrderByPortName = {"London","Genoa","Marseilles","Cadiz"};
     private boolean moved;
+    private static int timesCalled;
 
-
-    public Game(Player[] players){
+    public Game(ArrayList<Player> players){
         this.gameBoard = new Tile[20][20];
         this.players = players;
         this.treasure = new Treasure[20];
@@ -125,26 +126,27 @@ public class Game {
         this.crewPack.addCardToHand(this.ports.get("Amsterdam").getPortCrewHand());
     }
 
-
-
-
-
-
-
-
     private void initialisePorts(){
-        ArrayList<Integer> playerNums = new ArrayList<>();
-        playerNums.add(1); playerNums.add(2);
-        playerNums.add(3); playerNums.add(4);
-        Collections.shuffle(playerNums);
+        Collections.shuffle(players);
 
-        Port london = new HomePort("London",19,13,playerNums.get(0));
+        players.get(0).setColCoordinate(18); players.get(0).setRowCoordinate(13);
+        players.get(0).setDirection("W");
+        Port london = new HomePort("London",19,13,players.get(0).getPlayerNumber());
         ports.put(london.getPortName(),london);
-        Port genoa = new HomePort("Genoa",6,0, playerNums.get(1));
+
+        players.get(1).setColCoordinate(6); players.get(1).setRowCoordinate(1);
+        players.get(1).setDirection("S");
+        Port genoa = new HomePort("Genoa",6,0, players.get(0).getPlayerNumber());
         ports.put(genoa.getPortName(),genoa);
-        Port marseilles = new HomePort("Marseilles",0,5,playerNums.get(2));
+
+        players.get(2).setColCoordinate(1); players.get(2).setRowCoordinate(5);
+        players.get(2).setDirection("E");
+        Port marseilles = new HomePort("Marseilles",0,5, players.get(0).getPlayerNumber());
         ports.put(marseilles.getPortName(),marseilles);
-        Port cadiz = new HomePort("Cadiz",6,19,playerNums.get(3));
+
+        players.get(3).setColCoordinate(6); players.get(3).setRowCoordinate(18);
+        players.get(3).setDirection("N");
+        Port cadiz = new HomePort("Cadiz",6,19, players.get(0).getPlayerNumber());
         ports.put(cadiz.getPortName(),cadiz);
         Port venice = new Port("Venice",19,6);
         ports.put(venice.getPortName(),venice);
@@ -161,8 +163,6 @@ public class Game {
         moves = getCurrentPlayer().getMoves();
     }
 
-
-
     public void nextTurn(){ // increment with rollover
         turn++;
         moved = false;
@@ -173,26 +173,34 @@ public class Game {
     }
 
     public Player getCurrentPlayer(){
-        String[] turnOrderByPortName = {"London","Genoa","Marseilles","Cadiz"};
+        return getPlayer(((turn-1)%4)+1);
+    }
 
+    public Player getCurrentPlayer_(){
+//        String[] turnOrderByPortName = {"London","Genoa","Marseilles","Cadiz"};
+//        System.out.println("Called getCurrentPlayer");
         int calcTurn = (turn-1)%4;
         // rotate 1 will return 0, rotate 4 will return 0,
         // rotate 12 will return 3
 
         String currentTurnByPort = turnOrderByPortName[calcTurn];
-        System.out.println(ports);
-        System.out.println("Turn by port: " + currentTurnByPort);
+        //System.out.println(ports);
+        //System.out.println("Turn by port: " + currentTurnByPort);
         int playerNumber = ((HomePort) ports.get(currentTurnByPort)).getPlayerNumber();
 //        for (Player p : players){
 //            if (p.getPlayerNumber() == playerNumber){
 //                return p;
 //            }
 //        }
+        Player currPlayer = getPlayer(playerNumber);
+        System.out.println("Player :" + currPlayer.getPlayerName());
+        timesCalled++;
+        System.out.println("Times called: " + timesCalled);
         return getPlayer(playerNumber);
     }
 
     public Player getPlayer(int playerNum){ // player one is at index 0
-        return players[playerNum-1];
+        return players.get(playerNum-1);
     }
 
     private void initTreasure(){
@@ -263,9 +271,9 @@ public class Game {
 
         // add player tiles
         for (int i=0; i<4; i++){
-            PlayerTile playerTile = new PlayerTile(players[i].getPlayerNumber());
-            playerTile.setIconName(players[i].getIconName());
-            gameBoard[players[i].getCol()][players[i].getRow()] = playerTile;
+            PlayerTile playerTile = new PlayerTile(players.get(i).getPlayerNumber());
+            playerTile.setIconName(players.get(i).getIconName());
+            gameBoard[players.get(i).getCol()][players.get(i).getRow()] = playerTile;
             playerTiles[i] = playerTile;
         }
     }
@@ -275,33 +283,39 @@ public class Game {
     }
 
     public boolean handlePlayerMovement(int toCol, int toRow){
+        System.out.println("HANDLEPLAYERMOVEMENTCALLED");
         Tile tempTile;
         Player currPlayer = getCurrentPlayer();
         if (toCol <20 & toCol >= 0 & toRow <20 & toRow >= 0){ //are the co-ords in the board
-            if (currPlayer.pathUpToTileFree(toCol,toRow, gameBoard)){ // can the player move up to that space
-                tempTile = gameBoard[toCol][toRow];
-                if (tempTile instanceof PlayerTile){
-                    int tempPlayerNum = ((PlayerTile) tempTile).getPlayerNumber();
-                    if (getCurrentPlayer().getPlayerNumber() == tempPlayerNum){
-                        System.out.println("Can't move to same square");
+            if (currPlayer.pathUpToTileFree(toCol,toRow, gameBoard)) {
+                if (currPlayer.canMoveInStraightLine(toCol, toRow,gameBoard, true)) {
+                    tempTile = gameBoard[toCol][toRow];
+                    if (tempTile instanceof PlayerTile) {
+                        int tempPlayerNum = ((PlayerTile) tempTile).getPlayerNumber();
+                        if (getCurrentPlayer().getPlayerNumber() == tempPlayerNum) {
+                            System.out.println("Can't move to same square");
+                        } else {
+                            System.out.println("You tried to attack a player you scallywag!");
+                            //                        FXMLLoader loader = App.getAttackLoader();
+                            //                        AttackScreenController ctrl = loader.getController();
+                            //                        ctrl.beginAttack(getCurrentPlayer(), getPlayer(tempPlayerNum))
+                            //                        App.setAttackScreen();
+                        }
+                    } else if (tempTile instanceof PortTile) {
+                        System.out.println("Trying to move to port tile");
+                    } else {
+                        currPlayer.moveTo(toCol, toRow, gameBoard);
+                        moved = true;
                     }
-                    else{
-                        System.out.println("You tried to attack a player you scallywag!");
-//                        FXMLLoader loader = App.getAttackLoader();
-//                        AttackScreenController ctrl = loader.getController();
-//                        ctrl.beginAttack(getCurrentPlayer(), getPlayer(tempPlayerNum))
-//                        App.setAttackScreen();
-                    }
-                }
-                else if ( tempTile instanceof PortTile){
-                    System.out.println("Trying to move to port tile");
+
                 }
                 else{
-                    currPlayer.moveTo(toCol,toRow,gameBoard);
-                    moved = true;
+                    System.out.println("Too far away / or not in line with player");
                 }
             }
-
+            else{
+                System.out.println("Path to destination not clear");
+            }
         }
         return moved;
     }

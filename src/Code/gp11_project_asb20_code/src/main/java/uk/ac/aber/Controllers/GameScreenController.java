@@ -1,10 +1,7 @@
 package uk.ac.aber.Controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
@@ -13,28 +10,27 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import uk.ac.aber.App.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
 import uk.ac.aber.Game.Islands.FlatIsland;
 import uk.ac.aber.Game.Islands.PirateIsland;
 import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.HomePort;
+import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
+import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Treasure.TreasureHand;
 
 public class GameScreenController {
 
     @FXML
     Button exitButton;
-    @FXML
-    ImageView directionArrowImage;
     @FXML
     Label playerNameLabel;
     @FXML
@@ -50,6 +46,10 @@ public class GameScreenController {
     @FXML
     ImageView displayCurrentPlayerIcon;
     Game bucGame; // model
+
+    @FXML
+    HBox displayTreasureHand;
+
 
     public int i = 0;
     public static final String greenCol = "#b6ffad";
@@ -69,7 +69,7 @@ public class GameScreenController {
     }
 
     public void initStyling(){
-        boardGridVisual.getStyleClass().add("custom-gridPane-with-water");
+        //boardGridVisual.getStyleClass().add("custom-gridPane-with-water");
     }
 
     public void newGame(Player[] players){
@@ -85,7 +85,37 @@ public class GameScreenController {
         displayCurrentPlayerIcon.setImage(bucGame.images.get(bucGame.getCurrentPlayer().getIconName()));
         updateBoardVisuals();
         updateDirectionArrow();
+        updateVisualTreasureHand();
         this.createPanes();
+    }
+
+    private void updateVisualTreasureHand() {
+        Player ply = bucGame.getCurrentPlayer();
+        ArrayList<Treasure> tHand = ply.treasureHand.getTreasures();
+
+        HashMap<String, String> mp = new HashMap<>();
+        mp.put("Diamond", "diamond");
+        mp.put("Ruby", "ruby");
+        mp.put("Gold Bars", "gold_bars");
+        mp.put("Pearls", "pearl");
+        mp.put("Barrel of Rum", "barrel_of_rum");
+
+        String[] names = new String[] {"diamond", "ruby", "gold_bars", "pearls", "barrel_of_rum"};
+
+        int pad = 0;
+
+        for (Treasure treasure : tHand) {
+            Image im = bucGame.images.get(mp.get(treasure.getIconName()));
+            ImageView tIcon =  new ImageView(im);
+            tIcon.setFitWidth(35);
+            tIcon.setFitHeight(35);
+            tIcon.setTranslateX(pad);
+            pad = pad + 10;
+
+            displayTreasureHand.getChildren().addAll(tIcon);
+
+            System.out.println(treasure.getIconName());
+        }
     }
 
     private StackPane makeTransparentPane(){
@@ -97,11 +127,11 @@ public class GameScreenController {
 
     private StackPane makePaneWithImageView(Image img){
         ImageView i = new ImageView(img);
-        i.setFitWidth(35);
-        i.setFitHeight(35);
+        i.setFitWidth(21);
+        i.setFitHeight(21);
         StackPane p = new StackPane(new ImageView(img));
-        p.setMaxHeight(35);
-        p.setMaxWidth(35);
+        p.setMaxHeight(21);
+        p.setMaxWidth(21);
         return p;
     }
 
@@ -122,8 +152,8 @@ public class GameScreenController {
                 else{
                     Image img = bucGame.images.get(bucGame.gameBoard[i][j].getIconName());
                     ImageView iv = new ImageView(img);
-                    iv.setFitWidth(35);
-                    iv.setFitHeight(35);
+                    iv.setFitWidth(21);
+                    iv.setFitHeight(21);
 
                     // this is getting closer to being right
 //                    AnchorPane pane = new AnchorPane();
@@ -430,6 +460,26 @@ public class GameScreenController {
     public void clickGrid(javafx.scene.input.MouseEvent event) {
 
 
+        HomePort p = (HomePort) bucGame.ports.get("Genoa");
+
+        Treasure a = new Treasure("Diamond", 5);
+        Treasure b = new Treasure("Diamond", 5);
+        Treasure e = new Treasure("Diamond", 5);
+
+        Treasure c = new Treasure("Diamond", 5);
+        Treasure d = new Treasure("Pearls", 5);
+
+        p.getPortTreasureHand().addTreasure(a);
+        p.getPortTreasureHand().addTreasure(b);
+        p.getPortTreasureHand().addTreasure(c);
+        p.getPortTreasureHand().addTreasure(d);
+        p.getPortTreasureHand().addTreasure(e);
+        p.addToSafeZone();
+        System.out.println("fff");
+
+
+
+
 //        int[] pos = bucGame.getClosestFreePosition(10, 2);
 //        this.highlightCell(10, 2);
 //        this.highlightCellGreen(pos[0], pos[1]);
@@ -519,27 +569,35 @@ public class GameScreenController {
         int rotation;
         switch (currPlayer.getDirection()){
             case "N":
-                System.out.println("N");
-                rotation = 270;
+                rotation = 0;
+                break;
+            case "NE":
+                rotation = 45;
                 break;
             case "E":
-                System.out.println("E");
-                rotation = 0;
-                break; // image already faces this direction
-            case "S":
-                System.out.println("S");
                 rotation = 90;
                 break;
-            case "W":
-                System.out.println("W");
+            case "SE":
+                rotation = 135;
+                break;
+            case "S":
                 rotation = 180;
+                break;
+            case "SW":
+                rotation = 225;
+                break;
+            case "W":
+                rotation = 270;
+                break;
+            case "NW":
+                rotation = 315;
                 break;
             default:
                 System.out.println("Shouldn't get to this point");
                 rotation = -1; // doesn't matter, just getting rid of error regarding rotation not being assigned a value
                 assert true;
         }
-        directionArrowImage.setRotate(rotation);
+        displayCurrentPlayerIcon.setRotate(rotation);
 
     }
 
@@ -547,20 +605,28 @@ public class GameScreenController {
         int rotation;
         switch (p.getDirection()){
             case "N":
-                System.out.println("N");
-                rotation = 90;
+                rotation = 0;
+                break;
+            case "NE":
+                rotation = 45;
                 break;
             case "E":
-                System.out.println("E");
-                rotation = 180;
-                break; // image already faces this direction
+                rotation = 90;
+                break;
+            case "SE":
+                rotation = 135;
+                break;
             case "S":
-                System.out.println("S");
-                rotation = 270;
+                rotation = 180;
+                break;
+            case "SW":
+                rotation = 225;
                 break;
             case "W":
-                System.out.println("W");
-                rotation = 0;
+                rotation = 270;
+                break;
+            case "NW":
+                rotation = 315;
                 break;
             default:
                 System.out.println("Shouldn't get to this point");
@@ -568,14 +634,14 @@ public class GameScreenController {
                 assert true;
         }
         ImageView imageV = new ImageView(bucGame.images.get(bucGame.gameBoard[p.getCol()][p.getRow()].getIconName()));
-        imageV.setFitHeight(35);
-        imageV.setFitWidth(35);
+        imageV.setFitHeight(25);
+        imageV.setFitWidth(25);
         imageV.setRotate(rotation); // the 180 is added to account for the fact the arrow and ships' icons face different ways
         boardGridVisual.add(imageV,p.getCol(),p.getRow());
 
     }
 
-    private void rotatePlayerMaster(String direction){
+    private void rotatePlayerMaster(String direction) {
         bucGame.rotate(direction);
         updateDirectionArrow();
         updatePlayerDirection(bucGame.getCurrentPlayer());

@@ -30,7 +30,7 @@ public class App extends Application {
         characterScreen = new Scene(charLoader.load());
         characterScreen.setUserData(charLoader);
 
-        gameLoader = getLoader("game_screen");
+        gameLoader = getLoader("gamescreenupdated");
         gameScreen = new Scene(gameLoader.load());
         gameScreen.setUserData(gameLoader);
 

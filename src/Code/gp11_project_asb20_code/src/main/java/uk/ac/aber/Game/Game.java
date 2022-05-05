@@ -65,6 +65,11 @@ public class Game {
         }
 
         getCurrentPlayer().setDirection("N");
+
+        Treasure a = new Treasure("Diamond", 3);
+        Treasure b = new Treasure("Pearls", 3);
+        getCurrentPlayer().treasureHand.addTreasure(a);
+        getCurrentPlayer().treasureHand.addTreasure(b);
     }
     public void distributeTreasure() {
         //trade port amsterdam and venice
@@ -300,38 +305,31 @@ public class Game {
         }
         // add port island tiles
         PortTile venice = new PortTile(" Venice");
-        venice.setIconName("venice");
         PortTile london = new PortTile("London");
-        london.setIconName("london_icon");
         PortTile cadiz = new PortTile("Cadiz");
-        cadiz.setIconName("cadiz_icon");
         PortTile amsterdam = new PortTile("Amsterdam");
-        amsterdam.setIconName("amsterdam_icon");
         PortTile marseilles = new PortTile("Marseilles");
-        marseilles.setIconName("marseilles_icon");
         PortTile genoa = new PortTile("Genoa");
-        genoa.setIconName("genoa_icon");
-        gameBoard[19][6] = venice;
-        gameBoard[19][13] = london;
-        gameBoard[6][19] = cadiz;
-        gameBoard[0][13] = amsterdam;
-        gameBoard[0][5] = marseilles;
-        gameBoard[6][0] = genoa;
+
+        gameBoard[6][19] = venice;
+        gameBoard[0][5] = london;
+        gameBoard[0][13] = cadiz;
+        gameBoard[6][19] = amsterdam;
+        gameBoard[13][19] = marseilles;
+        gameBoard[13][0] = genoa;
 
         // Flat Island Tiles
         for (int i = 1; i <= 3; i++) {
-            for (int j = 15; j <= 18; j++) {
+            for (int j = 1; j <= 4; j++) {
                 IslandTile flatIsland = new IslandTile("Flat Island");
-                flatIsland.setIconName("flat_island");
                 gameBoard[i][j] = flatIsland;
             }
         }
 
         // Pirate Island
         for(int i = 16; i <= 18; i++){
-            for(int j = 1; j <= 4; j++){
+            for(int j = 15; j <= 18; j++){
                 IslandTile pirateIsland = new IslandTile("Pirate Island");
-                pirateIsland.setIconName("pirate_island");
                 gameBoard[i][j] = pirateIsland;
             }
         }
@@ -340,7 +338,6 @@ public class Game {
         for(int i = 8; i <= 11; i++){
             for(int j = 8; j <= 11; j++){
                 IslandTile treasureIsland = new IslandTile("Treasure Island");
-                treasureIsland.setIconName("treasure_island");
                 gameBoard[i][j] = treasureIsland;
             }
         }
@@ -416,7 +413,6 @@ public class Game {
 
     private OceanTile makeOceanTile(){
         OceanTile oTile = new OceanTile();
-        oTile.setIconName("water");
         return oTile;
     }
 

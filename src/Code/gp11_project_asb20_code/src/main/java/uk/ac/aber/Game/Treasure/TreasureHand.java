@@ -45,6 +45,12 @@ public class TreasureHand {
         return successful;
     }
 
+    public void moveFromHandToHand(Treasure obj, TreasureHand hand) {
+        Treasure l = obj;
+        treasures.remove(obj);
+        hand.addTreasure(l);
+    }
+
 //    public void printDebug() {
 //        System.out.println("---------------------------------------");
 //        for (int i = 0; i < this.treasures.length; i++) {

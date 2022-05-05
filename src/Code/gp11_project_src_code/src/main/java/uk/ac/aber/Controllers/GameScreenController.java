@@ -1,11 +1,17 @@
 package uk.ac.aber.Controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import uk.ac.aber.App.App;
 import javafx.fxml.FXML;
@@ -30,14 +36,14 @@ public class GameScreenController {
     @FXML
     Button endTurnButton;
     @FXML
-    Button leftTurnButton;
-    @FXML
-    Button rightTurnButton;
-    @FXML
     Button moveButton;
     @FXML
     ImageView displayCurrentPlayerIcon;
     Game bucGame; // model
+    private int selectedRow, selectedCol;
+    public static final String greenCol = "#b6ffad";
+    public static final String redCol = "#ff6666";
+    public List<int[]> oldPath = null;
 
     public void initialize(){
         System.out.println("Initialising in Game screen controller");
@@ -46,18 +52,19 @@ public class GameScreenController {
 //                boardGridVisual.add(makeTransparentPane(),i,j);
 //            }
 //        }
-        initStyling();
+        //initStyling();
     }
 
     public void initStyling(){
         boardGridVisual.getStyleClass().add("custom-gridPane-with-water");
     }
 
-    public void newGame(Player[] players){
+    public void newGame(ArrayList<Player> players){
         bucGame = new Game(players);
         bucGame.startGame();
         System.out.println("Updating visuals?");
         updateVisuals();
+        createPanes();
     }
 
     private void updateVisuals(){
@@ -65,29 +72,7 @@ public class GameScreenController {
         displayCurrentPlayerIcon.setImage(App.images.get(bucGame.getCurrentPlayer().getIconName()));
         updateBoardVisuals();
         updateDirectionArrow();
-    }
-
-    private StackPane makeTransparentPane(){
-        StackPane p = new StackPane();
-        p.getStyleClass().add("transparent-item");
-        p.setPrefSize(35,35);
-        return p;
-    }
-
-    private StackPane makePaneWithImageView(Image img){
-        ImageView i = new ImageView(img);
-        i.setFitWidth(35);
-        i.setFitHeight(35);
-        StackPane p = new StackPane(new ImageView(img));
-        p.setMaxHeight(35);
-        p.setMaxWidth(35);
-        return p;
-    }
-
-    private StackPane makePaneWithImageView(Image img, String styling){
-        StackPane p = makePaneWithImageView(img);
-        p.getStyleClass().add(styling);
-        return p;
+        createPanes();
     }
 
     private void updateBoardVisuals(){
@@ -124,27 +109,26 @@ public class GameScreenController {
         System.out.println(bucGame.getCurrentPlayer().getPlayerNumber());
         updateVisuals();
         App.setNextPlayerScreen();
-        System.out.println("Hello, im in 'end rotate' about to save players");
     }
 
-    @FXML
-    public void clickGrid(javafx.scene.input.MouseEvent event) {
-        Node clickedNode = event.getPickResult().getIntersectedNode();
-        if (clickedNode != boardGridVisual) {
-            // click on descendant node
-            int colIndex = GridPane.getColumnIndex(clickedNode);
-            int rowIndex = GridPane.getRowIndex(clickedNode);
-            System.out.println("Mouse clicked cell: " + colIndex + " And: " + rowIndex);
-            boolean actionSuccessful = false;
-            if (!bucGame.hasPlayerMoved()){
-                actionSuccessful =  bucGame.handlePlayerMovement(colIndex,rowIndex);
-            }
-            if (actionSuccessful){
-                updateVisuals();
-                //bucGame.nextTurn();
-            }
-        }
-    }
+//    @FXML
+//    public void clickGrid(javafx.scene.input.MouseEvent event) {
+//        Node clickedNode = event.getPickResult().getIntersectedNode();
+//        if (clickedNode != boardGridVisual) {
+//            // click on descendant node
+//            int colIndex = GridPane.getColumnIndex(clickedNode);
+//            int rowIndex = GridPane.getRowIndex(clickedNode);
+//            System.out.println("Mouse clicked cell: " + colIndex + " And: " + rowIndex);
+//            boolean actionSuccessful = false;
+//            if (!bucGame.hasPlayerMoved()){
+//                actionSuccessful =  bucGame.handlePlayerMovement(colIndex,rowIndex);
+//            }
+//            if (actionSuccessful){
+//                updateVisuals();
+//                //bucGame.nextTurn();
+//            }
+//        }
+//    }
 
 //    @FXML
 //    private void playerMove() throws IOException {
@@ -244,23 +228,282 @@ public class GameScreenController {
         rotatePlayerMaster(Player.DIRECTIONS[7]);
     }
 
+        /* -------------------------------------------------------------------------------------------------------
+        ASH
+       ------------------------------------------------------------------------------------------------------- */
 
-//    @FXML
-//    private void playerLeftTurn(){
-//        bucGame.rotate("L");
-//    }
-//
-//    @FXML
-//    private void playerRightTurn(){
-//        bucGame.rotate("R");
-//        updateDirectionArrow();
-//        updatePlayerDirection(bucGame.getCurrentPlayer());
-//    }
+    public List<int[]> getPathToPointFromCurrentPlayer(int x, int y) {
+        Player pl = bucGame.getCurrentPlayer();
+        int playerX = pl.getCol();
+        int playerY = pl.getRow();
+
+        int maxMoveValue = pl.crewHand.getMoveAbility();
+
+        List<int[]> coordinates = new ArrayList<>();
+        String direction = pl.getDirection();
+        int lastXValue = 0;
+
+        if (x > playerX) {
+            int dif = x - playerX;
+            for (int i = 0; i < dif; i++) {
+                int[] newC = {playerX+i+1, y};
+                coordinates.add(newC);
+                lastXValue = playerX+1;
+            }
+        } else {
+            int dif = playerX - x;
+            for (int i = 0; i < dif; i++) {
+                int[] newC = {x+i+1, y};
+                coordinates.add(newC);
+                lastXValue = playerX+1;
+            }
+        }
+
+        if (y > playerY) {
+            int dif = y - playerY;
+            for (int i = 1; i < dif; i++) {
+                int[] newC = {playerX, playerY+i};
+                coordinates.add(newC);
+            }
+        } else {
+            int dif = playerY - y;
+            for (int i = 1; i < dif; i++) {
+                int[] newC = {playerX, playerY-i};
+                coordinates.add(newC);
+            }
+        }
+
+        return coordinates;
+    }
+
+    public void createPanes() {
+        ObservableList<Node> allPanes = boardGridVisual.getChildren();
+
+        for (int i = 0; i < 20; i++){
+            for (int j = 0; j < 20; j++){
+                Pane nw = new Pane();
+                nw.setId("c:" + i + ":" + j);
 
 
+                nw.onMouseClickedProperty().set((EventHandler<MouseEvent>) (MouseEvent t) -> {
+                    String[] ex = nw.getId().split(":");
+                    int x = Integer.parseInt(ex[1]);
+                    int y = Integer.parseInt(ex[2]);
+                    selectedCol = x; selectedRow = y;
+                    System.out.println("x: " + x + " y: " + y);
+                    if (oldPath != null) {
+                        unhighlightMultipleCells(oldPath);
+                    }
+
+                    List<int[]> path = getPathToPointFromCurrentPlayer(x, y);
+                    System.out.println("pathLenght" + path.size());
+                    oldPath = path;
+
+                    int indTotal = 0;
+                    boolean foundObject = false;
+                    int lastYValue = 50;
+                    int lastXValue = 50;
+                    Player currPlayer = bucGame.getCurrentPlayer();
+
+                    for (int[] cood : path) {
+
+                        if (currPlayer.getDirection() == "N") {
+                            if (currPlayer.getCol() == cood[1] && currPlayer.getRow() > cood[0]) {
+                                if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                                    if (cood[0] > lastYValue) {
+                                        highlightCellGreen(cood[0], cood[1]);
+                                    }
+                                } else {
+                                    lastYValue = cood[0];
+                                    highlightCell(cood[0], cood[1]);
+                                }
+                            } else {
+                                highlightCell(cood[0], cood[1]);
+                            }
+                        }
+
+                        if (currPlayer.getDirection() == "S") {
+                            if (currPlayer.getCol() == cood[1] && bucGame.getCurrentPlayer().getRow() < cood[0]) {
+                                if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                                    if (cood[0] < lastYValue) {
+                                        highlightCellGreen(cood[0], cood[1]);
+                                    }
+                                } else {
+                                    lastYValue = cood[0];
+                                    highlightCell(cood[0], cood[1]);
+                                }
+                            } else {
+                                highlightCell(cood[0], cood[1]);
+                            }
+                        }
+
+                        if (currPlayer.getDirection() == "E") {
+                            if (currPlayer.getRow() == cood[0] && currPlayer.getCol() < cood[1]) {
+                                if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                                    if (cood[1] < lastXValue) {
+                                        highlightCellGreen(cood[0], cood[1]);
+                                    }
+                                } else {
+                                    lastXValue = cood[1];
+                                    highlightCell(cood[0], cood[1]);
+                                }
+                            } else {
+                                highlightCell(cood[0], cood[1]);
+                            }
+                        }
+
+                        if (currPlayer.getDirection() == "W") {
+                            if (currPlayer.getRow() == cood[0] && currPlayer.getCol() > cood[1]) {
+                                if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                                    if (cood[0] < lastXValue) {
+                                        highlightCellGreen(cood[0], cood[1]);
+                                    }
+                                } else {
+                                    lastXValue = cood[1];
+                                    highlightCell(cood[0], cood[1]);
+                                }
+                            } else {
+                                highlightCell(cood[0], cood[1]);
+                            }
+                        }
+
+
+                    }
+                });
+                boardGridVisual.add(nw, i, j);
+            }
+        }
+    }
+
+    public void clearHighlightedCells() {
+        ObservableList<Node> allPanes = boardGridVisual.getChildren();
+        List<Node> elements = new ArrayList<>();
+
+        for (Node node : allPanes) {
+            if (node instanceof Pane) {
+                elements.add(node);
+            }
+        }
+
+        for (Node item : elements) {
+            item.setStyle("-fx-background: #ffffff; -fx-border-color: #ffffff; -fx-border-width: 0;");
+            item.toFront();
+        }
+    }
+
+    public void clearCellsBut(List<int[]> coordinates) {
+        ObservableList<Node> allPanes = boardGridVisual.getChildren();
+        List<Node> elements = new ArrayList<>();
+
+        for (Node node : allPanes) {
+            if (node instanceof Pane) {
+                String[] ex = node.getId().split(":");
+                int x = Integer.parseInt(ex[1]);
+                int y = Integer.parseInt(ex[2]);
+
+                int[] newC = {x, y};
+
+                if (!coordinates.contains(newC)) {
+                    elements.add(node);
+                }
+            }
+        }
+
+        for (Node item : elements) {
+            item.setStyle("-fx-background: #ffffff; -fx-border-color: #ffffff; -fx-border-width: 0;");
+            item.toFront();
+        }
+    }
+
+    public void clearCell(int x, int y) {
+        ObservableList<Node> allPanes = boardGridVisual.getChildren();
+        Node toChange = null;
+
+        int newX = x--; int newY = y--;
+
+        String givenCoordinate = "c:" + Integer.toString(newX) + ":" + Integer.toString(newY);
+
+        for (Node node : allPanes) {
+            if (node instanceof Pane) {
+                if (node.getId() != null && node.getId().equals(givenCoordinate) && node.getId().startsWith("c:")) {
+                    toChange = node;
+                }
+            }
+        }
+
+        if (toChange != null) {
+            toChange.setStyle("-fx-background: #ffffff; -fx-border-color: #ffffff; -fx-border-width: 0;");
+            toChange.toFront();
+        }
+    }
+
+    public void highlightCell(int x, int y) {
+        ObservableList<Node> allPanes = boardGridVisual.getChildren();
+        Node toChange = null;
+
+        //int newX = x--; int newY = y--;
+
+        String givenCoordinate = "c:" + Integer.toString(x) + ":" + Integer.toString(y);
+
+        for (Node node : allPanes) {
+            if (node instanceof Pane) {
+                if (node.getId() != null && node.getId().equals(givenCoordinate) && node.getId().startsWith("c:")) {
+                    toChange = node;
+                }
+            }
+        }
+
+        if (toChange != null) {
+            toChange.toFront();
+            toChange.setStyle("-fx-background: #ff8a8a; -fx-border-color: #ff8a8a; -fx-border-width: 2; -fx-scale-x: 1; -fx-scale-y: 1");
+        }
+    }
+
+    public void highlightCellGreen(int x, int y) {
+        ObservableList<Node> allPanes = boardGridVisual.getChildren();
+        Node toChange = null;
+
+        int newX = x--; int newY = y--;
+
+        String givenCoordinate = "c:" + Integer.toString(newX) + ":" + Integer.toString(newY);
+
+        for (Node node : allPanes) {
+            if (node instanceof Pane) {
+                if (node.getId() != null && node.getId().equals(givenCoordinate) && node.getId().startsWith("c:")) {
+                    toChange = node;
+                }
+            }
+        }
+
+        if (toChange != null) {
+            toChange.toFront();
+            toChange.setStyle("-fx-background: #beff82; -fx-border-color: #beff82; -fx-border-width: 2; -fx-scale-x: 1; -fx-scale-y: 1");
+        }
+    }
+
+
+    public void highlightMultipleCells(List<int[]> coordinates) {
+        for (int[] pos : coordinates) {
+            this.highlightCell(pos[0], pos[1]);
+        }
+    }
+
+    public void unhighlightMultipleCells(List<int[]> coordinates) {
+        for (int[] pos : coordinates) {
+            this.clearCell(pos[0], pos[1]);
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------
+    ASH
+   ------------------------------------------------------------------------------------------------------- */
     @FXML
     private void movePlayer(){
-        ;
+        if (bucGame.handlePlayerMovement(selectedCol,selectedRow)){
+            updateVisuals();
+        }
+        else{
+            System.out.println("You can't move there!");
+        }
     }
 
     @FXML

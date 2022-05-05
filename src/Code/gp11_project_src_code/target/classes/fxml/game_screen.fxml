@@ -17,7 +17,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.GameScreenController">
    <center>
-      <GridPane fx:id="boardGridVisual" gridLinesVisible="true" onMouseClicked="#clickGrid" BorderPane.alignment="CENTER">
+      <GridPane fx:id="boardGridVisual" gridLinesVisible="true" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
@@ -136,7 +136,4 @@
          </children>
       </HBox>
    </top>
-<stylesheets>
-    <URL value="@../css/stylesheet.css" />
-</stylesheets>
 </BorderPane>
