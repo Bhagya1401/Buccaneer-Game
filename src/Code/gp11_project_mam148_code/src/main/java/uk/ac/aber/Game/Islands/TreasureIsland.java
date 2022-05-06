@@ -1,16 +1,13 @@
 package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
-import uk.ac.aber.Game.ChanceCards.ChanceCard_Old;
 import uk.ac.aber.Game.ChanceCards.ChancePack;
 import uk.ac.aber.Game.Player.Player;
-import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
 public class TreasureIsland{
     private TreasureHand treasures;
     private ChancePack chanceCards;
-
 
 
     public TreasureIsland() {
@@ -23,8 +20,8 @@ public class TreasureIsland{
         return chanceCards.getChanceCard();
     }
 
-    public void putTreasure(Treasure treasure){
-        treasures.addTreasure(treasure);
+    public TreasureHand getIslandTreasureHand(){
+        return treasures;
     }
 
     /*public Treasure takeTreasure(int value) {
