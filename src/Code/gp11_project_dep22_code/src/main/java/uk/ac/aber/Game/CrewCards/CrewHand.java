@@ -1,8 +1,5 @@
 package uk.ac.aber.Game.CrewCards;
 
-import uk.ac.aber.Game.Treasure.Treasure;
-import uk.ac.aber.Game.Treasure.TreasureHand;
-
 import java.util.ArrayList;
 
 public class CrewHand {
@@ -22,14 +19,13 @@ public class CrewHand {
         }
     }
 
-    public boolean giveCardFromTop(CrewHand hnd){
-        return giveCardFromIndex(hnd, 0);
+    public void moveFromHandToHand(CrewHand hnd, CrewCard card){
+        cards.remove(card);
+        hnd.addCard(card);
     }
 
-
-    public void insertAtBottom(CrewCard card){
-        cards.add(card);
-
+    public boolean giveCardFromTop(CrewHand hnd){
+        return giveCardFromIndex(hnd, 0);
     }
 
     public boolean giveCardFromIndex(CrewHand hnd, int index) {
@@ -44,13 +40,11 @@ public class CrewHand {
         return successful;
     }
 
-
-
 //    public void printDebug() {
 //        System.out.println("---------------------------------------");
 //        for (int i = 0; i < this.cards.length; i++) {
 //            if (this.cards[i] != null) {
-//                System.out.println(this.cards[i].getValue() + " <  > " + this.cards[i].getColor());
+//                System.out.println(this.cards[i].getValue() + " <  > " + this.cards[i].getColour());
 //            } else {
 //                System.out.println("empty");
 //            }
@@ -72,21 +66,10 @@ public class CrewHand {
 //        }
     }
 
-    public int getTotalValueOfCards(){
-        int val = 0;
-        for (CrewCard card: this.cards) {
-
-                val = val + card.getValue();
-
-        }
-        return val;
-    }
-
-
     public int getBlackValue() {
         int val = 0;
         for (CrewCard card: this.cards) {
-            if (card.getColor().equals("black")) {
+            if (card.getColour().equals("black")) {
                 val = val + card.getValue();
             }
         }
@@ -96,7 +79,7 @@ public class CrewHand {
     public int getRedValue() {
         int val = 0;
         for (CrewCard card: this.cards) {
-            if (card.getColor().equals("red")) {
+            if (card.getColour().equals("red")) {
                 val = val + card.getValue();
             }
         }
@@ -111,40 +94,32 @@ public class CrewHand {
         return val;
     }
 
-
-
-
-    public CrewCard highestValue(){
-        CrewCard highestValCard = null;
-        for (CrewCard tempCard : this.cards) {
-            if (highestValCard == null) {
-                highestValCard = tempCard;
-            } else if (tempCard.getValue() > highestValCard.getValue()) {
-                highestValCard = tempCard;
-            }
-        }
-        return highestValCard;
-    }
     public CrewCard lowestValue(){
         CrewCard lowestValCard = null;
         for (CrewCard tempCard : this.cards) {
             if (lowestValCard == null) {
                 lowestValCard = tempCard;
-            } else if (tempCard.getValue() < lowestValCard.getValue()) {
+            } else if (tempCard.getValue() < lowestValCard.getValue() || (tempCard.getValue() == lowestValCard.getValue()
+                    && tempCard.getColour().equals("red") && lowestValCard.getColour().equals("black"))) {
                 lowestValCard = tempCard;
             }
         }
         return lowestValCard;
     }
 
-    public void moveFromHandToHand(CrewCard obj, CrewHand hand) {
-        CrewCard l = obj;
-        cards.remove(obj);
-        hand.addCard(l);
+    public CrewCard highestValue(){
+        CrewCard highestValCard = null;
+        for (CrewCard tempCard : cards){
+            if (highestValCard == null){
+                highestValCard = tempCard;
+            }
+            else if (tempCard.getValue() > highestValCard.getValue() || (tempCard.getValue() == highestValCard.getValue()
+                    && tempCard.getColour().equals("black") && highestValCard.getColour().equals("red"))){
+                highestValCard = tempCard;
+            }
+        }
+        return highestValCard;
     }
-
-
-
 
     public ArrayList<CrewCard> getCards() {
         return cards;

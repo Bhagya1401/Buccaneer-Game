@@ -26,7 +26,14 @@ public class TreasureHand {
         }
         return successful;
     }
-
+    public int getTotValOfTreasure() {
+        // add all values
+        int val = 0;
+        for (Treasure treasure: this.treasures) {
+            val += treasure.getValue();
+        }
+        return val;
+    }
     public boolean giveTreasureFromTopOfHand(TreasureHand hnd){
         return giveTreasureFromIndex(hnd,0);
     }
@@ -43,6 +50,31 @@ public class TreasureHand {
             successful = true;
         }
         return successful;
+    }
+
+    public int getTreasureIndexByName(String name){
+        for (int i=0; i<treasures.size(); i++){
+            if (treasures.get(i).getName().equals(name)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void moveFromHandToHand(TreasureHand hnd, Treasure obj) {
+        treasures.remove(obj);
+        hnd.addTreasure(obj);
+    }
+
+    public ArrayList<Treasure> getTreasureIndexByValue(int tValue){
+        ArrayList<Treasure> treasuresLookedUp = new ArrayList<>();
+
+        for (Treasure t: treasures){
+            if (t.getValue() == tValue){
+                treasuresLookedUp.add(t);
+            }
+        }
+        return treasuresLookedUp;
     }
 
 //    public void printDebug() {
@@ -72,48 +104,22 @@ public class TreasureHand {
         }
         return highestValTreasure;
     }
+    public Treasure lowestValue(){
+        Treasure lowestValTreasure = null;
+        for (Treasure tempTreasure : this.treasures) {
+            if (lowestValTreasure == null) {
+                lowestValTreasure = tempTreasure;
+            } else if (tempTreasure.getValue() < lowestValTreasure.getValue()) {
+                lowestValTreasure = tempTreasure;
+            }
+        }
+        return lowestValTreasure;
+    }
     public ArrayList<Treasure> getTreasures(){
         return treasures;
     }
 
-    public void moveFromHandToHand(Treasure obj, TreasureHand hand) {
-        Treasure l = obj;
-        treasures.remove(obj);
-        hand.addTreasure(l);
-    }
-    public ArrayList<Treasure> lookupTreasureByValue(int tValue){
-        ArrayList<Treasure> treasuresLookedUp = new ArrayList<>();
 
-        for (Treasure t: treasures){
-            if (t.getValue() == tValue){
-                treasuresLookedUp.add(t);
-            }
-        }
-        return treasuresLookedUp;
-    }
-
-    public ArrayList<Treasure> lookupTreasureByName(String tName){
-        ArrayList<Treasure> treasuresLookedUp = new ArrayList<Treasure>();
-
-        for (Treasure t: treasures){
-            if (t.getName().equals(tName)){
-                treasuresLookedUp.add(t);
-            }
-        }
-        return treasuresLookedUp;
-    }
-    public int getTreasureIndexByName(String name){
-        for (int i=0; i<treasures.size(); i++){
-            if (treasures.get(i).getName().equals(name)){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public void isPlayerHandPlayer() {
-         playerHand = true;
-    }
 }
 
 

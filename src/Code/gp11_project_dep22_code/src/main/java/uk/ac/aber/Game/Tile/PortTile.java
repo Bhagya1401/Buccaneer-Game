@@ -10,6 +10,8 @@ public class PortTile implements Tile{
         islandName = name;
     }
 
+    public String getTileName() { return this.islandName; };
+
     @Override
     public void setIconName(String iconName) {
         islandIconName = iconName;
