@@ -2,6 +2,10 @@ package uk.ac.aber.Game.Treasure;
 
 import org.junit.Assert;
 import org.junit.Test;
+import uk.ac.aber.Game.Islands.FlatIsland;
+import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.HomePort;
+import uk.ac.aber.Game.Port.Port;
 
 import java.util.ArrayList;
 
@@ -75,4 +79,49 @@ public class TreasureTest {
             }
         }
     }
+
+    @Test
+    public void testDiamondValue(){
+        Treasure diamond =  new Treasure("diamond", 5);
+        assertEquals(5, diamond.getValue());
+    }
+
+    @Test
+    public void testRubyValue(){
+        Treasure ruby =  new Treasure("ruby", 5);
+        assertEquals(5, ruby.getValue());
+    }
+
+    @Test
+    public void testGoldBarValue(){
+        Treasure goldBar =  new Treasure("gold bar", 4);
+        assertEquals(4, goldBar.getValue());
+    }
+
+    @Test
+    public void testPearlValue(){
+        Treasure pearl =  new Treasure("pearl", 3);
+        assertEquals(3, pearl.getValue());
+    }
+
+    @Test
+    public void testBarrelOfRumValue(){
+        Treasure barrelOfRum =  new Treasure("barrel of rum", 2);
+        assertEquals(2, barrelOfRum.getValue());
+    }
+
+    @Test
+    public void testLocationsOfTreasures(){
+        Player player =  new Player("Tom", 1);
+        HomePort port =  new HomePort("Venice", 1, 7, 1);
+        FlatIsland flatIsland =  new FlatIsland();
+        Treasure treasure =  new Treasure("diamond", 5);
+
+        player.treasureHand.addTreasure(treasure);
+        assertTrue(player.treasureHand.getTreasures().size() != 0);
+
+
+    }
+
+
 }

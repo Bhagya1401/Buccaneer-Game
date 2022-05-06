@@ -2,7 +2,6 @@ package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.CrewCards.CrewCard;
 import uk.ac.aber.Game.CrewCards.CrewHand;
-import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Game.Treasure.TreasureHand;
