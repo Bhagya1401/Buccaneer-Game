@@ -47,8 +47,24 @@ public class Game {
         this.hasRotated = false;
     }
 
-    public List<Port> getPorts(){
-        return (List<Port>) ports.values();
+    public ArrayList<Port> getPorts(){
+        return new ArrayList<Port>(ports.values());
+    }
+
+    public Player detectEndState(){
+        HomePort tempPort = null;
+        Player winner;
+        int value;
+        for (Player p: players){
+            value = 0;
+            tempPort = (HomePort) ports.get(p.getHomePortName());
+            value += tempPort.getPortTreasureHand().getTotalValTreasure() + tempPort.getSafeZoneHand().getTotalValTreasure();
+            if (value >= 20) {
+                System.out.println("Congrats");
+                return p;
+            }
+        }
+
     }
 
     public void startGame(){

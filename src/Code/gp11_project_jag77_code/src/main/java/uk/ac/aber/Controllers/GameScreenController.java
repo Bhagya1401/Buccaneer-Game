@@ -104,6 +104,13 @@ public class GameScreenController {
 
     @FXML
     private void endTurn() throws IOException {
+        Player p = bucGame.detectEndState();
+        if (p!=null){
+            FXMLLoader loader = App.getGameWonLoader();
+            GameWonScreenController ctrl = loader.getController();
+            ctrl.setPlayerName(p.getPlayerName());
+            App.setGameWonScreen();
+        }
         bucGame.nextTurn();
         System.out.println("Current player number:");
         System.out.println(bucGame.getCurrentPlayer().getPlayerNumber());

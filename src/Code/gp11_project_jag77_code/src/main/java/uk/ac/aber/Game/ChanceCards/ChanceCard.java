@@ -95,8 +95,10 @@ public class ChanceCard {
         }
 
         // card 1
-        public void blowShipAway() {
+        public void cardOne() {
+
             System.out.println("BLOW SHIP AWAY CHANCE");
+
         }
 
         // card 2

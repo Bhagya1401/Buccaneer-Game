@@ -14,6 +14,10 @@ public class HomePort extends Port{
         this.playerNumber = playerNum;
     }
 
+    public TreasureHand getSafeZoneHand(){
+        return safeZone;
+    }
+
     //holds only treasure
 
     //safe zone , 3 identical treasure
