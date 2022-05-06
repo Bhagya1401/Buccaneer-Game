@@ -69,13 +69,23 @@ public class GameScreenController {
         updateVisuals();
         createPanes();
 //
-        ChanceCard card = new ChanceCard(11, "test");
+//        ChanceCard card = new ChanceCard(11, "test");
+//
+//        card.useChanceCard(bucGame);
 
-        card.useChanceCard(bucGame);
 
+        Popups n = new Popups();
+        System.out.println(bucGame.getCurrentPlayer().crewHand.getCards());
 
-//        Popups n = new Popups();
-//        n.displayMessage("Hello", "Ya cunt");
+        for (int i = 0; i < bucGame.getCurrentPlayer().crewHand.getCards().size(); i++) {
+            System.out.println(bucGame.getCurrentPlayer().crewHand.getCards().get(i).getIconName());
+        }
+        Treasure b = new Treasure("Diamond",5);
+        Treasure c = new Treasure("Pearls",3);
+        bucGame.getCurrentPlayer().treasureHand.addTreasure(b);
+        bucGame.getCurrentPlayer().treasureHand.addTreasure(c);
+
+        n.displayTreasure("Treasure",bucGame);
     }
 
     private void updateVisuals(){

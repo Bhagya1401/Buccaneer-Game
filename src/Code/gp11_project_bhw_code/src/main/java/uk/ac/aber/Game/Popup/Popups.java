@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -219,45 +220,95 @@ public class Popups {
         return playerNum;
     }
 
-
-    public void displayCrewCard(String title,Game game){
-        game.getCurrentPlayer();
+    public void displayTreasure(String title,Game game){
 //        String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
 //        filePath = filePath.substring(6,filePath.length()-1);
 
         Stage displayCard = new Stage();
-
-
-        ScrollPane scrollPane = new ScrollPane();
         displayCard.initModality(Modality.APPLICATION_MODAL);
         displayCard.setTitle(title);
         displayCard.setMinWidth(500);
 
-        Label label = new Label();
 
-        for (int i = 0; i < game.getCurrentPlayer().crewHand.getCards().size(); i++) {
-            //Image img = new Image(filePath + "/" + game.getCurrentPlayer().crewHand.getCards().get(i).getIconName());
-            Image im = App.images.get(game.getCurrentPlayer().crewHand.getCards().get(i).getIconName());
-            ImageView cIcon = new ImageView(im);
+
+
+
+        VBox layout = new VBox(10);
+        for (int i = 0; i < game.getCurrentPlayer().treasureHand.getTreasures().size(); i++) {
+            Label label = new Label();
+            label.setText(game.getCurrentPlayer().treasureHand.getTreasures().get(i).getName() + " " + game.getCurrentPlayer().treasureHand.getTreasures().get(i).getValue());
+            //colour.setText(game.getCurrentPlayer().crewHand.getCards().get(i).getColour());
+            layout.getChildren().addAll(label);
 
         }
 
-//            Button playerButton = new Button(String.valueOf(player.getPlayerName()));
-//            playerButton.setOnAction(e -> {
-//                playerNum = player.getPlayerNumber();
-//                pickPlayerStage.close();
-//            });
-//            buttons.add(playerButton);
-//        }
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label);
+
+        Button button = new Button("Close");
+        button.setOnAction(e -> {
+            displayCard.close();
+        });
+
+        Label totalValue = new Label();
+
+
+        //totalValue.setText("Total " +String.valueOf(game.getCurrentPlayer().treasureHand.getTotalValTreasure()));
+        //layout.getChildren().addAll(totalValue, button);
+        layout.getChildren().addAll(button);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
         displayCard.setScene(scene);
         displayCard.showAndWait();
+
+
     }
+
+    public void displayCrewCard(String title,Game game){
+//        String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
+//        filePath = filePath.substring(6,filePath.length()-1);
+
+        Stage displayCard = new Stage();
+        displayCard.initModality(Modality.APPLICATION_MODAL);
+        displayCard.setTitle(title);
+        displayCard.setMinWidth(500);
+
+
+
+
+
+        VBox layout = new VBox(10);
+        for (int i = 0; i < game.getCurrentPlayer().crewHand.getCards().size(); i++) {
+            Label label = new Label();
+            //Label colour = new Label();
+            label.setText( game.getCurrentPlayer().crewHand.getCards().get(i).getColour() + " " +String.valueOf(game.getCurrentPlayer().crewHand.getCards().get(i).getValue()));
+            //colour.setText(game.getCurrentPlayer().crewHand.getCards().get(i).getColour());
+            layout.getChildren().addAll(label);
+
+        }
+
+
+
+        Button button = new Button("Close");
+        button.setOnAction(e -> {
+            displayCard.close();
+        });
+
+        Label combatValue = new Label();
+        Label totalValue = new Label();
+
+        combatValue.setText("Combat Value " +String.valueOf(game.getCurrentPlayer().crewHand.getCombatValue()));
+        totalValue.setText("Total " +String.valueOf(game.getCurrentPlayer().crewHand.getMoveAbility()));
+        layout.getChildren().addAll(combatValue,totalValue, button);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        displayCard.setScene(scene);
+        displayCard.showAndWait();
+
+
+    }
+
 
     public void displayMessage(String title, String message){
         Stage showMessage = new Stage();
