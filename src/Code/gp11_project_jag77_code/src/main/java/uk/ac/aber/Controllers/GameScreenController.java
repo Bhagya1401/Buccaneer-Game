@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -30,10 +31,6 @@ public class GameScreenController {
     GridPane boardGridVisual;
     @FXML
     Button endTurnButton;
-    @FXML
-    Button leftTurnButton;
-    @FXML
-    Button rightTurnButton;
     @FXML
     Button moveButton;
     @FXML
@@ -61,10 +58,6 @@ public class GameScreenController {
 //            }
 //        }
         //initStyling();
-    }
-
-    public void initStyling(){
-        boardGridVisual.getStyleClass().add("custom-gridPane-with-water");
     }
 
     public void newGame(ArrayList<Player> players){
@@ -125,7 +118,6 @@ public class GameScreenController {
         directionArrowImage = new ImageView(App.images.get(arrowIconName));
 
     }
-
 
     private void updateVisualTreasureHand() {
         Player ply = bucGame.getCurrentPlayer();
@@ -262,7 +254,7 @@ public class GameScreenController {
             int x = GridPane.getColumnIndex(clickedNode);
             int y = GridPane.getRowIndex(clickedNode);
             selectedCol = x; selectedRow = y;
-            System.out.println("select x: " + x + " selected y: " + y);
+            System.out.println("x: " + x + " y: " + y);
             if (oldPath != null) {
                 unhighlightMultipleCells(oldPath);
             }
@@ -336,6 +328,7 @@ public class GameScreenController {
                         highlightCell(cood[0], cood[1]);
                     }
                 }
+
 
             }
         }
@@ -591,7 +584,6 @@ public class GameScreenController {
         }
     }
 
-
     public void highlightMultipleCells(List<int[]> coordinates) {
         for (int[] pos : coordinates) {
             this.highlightCell(pos[0], pos[1]);
@@ -606,6 +598,45 @@ public class GameScreenController {
     /* -------------------------------------------------------------------------------------------------------
     ASH
    ------------------------------------------------------------------------------------------------------- */
+
+    @FXML
+    private void tradeTest(){
+        FXMLLoader loader = App.getTradeLoader();
+        TradeScreenController ctrl = loader.getController();
+        ctrl.tradeStartup(bucGame.getCurrentPlayer(),bucGame.ports.get("Venice"));
+        App.setTradeScreen();
+
+    }
+
+    @FXML
+    public void flatIslandTest(){
+        bucGame.interactWithIsland("flatIsland");
+    }
+    @FXML
+    public void treasureIslandTest(){
+        bucGame.interactWithIsland("treasureIsland");
+    }
+    @FXML
+    public void pirateIslandTest(){
+        bucGame.interactWithIsland("pirateIsland");
+    }
+
+    @FXML
+    public void attackTest(){
+        FXMLLoader loader = App.getAttackLoader();
+        AttackScreenController ctrl = loader.getController();
+        ctrl.attackStartup(bucGame.getCurrentPlayer(),bucGame.getPlayer((bucGame.getTurn()+1)%4), bucGame.getTreasureIsland());
+        App.setAttackScreen();
+    }
+
+    public void attackResult(){
+        System.out.println("Result of attack:\n Draw!!!!");
+    }
+
+    public void attackResult(Player winner, Player loser){
+        System.out.println("Result of attack:\nWinner: " + winner.getPlayerName() + "\nLoser: " + loser.getPlayerName());
+    }
+
     @FXML
     private void movePlayer(){
         if (bucGame.handlePlayerMovement(selectedCol,selectedRow)){

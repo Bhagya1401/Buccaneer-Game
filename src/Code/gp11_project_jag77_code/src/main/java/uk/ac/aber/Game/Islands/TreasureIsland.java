@@ -1,7 +1,6 @@
 package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
-import uk.ac.aber.Game.ChanceCards.ChanceCard_Old;
 import uk.ac.aber.Game.ChanceCards.ChancePack;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Treasure.TreasureHand;
@@ -9,7 +8,6 @@ import uk.ac.aber.Game.Treasure.TreasureHand;
 public class TreasureIsland{
     private TreasureHand treasures;
     private ChancePack chanceCards;
-
 
 
     public TreasureIsland() {

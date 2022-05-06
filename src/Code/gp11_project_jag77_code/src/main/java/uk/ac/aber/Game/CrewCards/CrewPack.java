@@ -2,7 +2,6 @@ package uk.ac.aber.Game.CrewCards;
 
 import uk.ac.aber.Game.Player.Player;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.ArrayList;
 
@@ -37,25 +36,6 @@ public class CrewPack {
     public void addCardToHand(CrewHand hand) {
         hand.addCard(this.cards.get(0));
         this.cards.remove(0);
-    }
-
-    public void addCard(CrewCard card) {
-        if (card != null){
-            cards.add(card);
-        }
-        else{
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public CrewCard getCard(int index) {
-        return this.cards.get(index);
-    }
-
-    public void debugPrint() {
-        for (int i = 0; i < this.cards.size(); i++) {
-            System.out.println(this.cards.get(i).getValue() + " : " + this.cards.get(i).getColor());
-        }
     }
 
     public ArrayList<CrewCard> getCards() {

@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="527.0" prefWidth="781.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.AttackScreenController">
+<AnchorPane prefHeight="527.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.AttackScreenController">
    <children>
       <ImageView fitHeight="553.0" fitWidth="796.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -44,7 +44,7 @@
                         <Image url="@../../../../../../../../OneDrive/Pulpit/wood-boards-texture-wooden-brown-wood-texture-rustic.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="playersNameLblOne" alignment="CENTER" contentDisplay="CENTER" prefHeight="67.0" prefWidth="267.0" text="Player's name" textFill="WHITE">
+                  <Label fx:id="playerNameLabelOne" alignment="CENTER" contentDisplay="CENTER" prefHeight="67.0" prefWidth="267.0" text="Player's name" textFill="WHITE">
                      <font>
                         <Font name="Curlz MT" size="45.0" />
                      </font>
@@ -63,7 +63,7 @@
                         <Font name="Curlz MT" size="45.0" />
                      </font>
                   </Label>
-                  <Label fx:id="combatScoreNumberLblOne" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="194.0" prefWidth="267.0" text="100" textFill="WHITE">
+                  <Label fx:id="combatScoreNumberLabelOne" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="194.0" prefWidth="267.0" text="100" textFill="WHITE">
                      <font>
                         <Font name="Curlz MT" size="96.0" />
                      </font>
@@ -81,7 +81,7 @@
                         <Image url="@../../../../../../../../OneDrive/Pulpit/wood-boards-texture-wooden-brown-wood-texture-rustic.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="playersNameLblTwo" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0" prefHeight="67.0" prefWidth="267.0" text="Player's name" textFill="WHITE">
+                  <Label fx:id="playerNameLabelTwo" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0" prefHeight="67.0" prefWidth="267.0" text="Player's name" textFill="WHITE">
                      <font>
                         <Font name="Curlz MT" size="45.0" />
                      </font>
@@ -100,7 +100,7 @@
                         <Font name="Curlz MT" size="45.0" />
                      </font>
                   </Label>
-                  <Label fx:id="combatScoreNumberLblTwo" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="194.0" prefWidth="267.0" text="100" textFill="WHITE">
+                  <Label fx:id="combatScoreNumberLabelTwo" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="194.0" prefWidth="267.0" text="100" textFill="WHITE">
                      <font>
                         <Font name="Curlz MT" size="96.0" />
                      </font>
@@ -115,4 +115,4 @@
          </font>
       </Label>
    </children>
-</fx:root>
+</AnchorPane>

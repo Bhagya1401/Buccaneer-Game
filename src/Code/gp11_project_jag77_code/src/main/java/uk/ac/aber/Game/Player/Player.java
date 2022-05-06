@@ -43,6 +43,8 @@ public class Player {
         directionalMovement.put("NW", new int[]{-1, -1});
     }
 
+
+
     public int getMoves(){
         int moves = crewHand.getMoveAbility();
         System.out.println("Moves :" + moves);

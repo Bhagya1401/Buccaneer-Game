@@ -14,12 +14,7 @@
     <children>
         <ImageView fitHeight="537.0" fitWidth="964.0" layoutX="-69.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../../../../../../../Downloads/aec44d5ee94cc13be69e66c230b984ee.jpg" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="79.0" fitWidth="73.0" layoutX="407.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../../../../../../../../../Downloads/1036606-200.png" />
+                <Image url="@../img/trade_background.png" />
             </image>
         </ImageView>
         <Button fx:id="treasureForCardsTradeButton" alignment="TOP_CENTER" layoutX="354.0" layoutY="276.0" mnemonicParsing="false" onAction="#tradeTreasureForCards" prefHeight="123.0" prefWidth="178.0" text="Treasure for cards">
