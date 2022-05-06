@@ -651,9 +651,9 @@ public class GameScreenController {
         System.out.println("Result of attack:\n Draw!!!!");
     }
 
-    public void attackResult(Player winner, Player loser){
-        System.out.println("Result of attack:\nWinner: " + winner.getPlayerName() + "\nLoser: " + loser.getPlayerName());
-    }
+//    public void attackResult(Player winner, Player loser){
+//        System.out.println("Result of attack:\nWinner: " + winner.getPlayerName() + "\nLoser: " + loser.getPlayerName());
+//    }
 
     @FXML
     private void movePlayer(){

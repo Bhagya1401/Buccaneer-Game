@@ -104,7 +104,7 @@ public class AttackScreenController {
         }
 
         assert winner != null;
-        ctrl.attackResult(winner,loser);
+        //ctrl.attackResult(winner,loser);
         Thread.sleep(2000);
 
         if (this.playerOne == winnerPlayer) {
