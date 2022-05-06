@@ -32,6 +32,7 @@ public class ChanceCard {
     }
 
     public void useChanceCard(Game game){
+
         switch (num){
             case 1:
                 break;
@@ -196,16 +197,14 @@ public class ChanceCard {
         // card 9
         public void takeMostValuableTreasure(Game game) {
             Player currPlayer = game.getCurrentPlayer();
-            FlatIsland Fisland = game.getFlatIsland();
+            FlatIsland flatIsland = game.getFlatIsland();
 
 
             if(currPlayer.treasureHand.getTreasures().get(0) != null){
-                Fisland.addTreasure(currPlayer.treasureHand.highestValue());
-                currPlayer.treasureHand.getTreasures().remove(currPlayer.treasureHand.highestValue());
+                currPlayer.treasureHand.moveFromHandToHand(flatIsland.treasureHand,currPlayer.treasureHand.highestValue());
 
             }else{
-                Fisland.addCrewCard(currPlayer.crewHand.highestValue());
-                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.highestValue());
+                currPlayer.crewHand.moveFromHandToHand(flatIsland.crewHand,currPlayer.crewHand.highestValue());
             }
 
         }
@@ -213,19 +212,18 @@ public class ChanceCard {
         // card 10
         public void bestCrewCardDeserted(Game game) {
             Player currPlayer = game.getCurrentPlayer();
-            PirateIsland Pisland = game.getPirateIsland();
+            PirateIsland pIsland = game.getPirateIsland();
 
-            Pisland.putCrewCard(currPlayer.crewHand.highestValue());
-            currPlayer.crewHand.getCards().remove(currPlayer.crewHand.highestValue());
-
+            currPlayer.crewHand.moveFromHandToHand(pIsland.crewHand,currPlayer.crewHand.highestValue());
         }
 
 
         // card 15 & card 23
         public static void takeTwoPirateIsland(Game game) {
             Player currPlayer = game.getCurrentPlayer();
-            game.getPirateIsland().transferCrewCard(currPlayer.crewHand);
-            game.getPirateIsland().transferCrewCard(currPlayer.crewHand);
+            PirateIsland pIsland = game.getPirateIsland();
+
+            pIsland.dealFromTop(currPlayer.crewHand,2);
             // take two, give to player
         }
 
@@ -233,28 +231,28 @@ public class ChanceCard {
         public static void takeTreasure7InVal(Game game){
 
             Player currPlayer = game.getCurrentPlayer();
-            TreasureIsland Tisland = game.getTreasureIsland();
-            PirateIsland Pisland = game.getPirateIsland();
-            giveTreasureClosestToValue(7,currPlayer.treasureHand,Tisland.getIslandTreasureHand());
+            TreasureIsland tIsland = game.getTreasureIsland();
+            PirateIsland pIsland = game.getPirateIsland();
+            giveTreasureClosestToValue(7,currPlayer.treasureHand,tIsland.getIslandTreasureHand());
 
 
+            // not sure if this works fully as intended (meant to get it as close to ten as possible
+            // but it's a good naive approach
             while (currPlayer.crewHand.getTotalCards() > 10) {
-                Pisland.putCrewCard(currPlayer.crewHand.lowestValueCard());
-                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValueCard());
+                currPlayer.crewHand.moveFromHandToHand(pIsland.crewHand,currPlayer.crewHand.lowestValue());
             }
         }
 
         //card 17
         public static void takeTreasure6InVal(Game game){
             Player currPlayer = game.getCurrentPlayer();
-            TreasureIsland Tisland = game.getTreasureIsland();
-            PirateIsland Pisland = game.getPirateIsland();
-            giveTreasureClosestToValue(6,currPlayer.treasureHand,Tisland.getIslandTreasureHand());
+            TreasureIsland tIsland = game.getTreasureIsland();
+            PirateIsland pIsland = game.getPirateIsland();
+            giveTreasureClosestToValue(6,currPlayer.treasureHand,tIsland.getIslandTreasureHand());
 
 
             while (currPlayer.crewHand.getTotalCards() > 11) {
-                Pisland.putCrewCard(currPlayer.crewHand.lowestValueCard());
-                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValueCard());
+                currPlayer.crewHand.moveFromHandToHand(pIsland.crewHand,currPlayer.crewHand.lowestValue());
             }
         }
 
@@ -264,15 +262,10 @@ public class ChanceCard {
             TreasureIsland Tisland = game.getTreasureIsland();
             PirateIsland pirateIsland = game.getPirateIsland();
             giveTreasureClosestToValue(4,currPlayer.treasureHand,Tisland.getIslandTreasureHand());
-            int tempHandAmount = currPlayer.crewHand.getTotalCards();
-            List<CrewCard> toRemove = new ArrayList<>();
-
-
 
 
             if (currPlayer.crewHand.getCards().size() < 7) {
-                pirateIsland.getCrewHand().giveCardFromTop(currPlayer.crewHand);
-                pirateIsland.transferCrewCard(currPlayer.crewHand);
+                pirateIsland.dealFromTop(currPlayer.crewHand,2);
             }
         }
 
@@ -337,85 +330,71 @@ public class ChanceCard {
 
 
 
-
-
-
         // card 19
         public static void exchangeCrewCards(Game game) {
             Player currPlayer = game.getCurrentPlayer();
-            PirateIsland island = game.getPirateIsland();
-            int tempHandAmount = currPlayer.crewHand.getTotalCards();
+            PirateIsland pIsland = game.getPirateIsland();
+            int depositAmount = currPlayer.crewHand.getCards().size();
             List<CrewCard> toRemove = new ArrayList<>();
 
-
-
-
-            for (int i = 0; i < currPlayer.crewHand.getTotalCards(); i++) {
-                System.out.println(currPlayer.crewHand.getCards().get(i).getColour());
-                island.getCrewHand().addCard(currPlayer.crewHand.getCards().get(i));
-                toRemove.add(currPlayer.crewHand.getCards().get(i));
-
+            for (int i=0; i<depositAmount; i++){
+                currPlayer.crewHand.giveCardFromTop(pIsland.crewHand);
             }
-            System.out.println("---------------------------------");
-
-            for (CrewCard rem : toRemove) {
-                currPlayer.crewHand.getCards().remove(rem);
-            }
-
-
-
-            for (int i = 0; i < tempHandAmount; i++) {
-                island.getCrewHand().giveCardFromTop(currPlayer.crewHand);
-                System.out.println(currPlayer.crewHand.getCards().get(i).getColour());
-            }
-            System.out.println("fewewf");
+            pIsland.dealFromTop(currPlayer.crewHand,depositAmount);
         }
 
         //card 20
-        public void tradeWithTIsland(Game game){
+        public void tradeWithTreasureIsland(Game game){
 
-            ArrayList<Player> choice = new ArrayList<>();
-            PirateIsland PIsland = game.getPirateIsland();
-
+            Player currPlayer = game.getCurrentPlayer();
+            ArrayList<Player> choices = new ArrayList<>();
+            PirateIsland pIsland = game.getPirateIsland();
             for (int i = 1; i < 5; i++) {
 
                 //As long as the player is not the current player
-                if(game.getCurrentPlayer().getPlayerNumber() != i){
+                if (currPlayer.getPlayerNumber() != i) {
 
                     //check if that player is around an Island
-                    Object island = game.checkIfIslandAround(game.getPlayer(i).getRow(),game.getPlayer(i).getCol());
+                    Object island = game.checkIfIslandAround(game.getPlayer(i).getRow(), game.getPlayer(i).getCol());
 
                     //If that island is treasure island add it to a choice arraylist
-                    if(island instanceof TreasureIsland){
-                        choice.add(game.getPlayer(i));
-                    }
-                    else{
-                        for (int j = 0; j < 2; j++) {
-                            PIsland.putCrewCard(game.getCurrentPlayer().crewHand.lowestValueCard());
-                        }
+                    if (island instanceof TreasureIsland) {
+                        choices.add(game.getPlayer(i));
                     }
 
                 }
-
+            }
+            if (!choices.isEmpty()){
                 //Give the current player the choice to pick a player from the list that they want to trade with
                 //popup display array list and check box, using checkbox value return player num
                 //trade with player
 
                 Popups pickPlayer = new Popups();
-                int playerNum = pickPlayer.PickPlayer("Pick Player","Choose your player", choice);
-                Player playerTwo = game.getPlayer(playerNum);
+                int playerNum = pickPlayer.PickPlayer("Pick Player","Choose your player", choices);
+                Player chosenPlayer = game.getPlayer(playerNum);
 
-
-                //If the chosen player only has 1 card
-                if(playerTwo.crewHand.getTotalCards() == 1) {
-                    game.getCurrentPlayer().crewHand.giveCardFromTop(playerTwo.crewHand);
+                if (currPlayer.crewHand.getCards().size() == 1){
+                    currPlayer.crewHand.moveFromHandToHand(chosenPlayer.crewHand, currPlayer.crewHand.highestValue());
                 }
-
-                if(playerTwo.crewHand.getTotalCards() == 0) {
-                    game.getCurrentPlayer().crewHand.giveCardFromTop(playerTwo.crewHand);
-                    game.getCurrentPlayer().crewHand.giveCardFromTop(playerTwo.crewHand);
+                else if(currPlayer.crewHand.getCards().size() == 0){
+                    currPlayer.crewHand.giveCardFromTop(chosenPlayer.crewHand);
+                    currPlayer.crewHand.giveCardFromTop(chosenPlayer.crewHand);
+                }
+                if (chosenPlayer.crewHand.getCards().size() == 1){
+                    chosenPlayer.crewHand.moveFromHandToHand(currPlayer.crewHand, chosenPlayer.crewHand.highestValue());
+                }
+                else if(chosenPlayer.crewHand.getCards().size() == 0){
+                    chosenPlayer.crewHand.giveCardFromTop(currPlayer.crewHand);
+                    chosenPlayer.crewHand.giveCardFromTop(currPlayer.crewHand);
                 }
             }
+            else{
+                int depositAmount = Math.min(currPlayer.crewHand.getCards().size(), 2);
+                for (int i=0; i<depositAmount; i++){
+                    currPlayer.crewHand.moveFromHandToHand(pIsland.crewHand,currPlayer.crewHand.lowestValue());
+                }
+            }
+
         }
 
 
@@ -427,8 +406,8 @@ public class ChanceCard {
             PirateIsland PI = game.getPirateIsland();
 
             while (currPlayer.crewHand.getTotalCards() > 7) {
-                PI.putCrewCard(currPlayer.crewHand.lowestValueCard());
-                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValueCard());
+                //PI.putCrewCard(currPlayer.crewHand.lowestValue());
+                currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValue());
             }
 
         }

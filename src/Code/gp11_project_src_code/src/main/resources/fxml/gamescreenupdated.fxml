@@ -163,8 +163,11 @@
                         <VBox prefHeight="100.0" prefWidth="165.0">
                            <children>
                               <Button fx:id="moveButton" mnemonicParsing="false" onAction="#movePlayer" text="Temp Move Button" />
-                              <Button fx:id="tradeTestButton" mnemonicParsing="false" onAction="#tradeTest" text="Trade Test Button" />
                               <Button fx:id="attackTestButton" mnemonicParsing="false" onAction="#attackTest" text="Attack Test Button" />
+                              <Button fx:id="tradeTestButton" mnemonicParsing="false" onAction="#tradeTest" text="Trade Test Button" />
+                              <Button mnemonicParsing="false" onAction="#flatIslandTest" text="FlatIsland Test Button" />
+                              <Button mnemonicParsing="false" onAction="#treasureIslandTest" text="TreasureIsland Test Button" />
+                              <Button mnemonicParsing="false" onAction="#pirateIslandTest" text="PirateIsland Test Button" />
                            </children>
                         </VBox>
                      </children></HBox>

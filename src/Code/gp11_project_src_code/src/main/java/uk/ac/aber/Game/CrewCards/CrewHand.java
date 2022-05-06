@@ -94,7 +94,7 @@ public class CrewHand {
         return val;
     }
 
-    public CrewCard lowestValueCard(){
+    public CrewCard lowestValue(){
         CrewCard lowestValCard = null;
         for (CrewCard tempCard : this.cards) {
             if (lowestValCard == null) {
