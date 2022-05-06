@@ -166,6 +166,7 @@ public class Game {
 
         for (int i = 0; i < 12; i++) {
             this.pirateIsland.crewHand.addCard(this.crewPack.getCard(0));
+            this.crewPack.cards.remove(0);
 
         }
     }

@@ -69,9 +69,9 @@ public class GameScreenController {
         updateVisuals();
         createPanes();
 //
-//        ChanceCard card = new ChanceCard(11, "test");
-//
-//        card.useChanceCard(bucGame);
+        ChanceCard card = new ChanceCard(11, "test");
+
+        card.useChanceCard(bucGame);
 
 
 //        Popups n = new Popups();

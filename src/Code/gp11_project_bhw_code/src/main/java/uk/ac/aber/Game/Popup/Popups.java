@@ -4,11 +4,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import uk.ac.aber.App.App;
 import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Treasure.Treasure;
@@ -129,8 +131,6 @@ public class Popups {
                 layout.setAlignment(Pos.CENTER);
                 layout.getChildren().addAll(showChoice, treasureButton, cardButton);
 
-                layout.setAlignment(Pos.CENTER);
-                layout.getChildren().addAll(showChoice,treasureButton);
             }
             else {
                 Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
@@ -222,22 +222,26 @@ public class Popups {
 
     public void displayCrewCard(String title,Game game){
         game.getCurrentPlayer();
-        String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
-        filePath = filePath.substring(6,filePath.length()-1);
+//        String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
+//        filePath = filePath.substring(6,filePath.length()-1);
 
         Stage displayCard = new Stage();
 
+
+        ScrollPane scrollPane = new ScrollPane();
         displayCard.initModality(Modality.APPLICATION_MODAL);
         displayCard.setTitle(title);
         displayCard.setMinWidth(500);
 
         Label label = new Label();
 
+        for (int i = 0; i < game.getCurrentPlayer().crewHand.getCards().size(); i++) {
+            //Image img = new Image(filePath + "/" + game.getCurrentPlayer().crewHand.getCards().get(i).getIconName());
+            Image im = App.images.get(game.getCurrentPlayer().crewHand.getCards().get(i).getIconName());
+            ImageView cIcon = new ImageView();
 
-//        for (int i = 0; i < gam; i++) {
-//            Image img = new Image(filePath + game.getCurrentPlayer().crewHand.getCards());
-//        } {
-//
+        }
+
 //            Button playerButton = new Button(String.valueOf(player.getPlayerName()));
 //            playerButton.setOnAction(e -> {
 //                playerNum = player.getPlayerNumber();
