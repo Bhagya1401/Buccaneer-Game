@@ -21,12 +21,14 @@ public class App extends Application {
     private static Scene startScreen;
     private static Scene characterScreen;
     private static Scene gameScreen;
+    private static Scene attackScreen;
+    private static Scene tradeScreen;
     private static Stage stage;
     public static HashMap<String, Image> images;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader startLoader, gameLoader, charLoader;
+        FXMLLoader startLoader, gameLoader, charLoader, attackLoader, tradeLoader;
         images = new HashMap<>();
         loadImages();
         startLoader = getLoader("start_screen");
@@ -40,6 +42,14 @@ public class App extends Application {
         gameLoader = getLoader("gamescreenupdated");
         gameScreen = new Scene(gameLoader.load());
         gameScreen.setUserData(gameLoader);
+
+        attackLoader = getLoader("attack_screen");
+        attackScreen = new Scene(attackLoader.load());
+        attackScreen.setUserData(attackLoader);
+
+        tradeLoader = getLoader("trade_screen");
+        tradeScreen = new Scene(tradeLoader.load());
+        tradeScreen.setUserData(tradeLoader);
 
         /*
         startScreen = new Scene(loadFXML("start_screen"));
@@ -91,6 +101,10 @@ public class App extends Application {
         stage.setScene(gameScreen);
     }
 
+    public static void setAttackScreen() {stage.setScene(attackScreen);};
+
+    public static void setTradeScreen() {stage.setScene(tradeScreen);};
+
     public static void setNextPlayerScreen() throws IOException {
         stage.setScene(new Scene(loadFXML("next_player_screen")));
     }
@@ -107,7 +121,9 @@ public class App extends Application {
         return (FXMLLoader) gameScreen.getUserData();
     }
 
+    public static FXMLLoader getAttackLoader() {return (FXMLLoader) attackScreen.getUserData();}
 
+    public static FXMLLoader getTradeLoader() {return (FXMLLoader) tradeScreen.getUserData();};
 
 //
 //    static void setRoot(String fxml) throws IOException {

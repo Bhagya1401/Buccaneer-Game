@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.GameScreenController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.GameScreenController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="1002.0">
          <image>
@@ -151,14 +151,23 @@
             </VBox>
          </left>
          <top>
-            <VBox prefHeight="200.0" prefWidth="100.0" translateX="100.0" translateY="170.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="302.0" translateX="100.0" translateY="170.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="playerNameLabel" prefHeight="55.0" prefWidth="177.0" text="Label" textFill="#a43c00">
                      <font>
                         <Font name="Dubai Light" size="28.0" />
                      </font>
                   </Label>
-                  <HBox fx:id="displayTreasureHand" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox fx:id="displayTreasureHand" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="100.0" prefWidth="165.0">
+                           <children>
+                              <Button fx:id="moveButton" mnemonicParsing="false" onAction="#movePlayer" text="Temp Move Button" />
+                              <Button fx:id="tradeTestButton" mnemonicParsing="false" onAction="#tradeTest" text="Trade Test Button" />
+                              <Button fx:id="attackTestButton" mnemonicParsing="false" onAction="#attackTest" text="Attack Test Button" />
+                           </children>
+                        </VBox>
+                     </children></HBox>
                </children>
             </VBox>
          </top></BorderPane>

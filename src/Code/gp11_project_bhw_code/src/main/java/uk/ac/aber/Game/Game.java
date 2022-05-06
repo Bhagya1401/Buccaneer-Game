@@ -93,6 +93,7 @@ public class Game {
 
         getCurrentPlayer().setDirection("N");
     }
+
     public void distributeTreasure() {
         //trade port amsterdam and venice
         int rndNum1;
@@ -143,14 +144,6 @@ public class Game {
         //to be implemented when the islands are ready for handling treasure.
 
     }
-
-
-
-
-
-
-
-
 
     public int[] getClosestFreePosition(int x, int y) {
         int[][] possible = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};

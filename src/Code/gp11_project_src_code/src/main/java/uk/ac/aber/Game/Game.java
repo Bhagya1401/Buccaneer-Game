@@ -9,10 +9,8 @@ import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Port.HomePort;
 import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Tile.*;
-import javafx.scene.image.Image;
 import uk.ac.aber.Game.Treasure.Treasure;
 
-import java.io.File;
 import java.util.*;
 
 public class Game {
@@ -30,7 +28,8 @@ public class Game {
     private HashMap<String,Player> portsToPlayers;
     public CrewPack crewPack;
     public  static  final String[] turnOrderByPortName = {"London","Genoa","Marseilles","Cadiz"};
-    private boolean moved;
+    private boolean hasMoved;
+    private boolean hasRotated;
     private static int timesCalled;
 
     public Game(ArrayList<Player> players){
@@ -44,7 +43,8 @@ public class Game {
         this.portsToPlayers = new HashMap<>();
         this.ports = new HashMap<>();
         this.crewPack = new CrewPack();
-        this.moved = false;
+        this.hasMoved = false;
+        this.hasRotated = false;
     }
 
     public List<Port> getPorts(){
@@ -203,7 +203,6 @@ public class Game {
 
     public void nextTurn(){ // increment with rollover
         turn++;
-        moved = false;
     }
 
     public int getMovesLeft(){
@@ -319,7 +318,20 @@ public class Game {
     }
 
     public boolean hasPlayerMoved(){
-        return moved;
+        return hasMoved;
+    }
+    public boolean hasPlayerRotated() { return hasRotated;}
+
+    public PirateIsland getPirateIsland() {
+        return pirateIsland;
+    }
+
+    public TreasureIsland getTreasureIsland() {
+        return treasureIsland;
+    }
+
+    public FlatIsland getFlatIsland() {
+        return flatIsland;
     }
 
     public boolean handlePlayerMovement(int toCol, int toRow){
@@ -328,41 +340,57 @@ public class Game {
         System.out.println("DESTINATION ROW: " + toRow);
         Tile tempTile;
         Player currPlayer = getCurrentPlayer();
-        if (toCol <20 & toCol >= 0 & toRow <20 & toRow >= 0){ //are the co-ords in the board
-            if (currPlayer.pathUpToTileFree(toCol,toRow, gameBoard)) {
-                if (currPlayer.canMoveInStraightLine(toCol, toRow,gameBoard, true)) {
-                    tempTile = gameBoard[toCol][toRow];
-                    if (tempTile instanceof PlayerTile) {
-                        int tempPlayerNum = ((PlayerTile) tempTile).getPlayerNumber();
-                        if (getCurrentPlayer().getPlayerNumber() == tempPlayerNum) {
-                            System.out.println("Can't move to same square");
-                        } else {
-                            System.out.println("You tried to attack a player you scallywag!");
-                            //                        FXMLLoader loader = App.getAttackLoader();
-                            //                        AttackScreenController ctrl = loader.getController();
-                            //                        ctrl.beginAttack(getCurrentPlayer(), getPlayer(tempPlayerNum))
-                            //                        App.setAttackScreen();
-                        }
-                    } else if (tempTile instanceof PortTile) {
-                        System.out.println("Trying to move to port tile");
-                    } else {
-                        currPlayer.moveTo(toCol, toRow, gameBoard);
-                        moved = true;
-                    }
+        if (!hasPlayerRotated()){
+            if (!hasPlayerMoved()){
+                if (toCol <20 & toCol >= 0 & toRow <20 & toRow >= 0){ //are the co-ords in the board
+                    if (currPlayer.pathUpToTileFree(toCol,toRow, gameBoard)) {
+                        if (currPlayer.canMoveInStraightLine(toCol, toRow,gameBoard, true)) {
+                            tempTile = gameBoard[toCol][toRow];
+                            if (tempTile instanceof PlayerTile) {
+                                int tempPlayerNum = ((PlayerTile) tempTile).getPlayerNumber();
+                                if (getCurrentPlayer().getPlayerNumber() == tempPlayerNum) {
+                                    System.out.println("Can't move to same square");
+                                } else {
+                                    System.out.println("You tried to attack a player you scallywag!");
+                                    //                        FXMLLoader loader = App.getAttackLoader();
+                                    //                        AttackScreenController ctrl = loader.getController();
+                                    //                        ctrl.beginAttack(getCurrentPlayer(), getPlayer(tempPlayerNum))
+                                    //                        App.setAttackScreen();
+                                }
+                            } else if (tempTile instanceof PortTile) {
+                                System.out.println("Trying to move to port tile");
+                            } else {
+                                currPlayer.moveTo(toCol, toRow, gameBoard);
+                                hasMoved = true;
+                            }
 
+                        }
+                        else{
+                            System.out.println("Too far away / or not in line with player");
+                        }
+                    }
+                    else{
+                        System.out.println("Path to destination not clear");
+                    }
                 }
-                else{
-                    System.out.println("Too far away / or not in line with player");
-                }
-            }
-            else{
-                System.out.println("Path to destination not clear");
             }
         }
-        return moved;
+        else{
+            System.out.println("PLayer has already turned! can't move!");
+        }
+
+        return hasMoved;
     }
 
-    private void interactWithIsland(String nameOfIsland){
+    public void playerEndTurnSequence(){
+        System.out.println("Doing end-turn stuff");
+        hasMoved = false;
+        hasRotated = false;
+        // checkSurroundings(); ???? something like this?
+        nextTurn();
+    }
+
+    public void interactWithIsland(String nameOfIsland){
         if (nameOfIsland.equalsIgnoreCase("TreasureIsland")){
             treasureIslandHandler();
         }
@@ -378,9 +406,8 @@ public class Game {
         ChanceCard card = treasureIsland.getChanceCard();
 
     }
-
     private void flatIslandHandler(){
-
+        flatIsland.giveLoot(getCurrentPlayer());
     }
     private void pirateIslandHandler(){
         ;
@@ -396,14 +423,14 @@ public class Game {
         getCurrentPlayer().rotate(turnDir);
     }
 
-    private void checkVicinityOfPlayer(){
-        Player currPlayer = getCurrentPlayer();
-        int row = currPlayer.getRow();
-        int col = currPlayer.getCol();
-        boolean northCheck = false, eastCheck = false, southCheck = false, westCheck = false;
-
-
-    }
+//    private void checkVicinityOfPlayer(){
+//        Player currPlayer = getCurrentPlayer();
+//        int row = currPlayer.getRow();
+//        int col = currPlayer.getCol();
+//        boolean northCheck = false, eastCheck = false, southCheck = false, westCheck = false;
+//
+//
+//    }
 /*
     public void startGameBoard(){
         gson.load("game_start_template");
