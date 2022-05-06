@@ -55,6 +55,17 @@ public class Port {
     }
 
 
+    public void putAllTreasure(Player ply) {
+        TreasureHand tres = ply.treasureHand;
+        if (tres.getTotalTreasure() == 2) {
+            ply.treasureHand.moveFromHandToHand(this.getPortTreasureHand(), ply.treasureHand.getTreasures().get(0));
+            ply.treasureHand.moveFromHandToHand(this.getPortTreasureHand(), ply.treasureHand.getTreasures().get(0));
+        } else if (tres.getTotalTreasure() == 1) {
+            ply.treasureHand.moveFromHandToHand(this.getPortTreasureHand(), ply.treasureHand.getTreasures().get(0));
+        }
+        ((HomePort) this).addToSafeZone();
+    }
+
 
     public void tradeTreasureForCards(Player player,int totalCrewCards, int totalTreasure, int[] tradeTreasure, int[] tradeCards){
 

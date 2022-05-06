@@ -6,8 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import uk.ac.aber.App.App;
 import uk.ac.aber.Game.CrewCards.CrewCard;
+import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Tile.OceanTile;
+import uk.ac.aber.Game.Tile.PlayerTile;
+import uk.ac.aber.Game.Tile.Tile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +22,9 @@ public class AttackScreenController {
     private Player playerOne;
     private Player playerTwo;
     private TreasureIsland treasureIsland;
+    public Player winnerPlayer;
+    public Player loserPlayer;
+    private Game bucGame;
 
     @FXML
     private Label playerNameLabelOne;
@@ -34,7 +41,8 @@ public class AttackScreenController {
     @FXML
     private Label winnerLabel;
 
-    public void attackStartup(Player p1, Player p2, TreasureIsland treasureIslandIn){
+    public void attackStartup(Player p1, Player p2, TreasureIsland treasureIslandIn, Game game){
+        this.bucGame = game;
         playerOne = p1;
         playerTwo = p2;
         treasureIsland = treasureIslandIn;
@@ -60,9 +68,13 @@ public class AttackScreenController {
             if(combatValueOne > combatValueTwo){
                 winner = playerOne;
                 loser = playerTwo;
+                loserPlayer = playerTwo;
+                winnerPlayer = playerOne;
             } else{
                 winner = playerTwo;
                 loser = playerOne;
+                loserPlayer = playerOne;
+                winnerPlayer = playerTwo;
             }
             winnerLabel.setText("Winner: " + winner.getPlayerName());
             // NEEDS TO BE A POPUP ASKING USER WHETHER THEY WANT TO TAKE CREW CARD OR TREASURE
@@ -85,16 +97,96 @@ public class AttackScreenController {
             }
         }
         else{
-            ctrl.attackResult();
-            Thread.sleep(3000);
+            // draw
+            this.outcomeDraw();
+            Thread.sleep(2000);
             App.setGameScreen();
         }
 
         assert winner != null;
         ctrl.attackResult(winner,loser);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
+
+        if (this.playerOne == winnerPlayer) {
+            this.dealWithMovement();
+        } else {
+            this.dealWithMovementLost();
+        }
+
         App.setGameScreen();
 
     }
+
+    public void outcomeDraw() {
+        bucGame.nextTurn();
+
+        FXMLLoader loader = App.getGameLoader();
+        GameScreenController ctrl = loader.getController();
+
+        ctrl.clearHighlightedCells();
+        ctrl.updateVisuals();
+    }
+
+    public void dealWithMovement() {
+        this.loserPlayer.setAllowMoveInAnyDirection(true);
+        int loserNum = this.loserPlayer.getPlayerNumber();
+
+        int[] co = {this.loserPlayer.getCol(), this.loserPlayer.getRow()};
+
+        Tile tempTile = bucGame.gameBoard[this.winnerPlayer.getCol()][this.winnerPlayer.getRow()];
+        bucGame.gameBoard[this.winnerPlayer.getCol()][this.winnerPlayer.getRow()] = new OceanTile();
+
+        this.winnerPlayer.setRowCoordinate(this.loserPlayer.getRow());
+        this.winnerPlayer.setColCoordinate(this.loserPlayer.getCol());
+        bucGame.needReplace = true;
+
+
+
+
+
+        bucGame.playerEndTurnSequence(false, tempTile, co);
+        bucGame.setTurn(loserNum);
+
+        FXMLLoader loader = App.getGameLoader();
+        GameScreenController ctrl = loader.getController();
+
+        ctrl.clearHighlightedCells();
+        ctrl.updateVisuals();
+        ctrl.updatePlayerDirection(bucGame.getCurrentPlayer());
+    }
+
+    public void dealWithMovementLost() {
+        this.loserPlayer.setAllowMoveInAnyDirection(true);
+        int loserNum = this.loserPlayer.getPlayerNumber();
+
+        int[] co = {this.winnerPlayer.getCol(), this.winnerPlayer.getRow()};
+
+        Tile tempTile = bucGame.gameBoard[this.winnerPlayer.getCol()][this.winnerPlayer.getRow()];
+        bucGame.gameBoard[this.winnerPlayer.getCol()][this.winnerPlayer.getRow()] = bucGame.gameBoard[this.loserPlayer.getCol()][this.loserPlayer.getRow()];
+
+        bucGame.gameBoard[this.loserPlayer.getCol()][this.loserPlayer.getRow()] = new OceanTile();
+
+
+        this.loserPlayer.setRowCoordinate(this.winnerPlayer.getRow());
+        this.loserPlayer.setColCoordinate(this.winnerPlayer.getCol());
+        bucGame.needReplace = true;
+
+
+
+
+
+        bucGame.playerEndTurnSequence(false, tempTile, co);
+        bucGame.setTurn(loserNum);
+
+        FXMLLoader loader = App.getGameLoader();
+        GameScreenController ctrl = loader.getController();
+
+        ctrl.clearHighlightedCells();
+        ctrl.updateVisuals();
+        ctrl.updatePlayerDirection(bucGame.getCurrentPlayer());
+    }
+
+
+
 
 }

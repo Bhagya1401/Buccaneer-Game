@@ -109,6 +109,7 @@ public class App extends Application {
         stage.setScene(new Scene(loadFXML("next_player_screen")));
     }
 
+
     public static FXMLLoader getStartLoader(){
         return (FXMLLoader) startScreen.getUserData();
     }

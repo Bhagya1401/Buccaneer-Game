@@ -109,7 +109,7 @@ public class App extends Application {
 
     public static void setTradeScreen() {stage.setScene(tradeScreen);};
 
-    public static void setGameWonScreen() {stage.setScene(gameWonScreen)}
+    public static void setGameWonScreen() {stage.setScene(gameWonScreen);}
 
 
     public static void setNextPlayerScreen() throws IOException {

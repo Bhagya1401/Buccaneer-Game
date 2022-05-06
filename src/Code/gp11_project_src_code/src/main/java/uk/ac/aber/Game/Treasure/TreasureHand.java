@@ -43,6 +43,28 @@ public class TreasureHand {
         return successful;
     }
 
+    public int getTotValOfTreasure() {
+        // add all values
+        int val = 0;
+        for (Treasure treasure: this.treasures) {
+            val += treasure.getValue();
+        }
+        return val;
+    }
+
+
+    public Treasure lowestValue(){
+        Treasure lowestValTreasure = null;
+        for (Treasure tempTreasure : this.treasures) {
+            if (lowestValTreasure == null) {
+                lowestValTreasure = tempTreasure;
+            } else if (tempTreasure.getValue() < lowestValTreasure.getValue()) {
+                lowestValTreasure = tempTreasure;
+            }
+        }
+        return lowestValTreasure;
+    }
+
     public int getTreasureIndexByName(String name){
         for (int i=0; i<treasures.size(); i++){
             if (treasures.get(i).getName().equals(name)){

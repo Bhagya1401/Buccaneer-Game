@@ -1,9 +1,12 @@
 package uk.ac.aber.Game.Port;
 
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HomePort extends Port{
     private Integer playerNumber;
@@ -19,6 +22,9 @@ public class HomePort extends Port{
     //safe zone , 3 identical treasure
 
 
+    public TreasureHand getSafeZoneHand() {
+        return safeZone;
+    }
 
     //adds any crewCards in deck to player crew Hand
     public void addToPlayerHand(Player player) {
@@ -53,18 +59,25 @@ public class HomePort extends Port{
         //if the value of the hasp map is 3 or more then loop over treasure hand and add 3 treasure items to safeZone
 
 
-        for (String key: map.keySet()) {
-            if(map.get(key) > 3){
-                int count  = 0;
-                for (int i = 0; i < getPortTreasureHand().getTreasures().size(); i++) {
+        List<Treasure> toRemove = new ArrayList<>();
 
-                    //moves exactly 3 treasures from treasureHand to safeZone
-                    if(getPortTreasureHand().getTreasures().get(i).getName().equals(key) && count < 4 ){
-                        getPortTreasureHand().giveTreasureFromIndex(safeZone,i);
+        int count = 0;
+
+        for (String key: map.keySet()) {
+            if(map.get(key) >= 3){
+                for (int i = 0; i < getPortTreasureHand().getTreasures().size(); i++) {
+                    if (getPortTreasureHand().getTreasures().get(i).getName().equals(key)) {
+                        toRemove.add(getPortTreasureHand().getTreasures().get(i));
                     }
-                    count ++;
                 }
             }
+        }
+
+        for (Treasure rem : toRemove) {
+            if (count < 3) {
+                getPortTreasureHand().moveFromHandToHand(safeZone, rem);
+            }
+            count++;
         }
     }
 

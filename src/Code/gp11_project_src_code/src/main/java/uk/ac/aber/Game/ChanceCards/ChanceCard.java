@@ -6,12 +6,14 @@ import uk.ac.aber.Game.Islands.FlatIsland;
 import uk.ac.aber.Game.Islands.PirateIsland;
 import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Port.HomePort;
 import uk.ac.aber.Game.Port.Port;
 import uk.ac.aber.Game.Popup.Popups;
 import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ChanceCard {
@@ -32,54 +34,77 @@ public class ChanceCard {
     }
 
     public void useChanceCard(Game game){
+        Popups newPopup = new Popups();
+        newPopup.displayMessage("Chance Card", this.desc);
 
         switch (num){
+            case 0:
+                break;
             case 1:
+                ChanceActions.card2(game);
                 break;
             case 2:
+                ChanceActions.card3(game);
                 break;
             case 3:
+                ChanceActions.card4(game);
                 break;
             case 4:
+                ChanceActions.card5(game);
                 break;
             case 5:
+                ChanceActions.card6(game);
                 break;
             case 6:
-                ChanceActions.blownToNearestPort(game);
+                ChanceActions.card7(game);
                 break;
             case 7:
+                ChanceActions.card8(game);
                 break;
             case 8:
+                ChanceActions.card9(game);
                 break;
             case 9:
+                ChanceActions.card10(game);
                 break;
             case 10:
+                ChanceActions.card11(game);
                 break;
             case 11:
+                ChanceActions.card12(game);
                 break;
             case 12:
+                ChanceActions.card13(game);
                 break;
             case 13:
+                ChanceActions.card14(game);
                 break;
             case 14:
+                ChanceActions.card15(game);
                 break;
             case 15:
+                ChanceActions.card16(game);
                 break;
             case 16:
+                ChanceActions.card17(game);
                 break;
             case 17:
+                ChanceActions.card18(game);
                 break;
             case 18:
+                ChanceActions.card19(game);
                 break;
             case 19:
+                ChanceActions.card20(game);
                 break;
             case 20:
+                ChanceActions.card21(game);
                 break;
             case 21:
+                ChanceActions.card22(game);
                 break;
             case 22:
-                break;
-            case 23:
+                ChanceActions.card15(game);
                 break;
         }
     }
@@ -94,26 +119,71 @@ public class ChanceCard {
             return Math.hypot(rowLength, colLength);
         }
 
-        // card 1
-        public void blowShipAway() {
-            System.out.println("BLOW SHIP AWAY CHANCE");
+
+
+
+        public static void card2(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            Player secndPlayer;
+            Popups pop = new Popups();
+            int playerChoice;
+            playerChoice = pop.PickPlayer("Choose a player","Pick a Player Number", game.getPlayers());
+            secndPlayer =  game.getPlayer(playerChoice);
+
+            secndPlayer.crewHand.giveCardFromTop(currPlayer.crewHand);
+
+
         }
+        // card 3
+        public static void card3(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland Pisland = game.getPirateIsland();
 
-        // card 2
-        public void stealCrewCards(Player pl, Player toRob) {
-            // UI stuff, will pass who to rob and current player
+            //  if (currPlayer.canMoveTo(,, game.gameBoard)){
+            //      currPlayer.moveTo(,, game.gameBoard);
+            //  }
 
-            if (toRob.crewHand.getCards().size() >= 3) {
-                for (int i = 0; i < 3; i++) {
-                    pl.crewHand.addCard(toRob.crewHand.getCards().get(i));
+            if (currPlayer.crewHand.getMoveAbility()<= 3) {
+                for (int i = 0; i < 5; i++) {
+                    Pisland.crewHand.giveCardFromTop(currPlayer.crewHand);
                 }
             }
+
         }
+        //card 4
+        public static void card4(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland Pisland = game.getPirateIsland();
 
-        // card 3
+            //  if (currPlayer.canMoveTo(,, game.gameBoard)){
+            //      currPlayer.moveTo(,, game.gameBoard);
+            //  }
 
+            if (currPlayer.crewHand.getMoveAbility()<= 3) {
+                for (int i = 0; i < 5; i++) {
+                    Pisland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                }
+            }
+
+        }
+        public static void card5(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland Pisland = game.getPirateIsland();
+            HomePort currHomePort = (HomePort) game.ports.get(currPlayer.getHomePort());
+
+            if (currPlayer.canMoveTo(currHomePort.getRow(),currHomePort.getRow() , game.gameBoard)){
+                currPlayer.moveTo(currHomePort.getRow(), currHomePort.getCol(), game.gameBoard);
+            }
+
+            if (currPlayer.crewHand.getMoveAbility()<= 3) {
+                for (int i = 0; i < 5; i++) {
+                    Pisland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                }
+            }
+
+        }
         // card 6
-        public static void blownToNearestPort(Game game) {
+        public static void card6(Game game) {
             // this should be handled by this method! not by the player!
             //Port nearest = playerCalled.getClosestPort(this.ports);
 
@@ -121,6 +191,8 @@ public class ChanceCard {
             Port closest = null;
             Player currPlayer = game.getCurrentPlayer();
             ArrayList<Port> portsCopy = (ArrayList<Port>) game.getPorts();
+            //    HashMap<String,Port> = game.get
+            PirateIsland Pisland = game.getPirateIsland();
 
 
             String direction = currPlayer.getDirection();
@@ -147,34 +219,7 @@ public class ChanceCard {
             }
 
 
-//            switch (game.getCurrentPlayer().getDirection()){
-//                case "N":
-//                    for (Port port : game.ports) {
-//                        if (port.getRow() < currPlayer.getRow()) {
-//                            double distance = this.calcDistanceToPoint(port.getCoordinate());
-//
-//                            if (distance < value) {
-//                                value = distance;
-//                                close = port;
-//                            }
-//                        }
-//                    }
-//                    break;
-//                case "NE":
-//                    break;
-//                case "E":
-//                    break;
-//                case "SE":
-//                    break;
-//                case "S":
-//                    break;
-//                case "SW":
-//                    break;
-//                case "W":
-//                    break;
-//                case "NW":
-//                    break;
-//            }
+
 
             if (closest == null){
                 throw new ArithmeticException();
@@ -182,20 +227,50 @@ public class ChanceCard {
             System.out.println("Chance: Player blown to nearest port (" + closest.getPortName() + ").");
             System.out.println("Chance: If crew total <= 3, take 4 crew cards from Pirate Island.");
 
-//            if (playerCalled.crewHand.getMoveAbility() <= 3) {
-//                // obtain cards from pirate island
-//
-//            }
+            if (currPlayer.canMoveTo(closest.getRow(),closest.getCol() , game.gameBoard)){
+                currPlayer.moveTo(closest.getRow(), closest.getCol(), game.gameBoard);
+            }
+            if (currPlayer.crewHand.getMoveAbility()<= 3) {
+                for (int i = 0; i < 5; i++) {
+                    Pisland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                }
+
+
+            }
+        }
+
+        public static void card7(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            Player secndPlayer = currPlayer.getClosestPlayer(game.getPlayers());
+
+            if(secndPlayer.treasureHand.getTotalTreasure() < 2 && currPlayer.treasureHand.getTotalTreasure()>0){
+                currPlayer.treasureHand.moveFromHandToHand(secndPlayer.treasureHand,currPlayer.treasureHand.lowestValue());
+            }else{
+                currPlayer.crewHand.moveFromHandToHand(secndPlayer.crewHand,currPlayer.crewHand.lowestValue());
+                currPlayer.crewHand.moveFromHandToHand(secndPlayer.crewHand,currPlayer.crewHand.lowestValue());
+            }
+
         }
 
         // card 8
-        public void takeTreasureOrCrew() {
-            // check if player has treasure, take the least valuable
-            // else, take two crew cards and assign to flat island
+        public static void card8(Game game) {
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland pIsland = game.getPirateIsland();
+            TreasureIsland tIsland = game.getTreasureIsland();
+            FlatIsland fIsland = game.getFlatIsland();
+
+
+            if (currPlayer.treasureHand.getTotalTreasure() ==0){
+                currPlayer.crewHand.moveFromHandToHand(fIsland.crewHand,currPlayer.crewHand.lowestValue());
+                currPlayer.crewHand.moveFromHandToHand(fIsland.crewHand,currPlayer.crewHand.lowestValue());
+            }else{
+                currPlayer.treasureHand.getTreasures().remove(currPlayer.treasureHand.lowestValue());
+            }
         }
 
+
         // card 9
-        public void takeMostValuableTreasure(Game game) {
+        public static void card9(Game game) {
             Player currPlayer = game.getCurrentPlayer();
             FlatIsland flatIsland = game.getFlatIsland();
 
@@ -210,16 +285,102 @@ public class ChanceCard {
         }
 
         // card 10
-        public void bestCrewCardDeserted(Game game) {
+        public static void card10(Game game) {
             Player currPlayer = game.getCurrentPlayer();
             PirateIsland pIsland = game.getPirateIsland();
 
             currPlayer.crewHand.moveFromHandToHand(pIsland.crewHand,currPlayer.crewHand.highestValue());
         }
+        //card 11
+        public static void card11(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland pIsland = game.getPirateIsland();
+            TreasureIsland tIsland = game.getTreasureIsland();
+            Popups newPop = new Popups();
+            int treasuretTargetVal = 5;
+            int treasureTotVal = Math.min(tIsland.getIslandTreasureHand().getTotValOfTreasure(), 5);
+
+            int choice = newPop.chooseTreasureOrCards("Choose treasure or crew cards",treasureTotVal,(pIsland.crewHand.getCards().get(0).getValue()+ pIsland.crewHand.getCards().get(1).getValue()),treasuretTargetVal,game);
+
+
+
+            if (choice ==1 ) {
+                giveTreasureClosestToValue(treasureTotVal, currPlayer.treasureHand, tIsland.getIslandTreasureHand());
+            }else{
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+            }
+            System.out.println("done");
+        }
+
+        //card 12
+        public static void card12(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland pIsland = game.getPirateIsland();
+            TreasureIsland tIsland = game.getTreasureIsland();
+            Popups newPop = new Popups();
+            int treasuretTargetVal = 4;
+            int treasureTotVal = Math.min(tIsland.getIslandTreasureHand().getTotValOfTreasure(), 5);
+
+            int choice = newPop.chooseTreasureOrCards("Choose treasure or crew cards",treasureTotVal,(pIsland.crewHand.getCards().get(0).getValue()+ pIsland.crewHand.getCards().get(1).getValue()),treasuretTargetVal,game);
+
+
+
+            if (choice ==1 ) {
+                giveTreasureClosestToValue(treasureTotVal, currPlayer.treasureHand, tIsland.getIslandTreasureHand());
+            }else{
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+            }
+
+        }
+        //card13
+        public static void card13(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland pIsland = game.getPirateIsland();
+            TreasureIsland tIsland = game.getTreasureIsland();
+            Popups newPop = new Popups();
+            int treasuretTargetVal = 5;
+            int treasureTotVal = Math.min(tIsland.getIslandTreasureHand().getTotValOfTreasure(), 5);
+
+            int choice = newPop.chooseTreasureOrCards("Choose treasure or crew cards",treasureTotVal,(pIsland.crewHand.getCards().get(0).getValue()+ pIsland.crewHand.getCards().get(1).getValue()),treasuretTargetVal,game);
+
+
+
+            if (choice ==1 ) {
+                giveTreasureClosestToValue(treasureTotVal, currPlayer.treasureHand, tIsland.getIslandTreasureHand());
+            }else{
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+            }
+
+        }
+
+        public static void card14(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland pIsland = game.getPirateIsland();
+            TreasureIsland tIsland = game.getTreasureIsland();
+            Popups newPop = new Popups();
+            int treasuretTargetVal = 7;
+            int treasureTotVal = Math.min(tIsland.getIslandTreasureHand().getTotValOfTreasure(), 5);
+
+            int choice = newPop.chooseTreasureOrCards("Choose treasure or crew cards",treasureTotVal,(pIsland.crewHand.getCards().get(0).getValue()+ pIsland.crewHand.getCards().get(1).getValue()),treasuretTargetVal,game);
+
+
+
+            if (choice ==1 ) {
+                giveTreasureClosestToValue(treasureTotVal, currPlayer.treasureHand, tIsland.getIslandTreasureHand());
+            }else{
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+            }
+
+        }
 
 
         // card 15 & card 23
-        public static void takeTwoPirateIsland(Game game) {
+        public static void card15(Game game) {
             Player currPlayer = game.getCurrentPlayer();
             PirateIsland pIsland = game.getPirateIsland();
 
@@ -228,7 +389,7 @@ public class ChanceCard {
         }
 
         //card 16
-        public static void takeTreasure7InVal(Game game){
+        public static void card16(Game game){
 
             Player currPlayer = game.getCurrentPlayer();
             TreasureIsland tIsland = game.getTreasureIsland();
@@ -244,7 +405,7 @@ public class ChanceCard {
         }
 
         //card 17
-        public static void takeTreasure6InVal(Game game){
+        public static void card17(Game game){
             Player currPlayer = game.getCurrentPlayer();
             TreasureIsland tIsland = game.getTreasureIsland();
             PirateIsland pIsland = game.getPirateIsland();
@@ -257,7 +418,7 @@ public class ChanceCard {
         }
 
         //card 18
-        private static void takeTreasure4InVal(Game game){
+        private static void card18(Game game){
             Player currPlayer = game.getCurrentPlayer();
             TreasureIsland Tisland = game.getTreasureIsland();
             PirateIsland pirateIsland = game.getPirateIsland();
@@ -331,7 +492,7 @@ public class ChanceCard {
 
 
         // card 19
-        public static void exchangeCrewCards(Game game) {
+        public static void card19(Game game) {
             Player currPlayer = game.getCurrentPlayer();
             PirateIsland pIsland = game.getPirateIsland();
             int depositAmount = currPlayer.crewHand.getCards().size();
@@ -344,7 +505,7 @@ public class ChanceCard {
         }
 
         //card 20
-        public void tradeWithTreasureIsland(Game game){
+        public static void card20(Game game){
 
             Player currPlayer = game.getCurrentPlayer();
             ArrayList<Player> choices = new ArrayList<>();
@@ -401,13 +562,34 @@ public class ChanceCard {
         //card 21
 
 
-        public static void yellowFever(Game game) {
+        public static void card21(Game game) {
             Player currPlayer = game.getCurrentPlayer();
             PirateIsland PI = game.getPirateIsland();
 
             while (currPlayer.crewHand.getTotalCards() > 7) {
                 //PI.putCrewCard(currPlayer.crewHand.lowestValue());
                 currPlayer.crewHand.getCards().remove(currPlayer.crewHand.lowestValue());
+            }
+
+        }
+        public static void card22(Game game){
+            Player currPlayer = game.getCurrentPlayer();
+            PirateIsland pIsland = game.getPirateIsland();
+            TreasureIsland tIsland = game.getTreasureIsland();
+            Popups newPop = new Popups();
+            int treasuretTargetVal = 5;
+            int treasureTotVal = Math.min(tIsland.getIslandTreasureHand().getTotValOfTreasure(), 5);
+
+            int choice = newPop.chooseTreasureOrCards("Choose treasure or crew cards",treasureTotVal,(pIsland.crewHand.getCards().get(0).getValue()+ pIsland.crewHand.getCards().get(1).getValue()),treasuretTargetVal,game);
+
+
+
+            if (choice ==1 ) {
+                giveTreasureClosestToValue(treasureTotVal, currPlayer.treasureHand, tIsland.getIslandTreasureHand());
+            }else{
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
+                pIsland.crewHand.giveCardFromTop(currPlayer.crewHand);
             }
 
         }

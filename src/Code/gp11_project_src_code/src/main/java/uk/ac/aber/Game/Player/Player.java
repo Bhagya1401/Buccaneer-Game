@@ -23,6 +23,8 @@ public class Player {
     private String direction;
     public CrewHand crewHand = new CrewHand();
     public TreasureHand treasureHand = new TreasureHand();
+    public boolean canMoveInAnyDirection = false;
+    public String playerHomePort;
 
     public Player(){
         ;
@@ -282,10 +284,6 @@ public class Player {
 
             while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
                 tempCol += movCol; tempRow += movRow;
-                System.out.println("col check : " + tempCol);
-                System.out.println("col des : " + desCol);
-                System.out.println("row check : " + tempRow);
-                System.out.println("rpw des : " + desRow);
                 if (limitedByMovement) {
                     tempMoveCounter--;
                 }
@@ -297,6 +295,34 @@ public class Player {
         }
         return canMove;
     }
+
+    public Player getClosestPlayer(ArrayList<Player> players) {
+
+        double value = 50;
+        Player close = null;
+
+        for (int i = 0; i < players.size(); i++) {
+
+            double x1 = this.getCol(); double y1 = players.get(i).getRow();
+            double x2 = players.get(i).getCol(); double y2 = this.getRow();
+
+            double ac = Math.abs(y2 - y1);
+            double cb = Math.abs(x2 - x1);
+            double distance = Math.hypot(ac, cb);
+
+            if (distance != 0) {
+                if (distance < value) {
+                    value = distance;
+                    close =  players.get(i);
+                }
+            }
+        }
+        return close;
+    }
+
+    public void setAllowMoveInAnyDirection(boolean a) { canMoveInAnyDirection = a; }
+
+    public boolean canMoveInAnyDirection() { return this.canMoveInAnyDirection; }
 
     public void rotate(String turnDir){
         direction = turnDir;
@@ -317,6 +343,11 @@ public class Player {
     public void setCoordinate(int col, int row){
         setColCoordinate(col);
         setRowCoordinate(row);
+    }
+
+    public void setHomePort(String homePortName) {
+        playerHomePort = homePortName;
+
     }
 
 
@@ -387,6 +418,9 @@ public class Player {
         return playerName;
     }
 
+    public String getHomePort(){
+        return playerHomePort;
+    }
 
 
 }

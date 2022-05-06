@@ -27,7 +27,7 @@ public class ChancePack {
     public ChanceCard getChanceCard() {
         ChanceCard giveCard = null;
         if (this.cards.size() > 0) {
-
+            Collections.shuffle(cards);
             giveCard = this.cards.get(0);
             this.cards.remove(0);
             this.cards.add(giveCard);
