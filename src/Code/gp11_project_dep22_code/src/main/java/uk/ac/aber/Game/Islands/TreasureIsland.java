@@ -1,24 +1,27 @@
 package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.ChanceCards.ChanceCard;
-import uk.ac.aber.Game.ChanceCards.ChanceCard_Old;
 import uk.ac.aber.Game.ChanceCards.ChancePack;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Treasure.TreasureHand;
 
 public class TreasureIsland{
-    private TreasureHand treasures = new TreasureHand();
+    private TreasureHand treasures;
     private ChancePack chanceCards;
 
 
-
     public TreasureIsland() {
+        treasures = new TreasureHand();
         chanceCards = new ChancePack();
     }
 
 
     public ChanceCard getChanceCard(){
         return chanceCards.getChanceCard();
+    }
+
+    public TreasureHand getIslandTreasureHand(){
+        return treasures;
     }
 
     /*public Treasure takeTreasure(int value) {
@@ -60,14 +63,4 @@ public class TreasureIsland{
     public int getNumberOfTreasures(){
         return treasures.getTotalTreasure();
     }
-
-
-    public TreasureHand getIslandTreasureHand(){return treasures;};
-
 }
-
-
-
-
-
-

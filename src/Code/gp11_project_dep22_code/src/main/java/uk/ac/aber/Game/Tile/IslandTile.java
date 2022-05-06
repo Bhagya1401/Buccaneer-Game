@@ -10,6 +10,8 @@ public class IslandTile implements Tile{
         islandName = name;
     }
 
+    public String getTileName() { return this.islandName; };
+
     @Override
     public void setIconName(String icon) {
         islandIconName = icon;

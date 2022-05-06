@@ -8,36 +8,27 @@ import uk.ac.aber.Game.Player.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class PirateIsland{
-    private CrewHand hand;
+    public CrewHand crewHand;
 
     public PirateIsland(){
-        this.hand = new CrewHand();
+        this.crewHand = new CrewHand();
     }
 
-    public CrewHand getCrewCards(){
-        return this.hand;
-    }
-
-    public void transferCrewCard(CrewHand newHand) {
-        if (this.hand.getTotalCards() > 0) {
-            this.hand.giveCardFromTop(newHand);
+    public void dealFromTop(CrewHand hnd, int numCards){
+        int dealSize;
+        if (numCards>crewHand.getCards().size()){
+            dealSize = crewHand.getCards().size();
         }
-    }
-
-    public void putCrewCard(CrewCard card) {
-        this.hand.addCard(card);
-    }
-
-    public void exchangeCrewCards(int num){
-
-    }
-
-    public void debug() {
-        for (int i = 0; i < this.hand.getCards().size(); i++) {
-            System.out.println("card: " + this.hand.getCards().get(i).getColor() + ", " + this.hand.getCards().get(i).getValue());
+        else{
+            dealSize = numCards;
+        }
+        for (int i=0; i<dealSize; i++){
+            crewHand.giveCardFromTop(hnd);
         }
     }
 
 }
+
 
