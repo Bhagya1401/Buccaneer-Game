@@ -112,7 +112,7 @@ public class Popups {
 
             if(treasureVal < targetTVal){
 
-                message = "The max value of treasures on treasure island is " + treasureVal;
+                message = "Choose between " + " crew cards with a value of "  + String.valueOf(cardVal) + "or treasure with a value of" + treasureVal;
                 showChoice.setText(message);
                 Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
                 treasureButton.setOnAction(e -> {
@@ -238,7 +238,7 @@ public class Popups {
         for (int i = 0; i < game.getCurrentPlayer().crewHand.getCards().size(); i++) {
             //Image img = new Image(filePath + "/" + game.getCurrentPlayer().crewHand.getCards().get(i).getIconName());
             Image im = App.images.get(game.getCurrentPlayer().crewHand.getCards().get(i).getIconName());
-            ImageView cIcon = new ImageView();
+            ImageView cIcon = new ImageView(im);
 
         }
 
