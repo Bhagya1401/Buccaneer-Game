@@ -256,90 +256,90 @@ public class GameScreenController {
 
     @FXML
     public void clickGrid(javafx.scene.input.MouseEvent event) {
-        Node clickedNode = event.getPickResult().getIntersectedNode();
-        if (clickedNode != boardGridVisual) {
-            // click on descendant node
-            int x = GridPane.getColumnIndex(clickedNode);
-            int y = GridPane.getRowIndex(clickedNode);
-            selectedCol = x; selectedRow = y;
-            System.out.println("x: " + x + " y: " + y);
-            if (oldPath != null) {
-                unhighlightMultipleCells(oldPath);
-            }
-
-            List<int[]> path = getPathToPointFromCurrentPlayer(x, y);
-            System.out.println("pathLength" + path.size());
-            oldPath = path;
-
-            int lastYValue = 50;
-            int lastXValue = 50;
-            Player currPlayer = bucGame.getCurrentPlayer();
-
-            for (int[] cood : path) {
-
-                if (currPlayer.getDirection().equals("N")) {
-                    if (currPlayer.getCol() == cood[1] && currPlayer.getRow() > cood[0]) {
-                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
-                            if (cood[0] > lastYValue) {
-                                highlightCellGreen(cood[0], cood[1]);
-                            }
-                        } else {
-                            lastYValue = cood[0];
-                            highlightCell(cood[0], cood[1]);
-                        }
-                    } else {
-                        highlightCell(cood[0], cood[1]);
-                    }
-                }
-
-                if (currPlayer.getDirection().equals("S")) {
-                    if (currPlayer.getCol() == cood[1] && bucGame.getCurrentPlayer().getRow() < cood[0]) {
-                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
-                            if (cood[0] < lastYValue) {
-                                highlightCellGreen(cood[0], cood[1]);
-                            }
-                        } else {
-                            lastYValue = cood[0];
-                            highlightCell(cood[0], cood[1]);
-                        }
-                    } else {
-                        highlightCell(cood[0], cood[1]);
-                    }
-                }
-
-                if (currPlayer.getDirection().equals("E")) {
-                    if (currPlayer.getRow() == cood[0] && currPlayer.getCol() < cood[1]) {
-                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
-                            if (cood[1] < lastXValue) {
-                                highlightCellGreen(cood[0], cood[1]);
-                            }
-                        } else {
-                            lastXValue = cood[1];
-                            highlightCell(cood[0], cood[1]);
-                        }
-                    } else {
-                        highlightCell(cood[0], cood[1]);
-                    }
-                }
-
-                if (currPlayer.getDirection().equals("W")) {
-                    if (currPlayer.getRow() == cood[0] && currPlayer.getCol() > cood[1]) {
-                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
-                            if (cood[0] < lastXValue) {
-                                highlightCellGreen(cood[0], cood[1]);
-                            }
-                        } else {
-                            lastXValue = cood[1];
-                            highlightCell(cood[0], cood[1]);
-                        }
-                    } else {
-                        highlightCell(cood[0], cood[1]);
-                    }
-                }
-
-
-            }
-        }
+//        Node clickedNode = event.getPickResult().getIntersectedNode();
+//        if (clickedNode != boardGridVisual) {
+//            // click on descendant node
+//            int x = GridPane.getColumnIndex(clickedNode);
+//            int y = GridPane.getRowIndex(clickedNode);
+//            selectedCol = x; selectedRow = y;
+//            System.out.println("x: " + x + " y: " + y);
+//            if (oldPath != null) {
+//                unhighlightMultipleCells(oldPath);
+//            }
+//
+//            List<int[]> path = getPathToPointFromCurrentPlayer(x, y);
+//            System.out.println("pathLength" + path.size());
+//            oldPath = path;
+//
+//            int lastYValue = 50;
+//            int lastXValue = 50;
+//            Player currPlayer = bucGame.getCurrentPlayer();
+//
+//            for (int[] cood : path) {
+//
+//                if (currPlayer.getDirection().equals("N")) {
+//                    if (currPlayer.getCol() == cood[1] && currPlayer.getRow() > cood[0]) {
+//                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+//                            if (cood[0] > lastYValue) {
+//                                highlightCellGreen(cood[0], cood[1]);
+//                            }
+//                        } else {
+//                            lastYValue = cood[0];
+//                            highlightCell(cood[0], cood[1]);
+//                        }
+//                    } else {
+//                        highlightCell(cood[0], cood[1]);
+//                    }
+//                }
+//
+//                if (currPlayer.getDirection().equals("S")) {
+//                    if (currPlayer.getCol() == cood[1] && bucGame.getCurrentPlayer().getRow() < cood[0]) {
+//                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+//                            if (cood[0] < lastYValue) {
+//                                highlightCellGreen(cood[0], cood[1]);
+//                            }
+//                        } else {
+//                            lastYValue = cood[0];
+//                            highlightCell(cood[0], cood[1]);
+//                        }
+//                    } else {
+//                        highlightCell(cood[0], cood[1]);
+//                    }
+//                }
+//
+//                if (currPlayer.getDirection().equals("E")) {
+//                    if (currPlayer.getRow() == cood[0] && currPlayer.getCol() < cood[1]) {
+//                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+//                            if (cood[1] < lastXValue) {
+//                                highlightCellGreen(cood[0], cood[1]);
+//                            }
+//                        } else {
+//                            lastXValue = cood[1];
+//                            highlightCell(cood[0], cood[1]);
+//                        }
+//                    } else {
+//                        highlightCell(cood[0], cood[1]);
+//                    }
+//                }
+//
+//                if (currPlayer.getDirection().equals("W")) {
+//                    if (currPlayer.getRow() == cood[0] && currPlayer.getCol() > cood[1]) {
+//                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+//                            if (cood[0] < lastXValue) {
+//                                highlightCellGreen(cood[0], cood[1]);
+//                            }
+//                        } else {
+//                            lastXValue = cood[1];
+//                            highlightCell(cood[0], cood[1]);
+//                        }
+//                    } else {
+//                        highlightCell(cood[0], cood[1]);
+//                    }
+//                }
+//
+//
+//            }
+//        }
     }
 
     public List<int[]> getPathToPointFromCurrentPlayer(int x, int y) {

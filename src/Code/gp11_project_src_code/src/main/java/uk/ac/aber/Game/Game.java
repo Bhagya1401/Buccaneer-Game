@@ -62,6 +62,44 @@ public class Game {
             moves = getCurrentPlayer().getMoves();
         }
     }
+
+    public int[] getClosestFreePosition(int x, int y) {
+        int[][] possible = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        int[] newFree = new int[] {};
+        for (int[] pos : possible) {
+            int[] newPos = {(x + pos[0]), (y + pos[1])};
+            if (this.gameBoard[newPos[0]][newPos[1]] instanceof OceanTile) {
+                newFree = newPos;
+            }
+        }
+        return newFree;
+    }
+
+    public Object checkIfIslandAround(int x, int y) {
+        int[][] possible = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        Object island = null;
+        for (int[] pos : possible) {
+            int[] newPos = {(x + pos[0]), (y + pos[1])};
+            if (newPos[0] > 1 && newPos[0] < 20 && newPos[1] > 1 && newPos[1] < 20) {
+                Tile gameTile = this.gameBoard[newPos[0]][newPos[1]];
+
+
+                if (gameTile instanceof IslandTile) {
+                    String islandName = gameTile.getTileName();
+                    if (islandName == "FlatIsland") {
+                        island = this.flatIsland;
+                    } else if (islandName == "PirateIsland") {
+                        island = this.pirateIsland;
+                    } else {
+                        island = this.treasureIsland;
+                    }
+                }
+            }
+        }
+
+        return island;
+    }
+
     public void distributeTreasure() {
         //trade port amsterdam and venice
         int rndNum1;
@@ -249,18 +287,16 @@ public class Game {
 
         // Flat Island Tiles
         for (int i = 1; i <= 3; i++) {
-            for (int j = 15; j <= 18; j++) {
+            for (int j = 1; j <= 4; j++) {
                 IslandTile flatIsland = new IslandTile("Flat Island");
-                flatIsland.setIconName("flat_island");
                 gameBoard[i][j] = flatIsland;
             }
         }
 
         // Pirate Island
         for(int i = 16; i <= 18; i++){
-            for(int j = 1; j <= 4; j++){
+            for(int j = 15; j <= 18; j++){
                 IslandTile pirateIsland = new IslandTile("Pirate Island");
-                pirateIsland.setIconName("pirate_island");
                 gameBoard[i][j] = pirateIsland;
             }
         }
@@ -269,7 +305,6 @@ public class Game {
         for(int i = 8; i <= 11; i++){
             for(int j = 8; j <= 11; j++){
                 IslandTile treasureIsland = new IslandTile("Treasure Island");
-                treasureIsland.setIconName("treasure_island");
                 gameBoard[i][j] = treasureIsland;
             }
         }
