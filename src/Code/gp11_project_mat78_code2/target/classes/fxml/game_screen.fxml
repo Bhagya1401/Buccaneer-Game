@@ -17,7 +17,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.GameScreenController">
    <center>
-      <GridPane fx:id="boardGridVisual" gridLinesVisible="true" onMouseClicked="#clickGrid" BorderPane.alignment="CENTER">
+      <GridPane fx:id="boardGridVisual" gridLinesVisible="true" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
@@ -85,7 +85,7 @@
                   <Insets bottom="30.0" />
                </padding>
             </Label>
-            <Label fx:id="movementLeftLabel" text="4" />
+            <Label fx:id="movementLabel" text="4" />
             <ImageView fx:id="displayCurrentPlayerIcon" fitHeight="114.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
          </children></VBox>
    </left>
@@ -112,6 +112,7 @@
                   <Button fx:id="rotateSButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rotatePlayerSouth" text="South" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button fx:id="rotateSWButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rotatePlayerSouthWest" text="South West" GridPane.rowIndex="2" />
                   <Button fx:id="rotateNWButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rotatePlayerNorthWest" text="North West" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                  <Button fx:id="moveButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#movePlayer" text="Move" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children></HBox>

@@ -1,9 +1,10 @@
-.root {
-    -fx-background-color: brown;
+.custom--gridPane-with-water {
+    -fx-background-image:url('/img/water_icon.png');
 }
 
-.custom--gridPane-with-water {
-    -fx-background-image:url('');
+.custom--itemcells {
+    -fx-stroke-width: 4;
+    -fx-stroke   : red;
 }
 
 .custom-gridPane {
@@ -12,16 +13,15 @@
 }
 
 .black-border{
-    -fx-border-color: black;
-    -fx-border-width: 2;
+    -fx-border-color black;
+    -fx-border-width 2;
 }
 .highlighted-border{
-    -fx-border-color: yellow;
-    -fx-border-width: 5;
+    -fx-border-color yellow;
+    -fx-border-width 5;
 }
 
 .transparent-item{
     -fx-background: transparent;
     -fx-background-color: transparent;
 }
-
