@@ -22,10 +22,12 @@ public class FlatIsland{
         if (p.treasureHand.getTreasures().size() == 1 && treasureHand.getTreasures().size() > 0){
             treasureHand.moveFromHandToHand(p.treasureHand,treasureHand.highestValue());
         }
-        else if (p.treasureHand.getTreasures().size() == 0 && treasureHand.getTreasures().size() > 1){
-            treasureHand.giveTreasureFromTopOfHand(p.treasureHand);
-            treasureHand.giveTreasureFromTopOfHand(p.treasureHand);
-        }
+        else if (p.treasureHand.getTreasures().size() == 0 && treasureHand.getTreasures().size() > 0){
+            int depositAmount = Math.min((2-p.treasureHand.getTreasures().size()),treasureHand.getTreasures().size());
+            for (int i=0; i< depositAmount; i++){
+                treasureHand.giveTreasureFromTopOfHand(p.treasureHand);
+            }
+        } else if(treasureHand.getTreasures().size() == 1)
         for (int i=0; i< crewHand.getCards().size(); i++){
             crewHand.giveCardFromTop(p.crewHand);
         }
