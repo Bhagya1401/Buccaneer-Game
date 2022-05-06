@@ -1,7 +1,10 @@
 package uk.ac.aber.Game.Player;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import uk.ac.aber.Game.CrewCards.CrewCard;
+import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Islands.FlatIsland;
 import uk.ac.aber.Game.Port.HomePort;
@@ -113,7 +116,7 @@ public class PlayerTest {
 //    }
 
     @Test
-    public void testGetFromFlatIsland(){
+    public void testGetTreasureFromFlatIsland(){
         Player playerOne = new Player("Tom", 1);
         FlatIsland flatIsland = new FlatIsland();
 
@@ -130,10 +133,56 @@ public class PlayerTest {
         flatIsland.giveLoot(playerOne);
 
         assertEquals(treasures, playerOne.treasureHand.getTreasures());
-
-
     }
 
+    @Test
+    public void testGetMostValuableTreasureFromFlatIsland(){
+        Player playerOne = new Player("Tom", 1);
+        FlatIsland flatIsland = new FlatIsland();
+
+        TreasureHand treasureHand = new TreasureHand();
+        Treasure treasure1 = new Treasure("diamond", 5);
+        Treasure treasure2 = new Treasure("gold  bar", 4);
+        ArrayList<Treasure> treasures = new ArrayList<>();
+
+        treasures.add(treasure1);
+        treasures.add(treasure2);
+        treasureHand.addTreasure(treasure1);
+        treasureHand.addTreasure(treasure2);
+        flatIsland.treasureHand = treasureHand;
+
+        assertEquals(treasure1, flatIsland.treasureHand.getTreasures().get(0));
+
+        flatIsland.giveLoot(playerOne);
+
+        assertEquals(treasures, playerOne.treasureHand.getTreasures());
+    }
+
+
+    @Test
+    public void testGetCardsFromFlatIsland(){
+        Player playerOne = new Player("Tom", 1);
+        FlatIsland flatIsland = new FlatIsland();
+
+        CrewHand crewHand = new CrewHand();
+        CrewCard crewCardOne = new CrewCard(3, "black");
+        CrewCard crewCardTwo = new CrewCard(2, "red");
+        ArrayList<CrewCard> crewCards = new ArrayList<>();
+
+        crewCards.add(crewCardOne);
+        crewCards.add(crewCardTwo);
+        crewHand.addCard(crewCardOne);
+        crewHand.addCard(crewCardTwo);
+
+        flatIsland.crewHand = crewHand;
+
+        assertEquals(crewCards, flatIsland.crewHand.getCards());
+
+        flatIsland.giveLoot(playerOne);
+        crewCards.remove(1);
+
+        assertEquals(crewCards, playerOne.crewHand.getCards());
+    }
 
 
 
