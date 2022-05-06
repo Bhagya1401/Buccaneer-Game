@@ -2,6 +2,7 @@ package uk.ac.aber.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import uk.ac.aber.App.App;
 import uk.ac.aber.Game.CrewCards.CrewCard;
@@ -14,80 +15,86 @@ import java.util.Collections;
 
 public class AttackScreenController {
 
+    private Player playerOne;
+    private Player playerTwo;
+    private TreasureIsland treasureIsland;
 
-    public class attackScreen {
+    @FXML
+    private Label playerNameLabelOne;
 
-        @FXML
-        private Label combatScoreLbl;
+    @FXML
+    private Label playerNameLabelTwo;
 
-        @FXML
-        private Label combatScoreLblOne;
+    @FXML
+    private Label combatScoreNumberLabelOne;
 
-        @FXML
-        private Label combatScoreNumberLblOne;
+    @FXML
+    private Label combatScoreNumberLabelTwo;
 
-        @FXML
-        private Label combatScoreNumberLblTwo;
+    @FXML
+    private Label winnerLabel;
 
-        @FXML
-        private Label playersNameLblOne;
+    public void attackStartup(Player p1, Player p2, TreasureIsland treasureIslandIn){
+        playerOne = p1;
+        playerTwo = p2;
+        treasureIsland = treasureIslandIn;
 
-        @FXML
-        private Label playersNameLblTwo;
+        playerNameLabelOne.setText(p1.getPlayerName());
+        playerNameLabelTwo.setText(p2.getPlayerName());
 
-        @FXML
-        private Label winnerLabel;
-
-        @FXML
-        private void switchToGame() throws IOException {
-            App.setGameScreen();
-        }
-
-        @FXML
-        void displayWinner(ActionEvent event) {
-            winnerLabel.setText("The winner is");
-        }
-
-        public Player attack(Player playerOne, Player playerTwo){
-            Player winner;
-            Player loser;
-            TreasureIsland treasureIsland = new TreasureIsland();
-            int combatValueOne = playerOne.crewHand.getCombatValue();
-            int combatValueTwo = playerTwo.crewHand.getCombatValue();
-            if(combatValueOne > combatValueTwo){
-                winner = playerOne;
-                loser = playerTwo;
-            } else if (combatValueOne < combatValueTwo){
-                winner = playerTwo;
-                loser = playerOne;
-            }
-            else{
-                return null; // have to return null here because neither player has won
-                // temporary fix
-            }
-            if(loser.treasureHand.getTotalTreasure() != 0){
-                winner.treasureHand.addTreasure(loser.treasureHand.getTreasures().get(0));
-                if(winner.treasureHand.getTreasures().size() > 2){
-                    treasureIsland.getIslandTreasureHand().addTreasure(loser.treasureHand.getTreasures().get(0));
-                }
-            } else if(loser.treasureHand.getTotalTreasure() == 0){
-                //Loser has to give 2 the lowest value crew cards
-                if(loser.crewHand.getCards().size() >= 2){
-                    int num = 0;
-                    ArrayList<CrewCard> crewCards = new ArrayList<>();
-                    for(CrewCard crewCard : loser.crewHand.getCards()) {
-                        crewCards.add(crewCard);
-                    }
-                } else if(loser.crewHand.getCards().size() == 1){
-                    winner.crewHand.addCard(loser.crewHand.getCards().get(0));
-                }
-            }
-            return winner;
-        }
-
-
+        combatScoreNumberLabelOne.setText(String.valueOf(p1.crewHand.getCombatValue()));
+        combatScoreNumberLabelTwo.setText(String.valueOf(p2.crewHand.getCombatValue()));
 
     }
 
+    @FXML
+    public void attack() throws InterruptedException {
+        Player winner = null;
+        Player loser= null;
+        FXMLLoader loader = App.getGameLoader();
+        GameScreenController ctrl = loader.getController();
+        int combatValueOne = playerOne.crewHand.getCombatValue();
+        int combatValueTwo = playerTwo.crewHand.getCombatValue();
+
+        if (combatValueOne != combatValueTwo){
+            if(combatValueOne > combatValueTwo){
+                winner = playerOne;
+                loser = playerTwo;
+            } else{
+                winner = playerTwo;
+                loser = playerOne;
+            }
+            winnerLabel.setText("Winner: " + winner.getPlayerName());
+            // NEEDS TO BE A POPUP ASKING USER WHETHER THEY WANT TO TAKE CREW CARD OR TREASURE
+            if(loser.treasureHand.getTreasures().size() > 0){
+                int treasuresTaken = 0;
+                while (winner.treasureHand.getTreasures().size()<2 && loser.treasureHand.getTreasures().size() > 0){
+                    loser.treasureHand.moveFromHandToHand(winner.treasureHand,loser.treasureHand.highestValue());
+                    treasuresTaken++;
+                }
+                if (treasuresTaken < 2){
+                    loser.treasureHand.moveFromHandToHand(treasureIsland.getIslandTreasureHand(), loser.treasureHand.highestValue());
+                }
+            } else { // loser has no treasure
+                //Loser has to give 2 the lowest value crew cards
+                int cardsTaken = 0;
+                while (cardsTaken < 2 && loser.crewHand.getCards().size()>0){
+                    loser.crewHand.moveFromHandToHand(winner.crewHand, loser.crewHand.highestValue());
+                    cardsTaken++;
+                }
+            }
+        }
+        else{
+            ctrl.attackResult();
+            Thread.sleep(3000);
+            App.setGameScreen();
+        }
+
+        assert winner != null;
+        ctrl.attackResult(winner,loser);
+        Thread.sleep(3000);
+        App.setGameScreen();
+
+    }
 
 }
