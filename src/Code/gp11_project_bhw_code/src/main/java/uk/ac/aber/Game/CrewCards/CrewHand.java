@@ -1,5 +1,7 @@
 package uk.ac.aber.Game.CrewCards;
 
+import uk.ac.aber.Game.Treasure.Treasure;
+
 import java.util.ArrayList;
 
 public class CrewHand {
@@ -89,6 +91,17 @@ public class CrewHand {
         return val;
     }
 
+    public CrewCard lowestValueCard(){
+        CrewCard lowestValCard = null;
+        for (CrewCard tempCard : this.cards) {
+            if (lowestValCard == null) {
+                lowestValCard = tempCard;
+            } else if (tempCard.getValue() < lowestValCard.getValue()) {
+                lowestValCard = tempCard;
+            }
+        }
+        return lowestValCard;
+    }
 
     public ArrayList<CrewCard> getCards() {
         return cards;

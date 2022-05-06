@@ -12,14 +12,16 @@ import uk.ac.aber.Game.Tile.*;
 import javafx.scene.image.Image;
 import uk.ac.aber.Game.Treasure.Treasure;
 import uk.ac.aber.Popup.ConfirmBox;
+import uk.ac.aber.Popup.PickPlayer;
 import uk.ac.aber.Popup.Popups;
+
 
 import java.io.File;
 import java.util.*;
 
 public class Game {
 
-    private Player[] players;
+    private ArrayList<Player> players;
     private int turn;
     public  Tile[][] gameBoard; // only making this public for now. Shouldn't really be public, just making my life easy
     public Tile[] playerTiles;
@@ -35,7 +37,7 @@ public class Game {
     private boolean moved;
 
 
-    public Game(Player[] players){
+    public Game(ArrayList<Player> players){
         this.gameBoard = new Tile[20][20];
         this.players = players;
         this.treasure = new Treasure[20];
@@ -49,13 +51,32 @@ public class Game {
         this.crewPack = new CrewPack();
         this.moved = false;
 
-        ConfirmBox popup = new ConfirmBox();
-        popup.d
+
+
+        Player b = new Player("test1",1);
+        Player c = new Player("test3",4);
+        Player d = new Player("test2",3);
+
+        players.add(b);
+        players.add(c);
+        players.add(d);
+
+        Popups test = new Popups();
+
+        int e = 3;
+        int f = 5;
+        //test.chooseTreasureOrCards("Test1","Work bro pls",e,f,);
+       // System.out.println(test.chooseTreasureOrCards("Test1","Work bro pls",e,f));
+        //System.out.println(test.PickPlayer("Test1","Work ya bastard",players));
 
     }
 
     public List<Port> getPorts(){
         return (List<Port>) ports.values();
+    }
+
+    public PirateIsland getPirateIsland() {
+        return pirateIsland;
     }
 
     public void startGame(){
@@ -282,7 +303,7 @@ public class Game {
     }
 
     public Player getPlayer(int playerNum){ // player one is at index 0
-        return players[playerNum-1];
+        return players.get(playerNum-1);
     }
 
     private void initTreasure(){
@@ -353,9 +374,9 @@ public class Game {
 
         // add player tiles
         for (int i=0; i<4; i++){
-            PlayerTile playerTile = new PlayerTile(players[i].getPlayerNumber());
-            playerTile.setIconName(players[i].getIconName());
-            gameBoard[players[i].getCol()][players[i].getRow()] = playerTile;
+            PlayerTile playerTile = new PlayerTile(players.get(i).getPlayerNumber());
+            playerTile.setIconName(players.get(i).getIconName());
+            gameBoard[players.get(i).getCol()][players.get(i).getRow()] = playerTile;
             playerTiles[i] = playerTile;
         }
     }

@@ -2,9 +2,11 @@ package uk.ac.aber.Game.ChanceCards;
 
 import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Islands.FlatIsland;
+import uk.ac.aber.Game.Islands.PirateIsland;
 import uk.ac.aber.Game.Islands.TreasureIsland;
 import uk.ac.aber.Game.Player.Player;
 import uk.ac.aber.Game.Port.Port;
+import uk.ac.aber.Popup.Popups;
 
 import java.util.ArrayList;
 
@@ -215,6 +217,7 @@ public class ChanceCard {
         public void tradeWithTIsland(Game game){
 
             ArrayList<Player> choice = new ArrayList<>();
+            PirateIsland PIsland = game.getPirateIsland();
 
             for (int i = 1; i < 5; i++) {
 
@@ -228,18 +231,34 @@ public class ChanceCard {
                     if(island instanceof TreasureIsland){
                         choice.add(game.getPlayer(i));
                     }
-
+                    else{
+                        for (int j = 0; j < 2; j++) {
+                            PIsland.putCrewCard(game.getCurrentPlayer().crewHand.lowestValueCard());
+                        }
+                    }
 
                 }
 
                 //Give the current player the choice to pick a player from the list that they want to trade with
                 //popup display array list and check box, using checkbox value return player num
                 //trade with player
-                
 
+                Popups pickPlayer = new Popups();
+                int playerNum = pickPlayer.PickPlayer("Pick Player","Choose your player", choice);
+                Player playerTwo = game.getPlayer(playerNum);
+
+
+                //If the chosen player only has 1 card
+                if(playerTwo.crewHand.getTotalCards() == 1) {
+                    game.getCurrentPlayer().crewHand.giveCardFromTop(playerTwo.crewHand);
+                }
+
+                if(playerTwo.crewHand.getTotalCards() == 0) {
+                    game.getCurrentPlayer().crewHand.giveCardFromTop(playerTwo.crewHand);
+                    game.getCurrentPlayer().crewHand.giveCardFromTop(playerTwo.crewHand);
+                }
             }
         }
-
 
 
     }
