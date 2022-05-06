@@ -139,9 +139,9 @@ public class ChanceCard {
             Player currPlayer = game.getCurrentPlayer();
             PirateIsland Pisland = game.getPirateIsland();
 
-            //  if (currPlayer.canMoveTo(,, game.gameBoard)){
-            //      currPlayer.moveTo(,, game.gameBoard);
-            //  }
+              if (currPlayer.canMoveTo(0,0, game.gameBoard)){
+                  currPlayer.moveTo(0,0, game.gameBoard);
+              }
 
             if (currPlayer.crewHand.getMoveAbility()<= 3) {
                 for (int i = 0; i < 5; i++) {
@@ -155,9 +155,9 @@ public class ChanceCard {
             Player currPlayer = game.getCurrentPlayer();
             PirateIsland Pisland = game.getPirateIsland();
 
-            //  if (currPlayer.canMoveTo(,, game.gameBoard)){
-            //      currPlayer.moveTo(,, game.gameBoard);
-            //  }
+              if (currPlayer.canMoveTo(19 ,19, game.gameBoard)){
+                  currPlayer.moveTo(19,19, game.gameBoard);
+              }
 
             if (currPlayer.crewHand.getMoveAbility()<= 3) {
                 for (int i = 0; i < 5; i++) {
