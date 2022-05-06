@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="615.0" fitWidth="1048.0" layoutX="-15.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../OneDrive/Pulpit/pirate-island-1.jpg" />
+            <Image url="@../img/winner_screen.jpg" />
          </image>
          <effect>
             <InnerShadow height="123.59" radius="66.30250000000001" width="143.62" />

@@ -68,7 +68,7 @@ public class CharacterScreenController {
     @FXML
     private void switchToGame() throws IOException {
         if (checkBoxOne.isSelected() & checkBoxTwo.isSelected() &
-                checkBoxThree.isSelected() & checkBoxFour.isSelected()){
+            checkBoxThree.isSelected() & checkBoxFour.isSelected()){
 
             players.get(0).setPlayerName(playerOneName.getText());
             players.get(0).setPlayerName(playerTwoName.getText());

@@ -2,7 +2,6 @@ module uk.ac.aber {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.google.gson;
-    requires org.junit.jupiter.api;
     opens uk.ac.aber.App to javafx.graphics;
     opens uk.ac.aber.Controllers to javafx.fxml;
     opens uk.ac.aber.Game to com.google.gson;

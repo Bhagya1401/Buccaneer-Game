@@ -2,33 +2,31 @@ package uk.ac.aber.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import uk.ac.aber.App.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import uk.ac.aber.Game.*;
+import uk.ac.aber.Game.ChanceCards.ChanceCard;
 import uk.ac.aber.Game.Player.Player;
+import uk.ac.aber.Game.Popup.Popups;
 import uk.ac.aber.Game.Tile.*;
+import uk.ac.aber.Game.Treasure.Treasure;
 
 public class GameScreenController {
 
-    @FXML
-    Button exitButton;
-    @FXML
-    ImageView directionArrowImage;
     @FXML
     Label playerNameLabel;
     @FXML
@@ -39,11 +37,20 @@ public class GameScreenController {
     Button moveButton;
     @FXML
     ImageView displayCurrentPlayerIcon;
+    @FXML
+    HBox displayTreasureHand;
+    @FXML
+    Button exitButton;
+    @FXML
+    ImageView directionArrowImage;
     Game bucGame; // model
+
+
     private int selectedRow, selectedCol;
     public static final String greenCol = "#b6ffad";
     public static final String redCol = "#ff6666";
     public List<int[]> oldPath = null;
+    private ImageView[][] imageGrid = new ImageView[20][20];
 
     public void initialize(){
         System.out.println("Initialising in Game screen controller");
@@ -55,16 +62,20 @@ public class GameScreenController {
         //initStyling();
     }
 
-    public void initStyling(){
-        boardGridVisual.getStyleClass().add("custom-gridPane-with-water");
-    }
-
     public void newGame(ArrayList<Player> players){
         bucGame = new Game(players);
         bucGame.startGame();
         System.out.println("Updating visuals?");
         updateVisuals();
         createPanes();
+//
+//        ChanceCard card = new ChanceCard(11, "test");
+//
+//        card.useChanceCard(bucGame);
+
+
+//        Popups n = new Popups();
+//        n.displayMessage("Hello", "Ya cunt");
     }
 
     private void updateVisuals(){
@@ -80,23 +91,22 @@ public class GameScreenController {
         for (int i=0;i<20;i++){
             for (int j=0;j<20;j++){
                 Tile currTile = bucGame.gameBoard[i][j];
-                if (currTile instanceof PlayerTile){
-                    updatePlayerDirection(bucGame.getPlayer(((PlayerTile) currTile).getPlayerNumber()));
+                ImageView currImageView = imageGrid[i][j];
+                if (currImageView != null){
+                    boardGridVisual.getChildren().remove(currImageView);
                 }
-                else{
-                    Image img = App.images.get(bucGame.gameBoard[i][j].getIconName());
-                    ImageView iv = new ImageView(img);
-                    iv.setFitWidth(35);
-                    iv.setFitHeight(35);
+                Image img = App.images.get(bucGame.gameBoard[i][j].getIconName());
+                currImageView = new ImageView(img);
+                currImageView.setFitWidth(35);
+                currImageView.setFitHeight(35);
+                imageGrid[i][j] = currImageView;
+                boardGridVisual.add(currImageView,i,j);
 
-                    // this is getting closer to being right
-//                    AnchorPane pane = new AnchorPane();
-//                    pane.setMaxHeight(Double.MAX_VALUE);
-//                    pane.setMaxWidth(Double.MAX_VALUE);
-//                    iv.fitWidthProperty().bind(pane.widthProperty());
-//                    iv.fitHeightProperty().bind(pane.heightProperty());
-                    //StackPane pane = makePaneWithImageView(img);
-                    boardGridVisual.add(iv,i,j);
+                if (currTile instanceof PlayerTile){
+                    System.out.println("i:" + i + " j: " + j);
+                    int playerNum = ((PlayerTile) currTile).getPlayerNumber();
+                    System.out.println("PLayer number : " + playerNum);
+                    updatePlayerDirection(bucGame.getPlayer(playerNum));
                 }
             }
         }
@@ -111,37 +121,6 @@ public class GameScreenController {
         App.setNextPlayerScreen();
     }
 
-//    @FXML
-//    public void clickGrid(javafx.scene.input.MouseEvent event) {
-//        Node clickedNode = event.getPickResult().getIntersectedNode();
-//        if (clickedNode != boardGridVisual) {
-//            // click on descendant node
-//            int colIndex = GridPane.getColumnIndex(clickedNode);
-//            int rowIndex = GridPane.getRowIndex(clickedNode);
-//            System.out.println("Mouse clicked cell: " + colIndex + " And: " + rowIndex);
-//            boolean actionSuccessful = false;
-//            if (!bucGame.hasPlayerMoved()){
-//                actionSuccessful =  bucGame.handlePlayerMovement(colIndex,rowIndex);
-//            }
-//            if (actionSuccessful){
-//                updateVisuals();
-//                //bucGame.nextTurn();
-//            }
-//        }
-//    }
-
-//    @FXML
-//    private void playerMove() throws IOException {
-//        boolean moved = bucGame.move(1);
-//        if (moved){
-//            updateBoardVisuals();
-//            if (bucGame.getMovesLeft() == 0){
-//                endTurn();
-//            }
-//        }
-//        updatePlayerDirection(bucGame.getTurn());
-//    }
-
     private void updateDirectionArrow() { // implementation is kinda sketch
         System.out.println("Updating direction arrow");
         String arrowIconName = "arrow_" + bucGame.getCurrentPlayer().getDirection();
@@ -150,35 +129,80 @@ public class GameScreenController {
 
     }
 
+    private void updateVisualTreasureHand() {
+        Player ply = bucGame.getCurrentPlayer();
+        ArrayList<Treasure> tHand = ply.treasureHand.getTreasures();
+
+        HashMap<String, String> mp = new HashMap<>();
+        mp.put("Diamond", "diamond");
+        mp.put("Ruby", "ruby");
+        mp.put("Gold Bars", "gold_bars");
+        mp.put("Pearls", "pearl");
+        mp.put("Barrel of Rum", "barrel_of_rum");
+
+        String[] names = new String[] {"diamond", "ruby", "gold_bars", "pearls", "barrel_of_rum"};
+
+        int pad = 0;
+
+        for (Treasure treasure : tHand) {
+            Image im = App.images.get(mp.get(treasure.getIconName()));
+            ImageView tIcon =  new ImageView(im);
+            tIcon.setFitWidth(35);
+            tIcon.setFitHeight(35);
+            tIcon.setTranslateX(pad);
+            pad = pad + 10;
+
+            displayTreasureHand.getChildren().addAll(tIcon);
+
+            System.out.println(treasure.getIconName());
+        }
+    }
+
     private void updatePlayerDirection(Player p){
         int rotation;
         switch (p.getDirection()){
             case "N":
-                System.out.println("N");
-                rotation = 90;
+                rotation = 0;
+                break;
+            case "NE":
+                rotation = 45;
                 break;
             case "E":
-                System.out.println("E");
-                rotation = 180;
-                break; // image already faces this direction
+                rotation = 90;
+                break;
+            case "SE":
+                rotation = 135;
+                break;
             case "S":
-                System.out.println("S");
-                rotation = 270;
+                rotation = 180;
+                break;
+            case "SW":
+                rotation = 225;
                 break;
             case "W":
-                System.out.println("W");
-                rotation = 0;
+                rotation = 270;
+                break;
+            case "NW":
+                rotation = 315;
                 break;
             default:
                 System.out.println("Shouldn't get to this point");
-                rotation = -1; // doesn't matter, just getting rid of error regarding rotation not being assigned a value
-                assert true;
+                throw new IllegalArgumentException();
         }
-        ImageView imageV = new ImageView(App.images.get(bucGame.gameBoard[p.getCol()][p.getRow()].getIconName()));
-        imageV.setFitHeight(35);
-        imageV.setFitWidth(35);
-        imageV.setRotate(rotation); // the 180 is added to account for the fact the arrow and ships' icons face different ways
-        boardGridVisual.add(imageV,p.getCol(),p.getRow());
+        System.out.println("P col : " + p.getCol() + " P row : " + p.getRow());
+        if (imageGrid[p.getCol()][p.getRow()] != null){
+            System.out.println("PLAYERIMAGEVIEWNOTNULL");
+            imageGrid[p.getCol()][p.getRow()].setRotate(rotation);
+        }
+        else{
+            System.out.println("PLAYERIMAGEVIEWisNULL");
+        }
+
+//        ImageView imageV = new ImageView(App.images.get(bucGame.gameBoard[p.getCol()][p.getRow()].getIconName()));
+//        imageV.setFitHeight(25);
+//        imageV.setFitWidth(25);
+//        imageV.setRotate(rotation); // the 180 is added to account for the fact the arrow and ships' icons face different ways
+//        boardGridVisual.add(imageV,p.getCol(),p.getRow());
 
     }
 
@@ -232,6 +256,94 @@ public class GameScreenController {
         ASH
        ------------------------------------------------------------------------------------------------------- */
 
+    @FXML
+    public void clickGrid(javafx.scene.input.MouseEvent event) {
+        Node clickedNode = event.getPickResult().getIntersectedNode();
+        if (clickedNode != boardGridVisual) {
+            // click on descendant node
+            int x = GridPane.getColumnIndex(clickedNode);
+            int y = GridPane.getRowIndex(clickedNode);
+            selectedCol = x; selectedRow = y;
+            System.out.println("x: " + x + " y: " + y);
+            if (oldPath != null) {
+                unhighlightMultipleCells(oldPath);
+            }
+
+            List<int[]> path = getPathToPointFromCurrentPlayer(x, y);
+            System.out.println("pathLength" + path.size());
+            oldPath = path;
+
+            int lastYValue = 50;
+            int lastXValue = 50;
+            Player currPlayer = bucGame.getCurrentPlayer();
+
+            for (int[] cood : path) {
+
+                if (currPlayer.getDirection().equals("N")) {
+                    if (currPlayer.getCol() == cood[1] && currPlayer.getRow() > cood[0]) {
+                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                            if (cood[0] > lastYValue) {
+                                highlightCellGreen(cood[0], cood[1]);
+                            }
+                        } else {
+                            lastYValue = cood[0];
+                            highlightCell(cood[0], cood[1]);
+                        }
+                    } else {
+                        highlightCell(cood[0], cood[1]);
+                    }
+                }
+
+                if (currPlayer.getDirection().equals("S")) {
+                    if (currPlayer.getCol() == cood[1] && bucGame.getCurrentPlayer().getRow() < cood[0]) {
+                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                            if (cood[0] < lastYValue) {
+                                highlightCellGreen(cood[0], cood[1]);
+                            }
+                        } else {
+                            lastYValue = cood[0];
+                            highlightCell(cood[0], cood[1]);
+                        }
+                    } else {
+                        highlightCell(cood[0], cood[1]);
+                    }
+                }
+
+                if (currPlayer.getDirection().equals("E")) {
+                    if (currPlayer.getRow() == cood[0] && currPlayer.getCol() < cood[1]) {
+                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                            if (cood[1] < lastXValue) {
+                                highlightCellGreen(cood[0], cood[1]);
+                            }
+                        } else {
+                            lastXValue = cood[1];
+                            highlightCell(cood[0], cood[1]);
+                        }
+                    } else {
+                        highlightCell(cood[0], cood[1]);
+                    }
+                }
+
+                if (currPlayer.getDirection().equals("W")) {
+                    if (currPlayer.getRow() == cood[0] && currPlayer.getCol() > cood[1]) {
+                        if (bucGame.gameBoard[cood[0]][cood[1]] instanceof OceanTile && currPlayer.pathUpToTileFree(cood[0], cood[1], bucGame.gameBoard)) {
+                            if (cood[0] < lastXValue) {
+                                highlightCellGreen(cood[0], cood[1]);
+                            }
+                        } else {
+                            lastXValue = cood[1];
+                            highlightCell(cood[0], cood[1]);
+                        }
+                    } else {
+                        highlightCell(cood[0], cood[1]);
+                    }
+                }
+
+
+            }
+        }
+    }
+
     public List<int[]> getPathToPointFromCurrentPlayer(int x, int y) {
         Player pl = bucGame.getCurrentPlayer();
         int playerX = pl.getCol();
@@ -278,13 +390,13 @@ public class GameScreenController {
 
     public void createPanes() {
         ObservableList<Node> allPanes = boardGridVisual.getChildren();
-
+        System.out.println("CREATEPANES!!!!!!!");
         for (int i = 0; i < 20; i++){
             for (int j = 0; j < 20; j++){
                 Pane nw = new Pane();
                 nw.setId("c:" + i + ":" + j);
 
-
+                /*
                 nw.onMouseClickedProperty().set((EventHandler<MouseEvent>) (MouseEvent t) -> {
                     String[] ex = nw.getId().split(":");
                     int x = Integer.parseInt(ex[1]);
@@ -296,7 +408,7 @@ public class GameScreenController {
                     }
 
                     List<int[]> path = getPathToPointFromCurrentPlayer(x, y);
-                    System.out.println("pathLenght" + path.size());
+                    System.out.println("pathLength" + path.size());
                     oldPath = path;
 
                     int indTotal = 0;
@@ -370,6 +482,7 @@ public class GameScreenController {
 
                     }
                 });
+                 */
                 boardGridVisual.add(nw, i, j);
             }
         }
@@ -481,7 +594,6 @@ public class GameScreenController {
         }
     }
 
-
     public void highlightMultipleCells(List<int[]> coordinates) {
         for (int[] pos : coordinates) {
             this.highlightCell(pos[0], pos[1]);
@@ -496,6 +608,45 @@ public class GameScreenController {
     /* -------------------------------------------------------------------------------------------------------
     ASH
    ------------------------------------------------------------------------------------------------------- */
+
+    @FXML
+    private void tradeTest(){
+        FXMLLoader loader = App.getTradeLoader();
+        TradeScreenController ctrl = loader.getController();
+        ctrl.tradeStartup(bucGame.getCurrentPlayer(),bucGame.ports.get("Venice"));
+        App.setTradeScreen();
+
+    }
+
+    @FXML
+    public void flatIslandTest(){
+        bucGame.interactWithIsland("flatIsland");
+    }
+    @FXML
+    public void treasureIslandTest(){
+        bucGame.interactWithIsland("treasureIsland");
+    }
+    @FXML
+    public void pirateIslandTest(){
+        bucGame.interactWithIsland("pirateIsland");
+    }
+
+    @FXML
+    public void attackTest(){
+        FXMLLoader loader = App.getAttackLoader();
+        AttackScreenController ctrl = loader.getController();
+        ctrl.attackStartup(bucGame.getCurrentPlayer(),bucGame.getPlayer((bucGame.getTurn()+1)%4), bucGame.getTreasureIsland());
+        App.setAttackScreen();
+    }
+
+    public void attackResult(){
+        System.out.println("Result of attack:\n Draw!!!!");
+    }
+
+    public void attackResult(Player winner, Player loser){
+        System.out.println("Result of attack:\nWinner: " + winner.getPlayerName() + "\nLoser: " + loser.getPlayerName());
+    }
+
     @FXML
     private void movePlayer(){
         if (bucGame.handlePlayerMovement(selectedCol,selectedRow)){

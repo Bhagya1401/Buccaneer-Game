@@ -1,37 +1,34 @@
 package uk.ac.aber.Game.Islands;
 
 import uk.ac.aber.Game.CrewCards.CrewCard;
+import uk.ac.aber.Game.CrewCards.CrewHand;
 import uk.ac.aber.Game.Game;
 import uk.ac.aber.Game.Player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class PirateIsland{
-    private ArrayList<CrewCard> crewCards;
+    public CrewHand crewHand;
 
     public PirateIsland(){
-        crewCards = new ArrayList<CrewCard>();
+        this.crewHand = new CrewHand();
     }
 
-    public ArrayList<CrewCard> getCrewCards(){
-        return crewCards;
-    }
-
-
-    public void takeCrewCard(int number){
-        for(int i = 0; i < number; i++){
-            crewCards.remove(i);
+    public void dealFromTop(CrewHand hnd, int numCards){
+        int dealSize;
+        if (numCards>crewHand.getCards().size()){
+            dealSize = crewHand.getCards().size();
+        }
+        else{
+            dealSize = numCards;
+        }
+        for (int i=0; i<dealSize; i++){
+            crewHand.giveCardFromTop(hnd);
         }
     }
 
-    public void putCrewCard(CrewCard crewCard){
-        crewCards.add(crewCard);
-    }
-
-    public void exchangeCrewCards(int num){
-
-    }
-
 }
+
 

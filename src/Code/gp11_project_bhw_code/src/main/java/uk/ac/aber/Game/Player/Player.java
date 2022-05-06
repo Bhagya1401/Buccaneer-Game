@@ -43,8 +43,12 @@ public class Player {
         directionalMovement.put("NW", new int[]{-1, -1});
     }
 
+
+
     public int getMoves(){
-        return 4;
+        int moves = crewHand.getMoveAbility();
+        System.out.println("Moves :" + moves);
+        return moves;
     }
 
     public boolean canMoveTo(int col, int row, Tile[][] gameBoard) {
@@ -267,6 +271,8 @@ public class Player {
 
     public boolean canMoveInStraightLine(int desCol, int desRow, Tile[][] gameBoard, boolean limitedByMovement){
         ArrayList<Tile> passedOverTiles = new ArrayList<>();
+        System.out.println("CANMOVEINSTRAIGHTLINE");
+        System.out.println("Player direction : " + direction);
         boolean canMove = false;
         if (desCol < 20 & desCol >=0 & desRow <20 & desRow >=0){
             int[] movDir = directionalMovement.get(direction);
@@ -276,11 +282,16 @@ public class Player {
 
             while (tempCol < 20 & tempCol >=0 & tempRow <20 & tempRow >=0 & tempMoveCounter>0){
                 tempCol += movCol; tempRow += movRow;
+                System.out.println("col check : " + tempCol);
+                System.out.println("col des : " + desCol);
+                System.out.println("row check : " + tempRow);
+                System.out.println("rpw des : " + desRow);
                 if (limitedByMovement) {
                     tempMoveCounter--;
                 }
-                if (tempRow == desCol & tempRow == desRow){
+                if (tempCol == desCol && tempRow == desRow){
                     canMove = true;
+                    break;
                 }
             }
         }
@@ -311,8 +322,11 @@ public class Player {
 
     public boolean inlineWithPlayer(int toCol, int toRow){
         boolean diagonal = toCol-col == toRow-row;
+        System.out.println("Inline with diagonal : " + diagonal);
         boolean vertical = toCol-col == 0;
+        System.out.println("Inline with vertical : " + vertical);
         boolean horizontal = toRow-row == 0;
+        System.out.println("Inline with horizontal : " + horizontal);
 
         return diagonal || vertical || horizontal;
     }

@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -19,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class CharacterScreenController {
 
     //Model
-    Player[] players;
+    ArrayList<Player> players;
     String[] shipColoursReserved;
     String[] shipColoursUnreserved;
 
@@ -45,111 +46,39 @@ public class CharacterScreenController {
         playerTwoName.setText("PlayerTwo");
         playerThreeName.setText("PlayerThree");
         playerFourName.setText("PlayerFour");
-
-        players = new Player[4];
-        for (int i=0;i<players.length;i++){
-            players[i] = new Player();
-            reRollColour(i);
+        String[] basePlayerNames = {"PlayerOne", "PlayerTwo", "PlayerThree", "PlayerFour"};
+        String[] playerShipColours = {"red_ship", "yellow_ship", "green_ship","blue_ship"};
+        players = new ArrayList<>();
+        for (int i=0;i<4;i++){
+            Player p = new Player(basePlayerNames[i],i+1);
+            p.setIconName(playerShipColours[i]);
+            players.add(p);
             updateImage(i);
-            players[i].setCoordinate(coords[i][0],coords[i][1]);
-            players[i].setDirection(Player.DIRECTIONS[(i*2)]);
         }
+
     }
 
+    @FXML
+    private void updateImage(int num) {
+        System.out.printf("Updating image %d\n", num);
+        ImageView[] images = {shipImage1, shipImage2, shipImage3, shipImage4};
+        images[num].setImage(App.images.get((players.get(num).getIconName())));
+    }
 
     @FXML
     private void switchToGame() throws IOException {
         if (checkBoxOne.isSelected() & checkBoxTwo.isSelected() &
             checkBoxThree.isSelected() & checkBoxFour.isSelected()){
-//            FXMLLoader loader = uk.ac.aber.App.getLoader("game_screen");
-//            loader.load();
-//            GameScreenController gSC = loader.getController();
-//            gSC.newGame(players);
 
-            players[0].setPlayerName(playerOneName.getText());
-            players[1].setPlayerName(playerTwoName.getText());
-            players[2].setPlayerName(playerThreeName.getText());
-            players[3].setPlayerName(playerFourName.getText());
-
-            for (int i=1;i<5;i++){
-                players[i-1].setPlayerNumber(i);
-            }
+            players.get(0).setPlayerName(playerOneName.getText());
+            players.get(0).setPlayerName(playerTwoName.getText());
+            players.get(0).setPlayerName(playerThreeName.getText());
+            players.get(0).setPlayerName(playerFourName.getText());
 
             FXMLLoader loader = App.getGameLoader();
             GameScreenController ctrl = loader.getController();
             ctrl.newGame(players);
             App.setNextPlayerScreen();
         }
-    }
-
-    private Image makeImage(String imageName){
-        return new Image (String.valueOf(uk.ac.aber.App.App.class.getResource("/img/" + imageName + ".png")));
-    }
-
-    @FXML
-    private void updateImage(int num){
-        System.out.printf("Updating image %d\n",num);
-        ImageView[] images = {shipImage1,shipImage2,shipImage3,shipImage4};
-        images[num].setImage(makeImage(players[num].getIconName()));
-//        switch (num){
-//            case 0:
-//                shipImage1.setImage(makeImage(players[num].getIconName()));
-//                break;
-//            case 1:
-//                shipImage2.setImage(players[num].getIcon());
-//                break;
-//            case 2:
-//                shipImage3.setImage(players[num].getIcon());
-//                break;
-//            case 3:
-//                shipImage4.setImage(players[num].getIcon());
-//                break;
-//        }
-    }
-
-    private void reRollColour(int num){
-//        System.out.println("Rerolling colour");
-//        System.out.println("Colours unused before:");
-//        System.out.println(Arrays.toString(shipColoursUnreserved));
-//        System.out.println("Colours used before:");
-//        System.out.println(Arrays.toString(shipColoursReserved));
-
-
-        boolean change = false; // has not changed yet
-        int randomNum;
-        String storeColour = null; // store colour name
-
-        do{
-            randomNum = ThreadLocalRandom.current().nextInt(0, shipColoursUnreserved.length); // get random number
-            storeColour = shipColoursUnreserved[randomNum]; // get 'random' colour and store it
-        }
-        while (storeColour == null);
-
-        players[num].setIconName(storeColour + "_ship"); // set new image
-
-        shipColoursUnreserved[randomNum] = shipColoursReserved[num];
-        shipColoursReserved[num] = storeColour;
-
-//        System.out.println("Colours unused after:");
-//        System.out.println(Arrays.toString(shipColoursUnreserved));
-//        System.out.println("Colours used after:");
-//        System.out.println(Arrays.toString(shipColoursReserved));
-    }
-
-    public void handleReRollButtonOne(ActionEvent event) {
-        reRollColour(0);
-        updateImage(0);
-    }
-    public void handleReRollButtonTwo(ActionEvent event) {
-        reRollColour(1);
-        updateImage(1);
-    }
-    public void handleReRollButtonThree(ActionEvent event) {
-        reRollColour(2);
-        updateImage(2);
-    }
-    public void handleReRollButtonFour(ActionEvent event) {
-        reRollColour(3);
-        updateImage(3);
     }
 }

@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@C:\Users\mateu\IdeaProjects\gp11_project_mam148_code\src\main\resources\img\sea.jpg" />
+            <Image url="@../img/sea.jpg" />
          </image>
       </ImageView>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">

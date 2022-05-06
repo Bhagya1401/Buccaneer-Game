@@ -2,7 +2,6 @@ package uk.ac.aber.Game.CrewCards;
 
 import uk.ac.aber.Game.Player.Player;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.ArrayList;
 
@@ -54,7 +53,7 @@ public class CrewPack {
 
     public void debugPrint() {
         for (int i = 0; i < this.cards.size(); i++) {
-            System.out.println(this.cards.get(i).getValue() + " : " + this.cards.get(i).getColor());
+            System.out.println(this.cards.get(i).getValue() + " : " + this.cards.get(i).getColour());
         }
     }
 
