@@ -4,8 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 
 
 /**
@@ -16,12 +21,17 @@ public class App extends Application {
     private static Scene startScreen;
     private static Scene characterScreen;
     private static Scene gameScreen;
+    private static Scene attackScreen;
+    private static Scene tradeScreen;
+    private static Scene gameWonScreen;
     private static Stage stage;
+    public static HashMap<String, Image> images;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader startLoader, gameLoader, charLoader;
-
+        FXMLLoader startLoader, gameLoader, charLoader, attackLoader, tradeLoader, gameWonLoader;
+        images = new HashMap<>();
+        loadImages();
         startLoader = getLoader("start_screen");
         startScreen = new Scene(startLoader.load());
         startScreen.setUserData(startLoader);
@@ -30,10 +40,21 @@ public class App extends Application {
         characterScreen = new Scene(charLoader.load());
         characterScreen.setUserData(charLoader);
 
-        gameLoader = getLoader("game_screen");
+        gameLoader = getLoader("gamescreenupdated");
         gameScreen = new Scene(gameLoader.load());
         gameScreen.setUserData(gameLoader);
 
+        attackLoader = getLoader("attack_screen");
+        attackScreen = new Scene(attackLoader.load());
+        attackScreen.setUserData(attackLoader);
+
+        tradeLoader = getLoader("trade_screen");
+        tradeScreen = new Scene(tradeLoader.load());
+        tradeScreen.setUserData(tradeLoader);
+
+        gameWonLoader = getLoader("game_won_screen");
+        gameWonScreen = new Scene(gameWonLoader.load());
+        gameWonScreen.setUserData(gameWonLoader);
         /*
         startScreen = new Scene(loadFXML("start_screen"));
 
@@ -41,11 +62,36 @@ public class App extends Application {
         gameScreen = new Scene(loadFXML("game_screen"));
          */
         App.stage = stage;
-        setStartScreen();
+        setCharacterScreen();
 
         stage.show();
     }
 
+    private void loadImages(){
+        System.out.println("Listing all the images and stuff");
+        //String filePath = App.class.getResource("/img");
+
+        String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
+        filePath = filePath.substring(6,filePath.length()-1);
+        //String filePath = "C:/UniDocs/year_2/CS22120/gp11/src/Code/gp11_project_jag77_code/target/classes/img";
+        //Image tempImage = new Image(filePath + "arrow.png");
+        System.out.println("Filepath!!! \n" + filePath);
+        File folder = new File(filePath);
+        String[] imageNames = folder.list();
+        //
+        if (imageNames == null){
+            System.out.println("Its null!");
+        }
+        else{
+            for (String fileName : imageNames){
+                Image img = new Image(filePath + "/" + fileName);
+                String name = fileName.substring(0,fileName.length() - 4); // remove the ".png"
+                images.put(name,img);
+            }
+            System.out.println(Arrays.toString(imageNames));
+        }
+
+    }
 
     public static void setStartScreen(){
         stage.setScene(startScreen);
@@ -58,6 +104,13 @@ public class App extends Application {
     public static void setGameScreen(){
         stage.setScene(gameScreen);
     }
+
+    public static void setAttackScreen() {stage.setScene(attackScreen);};
+
+    public static void setTradeScreen() {stage.setScene(tradeScreen);};
+
+    public static void setGameWonScreen() {stage.setScene(gameWonScreen);}
+
 
     public static void setNextPlayerScreen() throws IOException {
         stage.setScene(new Scene(loadFXML("next_player_screen")));
@@ -75,8 +128,11 @@ public class App extends Application {
         return (FXMLLoader) gameScreen.getUserData();
     }
 
+    public static FXMLLoader getAttackLoader() {return (FXMLLoader) attackScreen.getUserData();}
 
+    public static FXMLLoader getTradeLoader() {return (FXMLLoader) tradeScreen.getUserData();};
 
+    public static FXMLLoader getGameWonLoader() {return (FXMLLoader) gameWonScreen.getUserData();}
 //
 //    static void setRoot(String fxml) throws IOException {
 //        scene.setRoot(loadFXML(fxml));

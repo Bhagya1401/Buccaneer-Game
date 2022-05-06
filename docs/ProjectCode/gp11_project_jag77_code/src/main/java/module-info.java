@@ -7,4 +7,5 @@ module uk.ac.aber {
     opens uk.ac.aber.Game to com.google.gson;
     opens uk.ac.aber.Game.Player to com.google.gson;
     opens uk.ac.aber.Game.Tile to com.google.gson;
+    opens uk.ac.aber.Game.Treasure to com.google.gson;
 }

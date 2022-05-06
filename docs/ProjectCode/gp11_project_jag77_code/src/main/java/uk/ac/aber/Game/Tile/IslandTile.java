@@ -1,20 +1,20 @@
 package uk.ac.aber.Game.Tile;
 
-import javafx.scene.image.Image;
-
 public class IslandTile implements Tile{
 
     String islandIconName;
-
     String islandName;
+
 
     public IslandTile(String name){
         islandName = name;
     }
 
+    public String getTileName() { return this.islandName; };
+
     @Override
-    public void setIconName(String iconName) {
-        islandIconName = iconName;
+    public void setIconName(String icon) {
+        islandIconName = icon;
     }
 
     @Override
@@ -36,4 +36,5 @@ public class IslandTile implements Tile{
     public boolean isIsland() {
         return true;
     }
+
 }

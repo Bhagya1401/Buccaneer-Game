@@ -12,6 +12,12 @@ public class PlayerTile implements Tile {
         playerNum = num;
     }
 
+    public String getTileName() { return "player"; };
+
+    public int getPlayerNumber(){
+        return playerNum;
+    }
+
     @Override
     public void setIconName(String iconName) {
         shipIconName = iconName;
