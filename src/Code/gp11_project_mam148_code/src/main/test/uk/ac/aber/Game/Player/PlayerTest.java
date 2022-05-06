@@ -1,7 +1,14 @@
 package uk.ac.aber.Game.Player;
 
+import org.junit.Assert;
 import org.junit.Test;
+import uk.ac.aber.Game.Game;
+import uk.ac.aber.Game.Islands.FlatIsland;
+import uk.ac.aber.Game.Port.HomePort;
 import uk.ac.aber.Game.Treasure.Treasure;
+import uk.ac.aber.Game.Treasure.TreasureHand;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -10,111 +17,126 @@ public class PlayerTest {
     private Player getPlayerTest() { return new Player();}
 
     @Test
-    public void testPlayers(){
+    public void testPlayers() {
+
         Player playerOne = new Player("Tom", 1);
         Player playerTwo = new Player("Bob", 2);
-        Player playerThree = new Player("Steve", 3);
+        Player playerThree = new Player("Steven", 3);
         Player playerFour = new Player("John", 4);
 
-        Player[] players = {playerOne, playerTwo, playerThree, playerFour};
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(playerOne);
+        players.add(playerTwo);
+        players.add(playerThree);
+        players.add(playerFour);
 
-  //      Game game = new Game(players);
+        Game game = new Game(players);
+
+        Assert.assertEquals(4, game.players.size());
     }
 
-
-    @Test
-    public void getMoves() {
-
-    }
-
-    @Test
-    public void canMoveTo() {
-    }
-
-    @Test
-    public void moveTo() {
-    }
-
-    @Test
-    public void moveForward() {
-    }
-
-    @Test
-    public void canMoveInStraightLine() {
-    }
+//    @Test
+//    public void testTreasureInShip() {
+//
+//        Treasure treasure1 = new Treasure("diamond", 5);
+//        Treasure treasure2 = new Treasure("gold bar", 4);
+//
+//        Player player = new Player("Tom", 1);
+//
+//        TreasureHand treasures = new TreasureHand();
+//
+//        treasures.addTreasure(treasure1);
+//        treasures.addTreasure(treasure2);
+//
+//        player.treasureHand = treasures;
+//        ArrayList<Treasure> treasuresInShip = new ArrayList<>();
+//
+//        Assert.assertEquals(new ArrayList<Treasure>(){"diamond", "gold bar"}, treasures.getTreasures());
+//    }
 
     @Test
     public void testCanMoveInStraightLine() {
-    }
+        Player p = getPlayerTest();
+        p.setCoordinate(0,0);
 
-    @Test
-    public void turn() {
+        Assert.assertEquals(4, p.getMoves());
     }
 
     @Test
     public void setPlayerNumber() {
-        Player player = getPlayerTest();
-        player.setPlayerNumber(4);
-        assertEquals(4, player.getPlayerNumber());
+        Player p = getPlayerTest();
+        p.setPlayerNumber(4);
+
+        Assert.assertEquals(4, p.getPlayerNumber());
+
     }
+
+//    @Test
+//    public void testTwentyPointsInHomePort(){
+//        Player playerOne = new Player("Tom", 1);
+//        HomePort homePortOne = new HomePort("Venice", 1, 7, 1);
+//        TreasureHand treasureHandOne = new TreasureHand();
+//        Treasure diamondOne = new Treasure("diamond", 5);
+//        Treasure diamondTwo = new Treasure("diamond", 5);
+//        Treasure diamondThree = new Treasure("diamond", 5);
+//        Treasure diamondFour = new Treasure("diamond", 5);
+//
+//        treasureHandOne.addTreasure(diamondOne);
+//        treasureHandOne.addTreasure(diamondTwo);
+//        treasureHandOne.addTreasure(diamondThree);
+//        treasureHandOne.addTreasure(diamondFour);
+//
+//
+//
+//    }
+
+//    @Test
+//    public void testAdjacentToAnchorBay(){
+//        Player playerOne = new Player("Tom", 1);
+//        playerOne.setRowCoordinate(19);
+//        playerOne.setColCoordinate(0);
+//
+//
+//    }
+
+//    @Test
+//    public void testAddToHomePort(){
+//        Player playerOne = new Player("Tom", 1);
+//        HomePort homePortOne = new HomePort("Venice", 1, 7, 1);
+//        TreasureHand treasureHandOne = new TreasureHand();
+//        Treasure diamondOne = new Treasure("diamond", 5);
+//        Treasure diamondTwo = new Treasure("diamond", 5);
+//
+//        treasureHandOne.addTreasure(diamondOne);
+//        treasureHandOne.addTreasure(diamondTwo);
+//
+//    }
 
     @Test
-    public void getDirection() {
-        Player player = getPlayerTest();
-        player.setDirection("north");
+    public void testGetFromFlatIsland(){
+        Player playerOne = new Player("Tom", 1);
+        FlatIsland flatIsland = new FlatIsland();
 
-        assertEquals("north", player.getDirection());
+        TreasureHand treasureHand = new TreasureHand();
+        Treasure treasure = new Treasure("diamond", 5);
+        ArrayList<Treasure> treasures = new ArrayList<>();
+
+        treasures.add(treasure);
+        treasureHand.addTreasure(treasure);
+        flatIsland.treasureHand = treasureHand;
+
+        assertEquals(treasures, flatIsland.treasureHand.getTreasures());
+
+        flatIsland.giveLoot(playerOne);
+
+        assertEquals(treasures, playerOne.treasureHand.getTreasures());
+
+
     }
 
-    @Test
-    public void setDirection() {
-    }
 
-    @Test
-    public void setCoordinate() {
-    }
 
-    @Test
-    public void getCol() {
-        Player player = getPlayerTest();
-        player.setColCoordinate(5);
 
-        assertEquals(5, player.getCol());
-    }
 
-    @Test
-    public void getRow() {
-        Player player = getPlayerTest();
-        player.setRowCoordinate(9);
 
-        assertEquals(9, player.getRow());
-    }
-
-    @Test
-    public void setColCoordinate() {
-    }
-
-    @Test
-    public void setRowCoordinate() {
-    }
-
-    @Test
-    public void setIconName() {
-    }
-
-    @Test
-    public void getIconName() {
-    }
-
-    @Test
-    public void getPlayerNumber() {
-    }
-
-    @Test
-    public void setPlayerName() {
-    }
-
-    @Test
-    public void getPlayerName() {
-    }
 }

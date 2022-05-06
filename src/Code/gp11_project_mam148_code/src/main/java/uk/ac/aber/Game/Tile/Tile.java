@@ -6,6 +6,8 @@ public interface Tile extends Displayable {
 
     public void setIconName(String icon); // sets icon for storage purposes
 
+    public String getTileName();
+
     public String getIconName(); // gets the icon for display purposes
 
     public boolean isAttackAble(); // can a ship attack this

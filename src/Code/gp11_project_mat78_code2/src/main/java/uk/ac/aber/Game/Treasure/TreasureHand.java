@@ -1,7 +1,5 @@
 package uk.ac.aber.Game.Treasure;
 
-import uk.ac.aber.Game.CrewCards.CrewCard;
-
 import java.util.ArrayList;
 
 public class TreasureHand {
@@ -45,6 +43,31 @@ public class TreasureHand {
         return successful;
     }
 
+    public int getTreasureIndexByName(String name){
+        for (int i=0; i<treasures.size(); i++){
+            if (treasures.get(i).getName().equals(name)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void moveFromHandToHand(TreasureHand hnd, Treasure obj) {
+        treasures.remove(obj);
+        hnd.addTreasure(obj);
+    }
+
+    public ArrayList<Treasure> getTreasureIndexByValue(int tValue){
+        ArrayList<Treasure> treasuresLookedUp = new ArrayList<>();
+
+        for (Treasure t: treasures){
+            if (t.getValue() == tValue){
+                treasuresLookedUp.add(t);
+            }
+        }
+        return treasuresLookedUp;
+    }
+
 //    public void printDebug() {
 //        System.out.println("---------------------------------------");
 //        for (int i = 0; i < this.treasures.length; i++) {
@@ -75,6 +98,8 @@ public class TreasureHand {
     public ArrayList<Treasure> getTreasures(){
         return treasures;
     }
+
+
 }
 
 

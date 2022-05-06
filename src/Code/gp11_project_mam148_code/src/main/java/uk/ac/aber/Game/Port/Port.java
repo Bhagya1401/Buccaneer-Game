@@ -65,7 +65,7 @@ public class Port {
 
             for (int cardIndex : tradeCards) {
                 //Takes the treasure from the players storage and deposits it at port
-                //System.out.println("traded from player: " + player.crewHand.getCards().get(cardIndex).getColor() + "/" + player.crewHand.getCards().get(cardIndex).getValue());
+                //System.out.println("traded from player: " + player.crewHand.getCards().get(cardIndex).getColour() + "/" + player.crewHand.getCards().get(cardIndex).getValue());
                 player.crewHand.giveCardFromIndex(crewHand, cardIndex);
 
 

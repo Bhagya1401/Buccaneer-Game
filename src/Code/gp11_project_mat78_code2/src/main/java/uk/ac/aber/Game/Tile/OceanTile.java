@@ -12,6 +12,8 @@ public class OceanTile implements Tile{
         oceanIconName = iconName;
     }
 
+    public String getTileName() { return "ocean"; };
+
     @Override
     public String getIconName() {
         return oceanIconName;
