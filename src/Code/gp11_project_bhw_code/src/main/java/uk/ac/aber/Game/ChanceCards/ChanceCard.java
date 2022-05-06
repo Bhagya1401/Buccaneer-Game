@@ -58,7 +58,7 @@ public class ChanceCard {
             case 11:
 
                 Popups test = new Popups();
-                System.out.println(test.chooseTreasureOrCards("Choose treasure or cards", 5,3,game));
+                test.displayCrewCard("Choose treasure or cards",game);
                 break;
             case 12:
                 break;
