@@ -4,6 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,7 +22,7 @@ public class Popups {
     private int choice;
 
 
-    public int chooseTreasureOrCards(String title, int treasureVal, int cardVal, Game game){
+    public int chooseTreasureOrCards(String title, int treasureVal, int cardVal,int targetTVal, Game game){
 
         //treasure  =  1
         //crew cards = 0
@@ -37,6 +39,8 @@ public class Popups {
         Label showChoice = new Label();
 
 
+
+
         System.out.println(game.getPirateIsland().crewHand.getCards().size());
         System.out.println(game.getTreasureIsland().getIslandTreasureHand().getTreasures().size());
         VBox layout = new VBox(10);
@@ -44,19 +48,45 @@ public class Popups {
 
             message = "There are no crew cards on Pirate Island so you can only receive treasure";
             showChoice.setText(message);
-            Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
-            treasureButton.setOnAction(e -> {
-                //choice = "Treasure";
-                choice = 1;
-                pickTorC.close();
-            });
+      //      Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
+//            treasureButton.setOnAction(e -> {
+//                //choice = "Treasure";
+//                choice = 1;
+//                pickTorC.close();
+//            });
+
+             if(treasureVal < targetTVal){
+
+                message = "The max value of treasures on treasure island is " + treasureVal;
+                showChoice.setText(message);
+                Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
+                treasureButton.setOnAction(e -> {
+                    //choice = "Treasure";
+                    choice = 1;
+                    pickTorC.close();
+                });
+
+
+                layout.setAlignment(Pos.CENTER);
+                layout.getChildren().addAll(showChoice,treasureButton);
+            }
+             else{
+                 Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
+                 treasureButton.setOnAction(e -> {
+                     //choice = "Treasure";
+                     choice = 1;
+                     pickTorC.close();
+                 });
+
+                 layout.setAlignment(Pos.CENTER);
+                 layout.getChildren().addAll(showChoice,treasureButton);
+             }
 
 
 
-            layout.setAlignment(Pos.CENTER);
-            layout.getChildren().addAll(showChoice,treasureButton);
         }
         else if(game.getTreasureIsland().getIslandTreasureHand().getTreasures().size() == 0) {
+
 
             message = "There are no treasures on Treasure Island so you can only receive crew cards";
             showChoice.setText(message);
@@ -72,28 +102,56 @@ public class Popups {
             layout.getChildren().addAll(showChoice,cardButton);
         }
 
+
         else{
 
             message = "Choose between " + " crew cards with a value of "  + String.valueOf(cardVal) + " or treasure with a value of " + String.valueOf(treasureVal);
             showChoice.setText(message);
 
-            Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
-            treasureButton.setOnAction(e -> {
-                //choice = "Treasure";
-                choice = 1;
-                pickTorC.close();
-            });
+            if(treasureVal < targetTVal){
 
-            Button cardButton = new Button("Crew Card " + String.valueOf(cardVal));
-            cardButton.setOnAction(e -> {
-                //choice = "Crew Card";
-                choice = 0;
-                pickTorC.close();
-            });
+                message = "The max value of treasures on treasure island is " + treasureVal;
+                showChoice.setText(message);
+                Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
+                treasureButton.setOnAction(e -> {
+                    //choice = "Treasure";
+                    choice = 1;
+                    pickTorC.close();
+                });
+
+                Button cardButton = new Button("Crew Card " + String.valueOf(cardVal));
+                cardButton.setOnAction(e -> {
+                    //choice = "Crew Card";
+                    choice = 0;
+                    pickTorC.close();
+                });
+
+                layout.setAlignment(Pos.CENTER);
+                layout.getChildren().addAll(showChoice, treasureButton, cardButton);
+
+                layout.setAlignment(Pos.CENTER);
+                layout.getChildren().addAll(showChoice,treasureButton);
+            }
+            else {
+                Button treasureButton = new Button("Treasure " + String.valueOf(treasureVal));
+                treasureButton.setOnAction(e -> {
+                    //choice = "Treasure";
+                    choice = 1;
+                    pickTorC.close();
+                });
 
 
-            layout.setAlignment(Pos.CENTER);
-            layout.getChildren().addAll(showChoice,treasureButton,cardButton);
+                Button cardButton = new Button("Crew Card " + String.valueOf(cardVal));
+                cardButton.setOnAction(e -> {
+                    //choice = "Crew Card";
+                    choice = 0;
+                    pickTorC.close();
+                });
+
+
+                layout.setAlignment(Pos.CENTER);
+                layout.getChildren().addAll(showChoice, treasureButton, cardButton);
+            }
         }
 
 
@@ -164,6 +222,37 @@ public class Popups {
 
     public void displayCrewCard(String title,Game game){
         game.getCurrentPlayer();
+        String filePath = String.valueOf(uk.ac.aber.App.App.class.getResource("/img"));
+        filePath = filePath.substring(6,filePath.length()-1);
+
+        Stage displayCard = new Stage();
+
+        displayCard.initModality(Modality.APPLICATION_MODAL);
+        displayCard.setTitle(title);
+        displayCard.setMinWidth(500);
+
+        Label label = new Label();
+
+
+//        for (int i = 0; i < gam; i++) {
+//            Image img = new Image(filePath + game.getCurrentPlayer().crewHand.getCards());
+//        } {
+//
+//            Button playerButton = new Button(String.valueOf(player.getPlayerName()));
+//            playerButton.setOnAction(e -> {
+//                playerNum = player.getPlayerNumber();
+//                pickPlayerStage.close();
+//            });
+//            buttons.add(playerButton);
+//        }
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        displayCard.setScene(scene);
+        displayCard.showAndWait();
     }
 
     public void displayMessage(String title, String message){
@@ -186,5 +275,34 @@ public class Popups {
         showMessage.setScene(scene);
         showMessage.showAndWait();
 
+    }
+    public int yesOrNo(String title, String message){
+
+        Stage confirmStage = new Stage();
+
+        confirmStage.initModality(Modality.APPLICATION_MODAL);
+        confirmStage.setTitle(title);
+        confirmStage.setMinWidth(250);
+
+        Label label = new Label(message);
+        Button yesButton = new Button("Yes");
+        yesButton.setOnAction(e -> {
+            choice = 1;
+            confirmStage.close();
+        });
+        Button noButton = new Button("No");
+        noButton.setOnAction(e -> {
+            choice = 0;
+            confirmStage.close();
+        });
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label,yesButton,noButton);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        confirmStage.setScene(scene);
+        confirmStage.showAndWait();
+        return choice;
     }
 }
