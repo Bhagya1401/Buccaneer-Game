@@ -1,9 +1,0 @@
-<person>
-  <firstname>Ash</firstname>
-  <lastname>Bagnall</lastname>
-  <age>21</age>
-  <uni>
-    <name>Aberystwyth University</name>
-    <postcode>SY233FL</postcode>
-  </uni>
-</person>
