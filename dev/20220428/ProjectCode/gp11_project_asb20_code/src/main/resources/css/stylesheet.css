@@ -1,0 +1,27 @@
+.custom--gridPane-with-water {
+    -fx-background-image:url('/img/water_icon.png');
+}
+
+.custom--itemcells {
+    -fx-stroke-width: 4;
+    -fx-stroke   : red;
+}
+
+.custom-gridPane {
+    -fx-background-fill: black, white;
+    -fx-background-insets:0,1;
+}
+
+.black-border{
+    -fx-border-color black;
+    -fx-border-width 2;
+}
+.highlighted-border{
+    -fx-border-color yellow;
+    -fx-border-width 5;
+}
+
+.transparent-item{
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}

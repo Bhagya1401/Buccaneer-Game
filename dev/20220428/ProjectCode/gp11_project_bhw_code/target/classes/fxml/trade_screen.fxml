@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="507.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.aber.Controllers.TradeScreenController">
+    <children>
+        <ImageView fitHeight="537.0" fitWidth="964.0" layoutX="-69.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Downloads/aec44d5ee94cc13be69e66c230b984ee.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="79.0" fitWidth="73.0" layoutX="407.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Downloads/1036606-200.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="treasureForCardsTradeButton" alignment="TOP_CENTER" layoutX="354.0" layoutY="276.0" mnemonicParsing="false" onAction="#tradeTreasureForCards" prefHeight="123.0" prefWidth="178.0" text="Treasure for cards">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="79.0" fitWidth="73.0" layoutX="407.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../Downloads/1036606-200.png" />
+            </image>
+        </ImageView>
+        <Label alignment="CENTER" layoutX="354.0" layoutY="-7.0" prefHeight="73.0" prefWidth="178.0" text="Trade:">
+            <font>
+                <Font name="Curlz MT" size="39.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="14.0" layoutY="-8.0" prefHeight="43.0" prefWidth="303.0" text="Player's name">
+            <font>
+                <Font name="Colonna MT" size="28.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="565.0" layoutY="-7.0" prefHeight="43.0" prefWidth="303.0" text="Port">
+            <font>
+                <Font name="Colonna MT" size="28.0" />
+            </font>
+        </Label>
+        <ScrollPane layoutX="565.0" layoutY="258.0" prefHeight="195.0" prefWidth="313.0">
+            <content>
+                <HBox fx:id="HBoxRightBottom" prefHeight="200.0" prefWidth="318.0">
+                    <children>
+                  <VBox fx:id="portCardVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="314.0" />
+                    </children>
+                </HBox>
+            </content>
+        </ScrollPane>
+        <ScrollPane layoutX="565.0" layoutY="31.0" prefHeight="195.0" prefWidth="313.0">
+            <content>
+                <HBox fx:id="HBoxRightTop" prefHeight="200.0" prefWidth="318.0">
+                    <children>
+                  <VBox fx:id="portTreasureVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="317.0" />
+                    </children>
+                </HBox>
+            </content>
+        </ScrollPane>
+        <ScrollPane layoutX="8.0" layoutY="31.0" prefHeight="195.0" prefWidth="313.0">
+            <content>
+                <HBox fx:id="HBoxLeftTop" prefHeight="200.0" prefWidth="318.0">
+                    <children>
+                  <VBox fx:id="playerCardVBox" prefHeight="200.0" prefWidth="316.0" />
+                    </children>
+                </HBox>
+            </content>
+        </ScrollPane>
+        <ScrollPane layoutX="8.0" layoutY="258.0" prefHeight="195.0" prefWidth="313.0">
+            <content>
+                <HBox fx:id="HboxLeftBottom" prefHeight="200.0" prefWidth="318.0">
+                    <children>
+                  <VBox fx:id="playerTreasureVBox" prefHeight="200.0" prefWidth="318.0" />
+                    </children>
+                </HBox>
+            </content>
+        </ScrollPane>
+      <Label fx:id="cardsForTreasureLabel" alignment="CENTER" layoutX="354.0" layoutY="195.0" prefHeight="30.0" prefWidth="178.0" />
+      <Label fx:id="treasureForCardsLabel" alignment="CENTER" layoutX="354.0" layoutY="417.0" prefHeight="30.0" prefWidth="178.0" />
+        <Button fx:id="CardsforTreasureTradeButton" alignment="TOP_CENTER" layoutX="354.0" layoutY="67.0" mnemonicParsing="false" onAction="#tradeCardsForTreasure" prefHeight="123.0" prefWidth="178.0" text="Cards for treasure">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </Button>
+        <Button fx:id="finishTradeButton" layoutX="354.0" layoutY="459.0" mnemonicParsing="false" onAction="#finishTrade" prefHeight="43.0" prefWidth="178.0" text="Finish Trading">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
