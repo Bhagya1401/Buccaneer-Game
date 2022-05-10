@@ -1,0 +1,30 @@
+Author: Dep22
+Week 5: 09/03/22
+
+Assigned actions
+================
+Action 1: Baggy and me will develop a plan for successful finishing the project.
+
+Me and baggy met up to create this document discussed a few things and wrote them down but our meeting got cut short.
+
+hours: 1
+
+Action 2:Dean will prepare resources for design specification.
+
+I looked over what programming had been done already and started to write 4.1 for the design spec 
+
+hours: 2
+
+Action 3: Dean will prepare spreadsheet of initial tasks and time spent on these tasks.
+If essential, he will allocate or reallocate tasks to other group members.
+
+I created a spreadsheet of the tasks needed to be done using the minutes and reassigned a task that was assigned to a member who hasnt shown up to me 
+and completed the task.
+
+hours: 2
+
+Other project work
+===================
+
+
+Total hours: 5
