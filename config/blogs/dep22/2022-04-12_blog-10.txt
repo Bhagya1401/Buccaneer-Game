@@ -1,0 +1,26 @@
+Author: Dep22
+Week 10: 12/04/22
+
+Assigned actions
+================
+Action 1: develop a plan for successful finishing the project
+
+Me and baggy finnished the plan
+
+Hours: 1
+
+
+
+Other project work
+===================
+Action: Looked into using JavaFX
+
+I hadn't used JavaFX so with the integration week coming I wanted some experience in it
+
+hours: 3
+
+Action: read through and understood all of the code that had been written so far
+
+hours: 2
+
+Total hours: 6
