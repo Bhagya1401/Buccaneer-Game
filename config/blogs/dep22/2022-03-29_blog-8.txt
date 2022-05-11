@@ -1,0 +1,26 @@
+Author: Dep22
+Week 8: 29/03/22
+
+Assigned actions
+================
+Action 1: Dean will get confident with Gitlab Issues and will allocate tasks between
+group members to fix User Interface Specification and Test Specification
+before deadline.
+
+this was assigned 
+
+hours: 1
+
+Action 2: Dean or Baggy will speak to Chris about skipping some of requirements from
+group project because lack of people.
+ACTION: dep22, bhw#
+
+The group made some suggestions and we noted them down ready to make a final decision
+
+hours: 2
+
+Other project work
+===================
+
+
+Total hours: 3

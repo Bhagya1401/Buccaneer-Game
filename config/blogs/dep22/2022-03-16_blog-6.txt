@@ -1,0 +1,30 @@
+Author: Dep22
+Week 6: 16/03/22
+
+Assigned actions
+================
+Action 1: Maciek, Mateusz, Dean and Baggy will meet and review Test Specification.
+
+This was completed and I reviewed the test spec and the only thing wrong that i could find is the document format which they changed.
+
+hours: 1
+
+Action 2:  Dean will get confident with Gitlab Issues.
+
+I played around with the gitlab issues and set some issues that need to be sorted for the group
+
+Hours: 1
+
+Action 3:  Dean will prepare spreadsheet of initial tasks and time spent on these tasks.
+If essential, he will allocate or reallocate tasks to other group members.
+
+I realised what I did wasnt what was asked.
+I think i did this right but it took so long to go through everyones blogs and record what tasks they are doing and how long it took them.
+
+hours: 4
+
+Other project work
+===================
+
+
+Total hours: 6
