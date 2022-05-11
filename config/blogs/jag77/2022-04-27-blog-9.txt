@@ -1,0 +1,16 @@
+Author: Jag77
+Week: 12 (27/04/22)
+
+Assigned actions
+===============
+Action 1:
+Made a plan for integration week with Ash
+
+Action 2:
+Made some improvements to the Design Spec
+
+Action 3:
+made some improvements on the design of the code in preperation for integration week
+
+
+Total hours: 7
