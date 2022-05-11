@@ -1,0 +1,51 @@
+Author: BHW
+Week: 9 (01/04/2022)
+
+
+Assigned actions
+====================
+
+Action 1:  Baggy (with or without Dean) will develop a plan for successfully finishing the project.
+
+	
+	I specified the project plan and made it less vague so that there would be a clear a direction that project was going towards.
+
+	Hours: 2
+
+
+Action 2: Baggy will get confident with Gitlab Issues and will allocate tasks between
+group members to fix User Interface Specification and Test Specification
+before deadline.
+
+
+	I asked Dean for some assistance on how to create issues but in the meantime I let the team know what issue they had to fix in the test and UI spec via discord
+
+	Hours: 2
+
+Action 3: Baggy will speak to Chris about skipping some of the requirements from
+group project because of lack of people.
+
+	Ash said he had some ideas about what to remove from the project and therefore I left him with the task of emailing Chris
+
+	Hours: 1
+
+Action 4: Baggy, Ash, James and Maciek will meet to review Design Specification
+tomorrow (1st April).
+ 
+
+	The design spec was reviewed by myself and Maciek and submitted to Gitlab
+
+	Hours: 3
+
+Action 5:  James, Ash and Baggy will prepare plan for coding all the project parts and
+allocate tasks to all group members.
+
+ 	James, Ash and I were able to create a rough plan for coding the project, but not all of the tasks were allocated
+
+	Hours: 2 
+
+
+Other project work
+========================
+
+Total Hours: 10

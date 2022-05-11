@@ -1,0 +1,25 @@
+Author: BHW
+Week: 6 (13/03/2022)
+
+
+Assigned actions
+====================
+
+Action 1: All group members will push their previous pieces of work to 
+the dev folders from previous tutorial meetings.
+
+	Pushed all of my work to the dev folder in Gitlab
+
+	Hours: 1
+
+
+
+
+Other project work
+========================
+
+Looked into the MVC design pattern so I could better understand the program
+
+	Hours: 6
+
+Total Hours: 7

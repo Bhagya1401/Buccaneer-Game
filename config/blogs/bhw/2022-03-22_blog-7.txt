@@ -1,0 +1,27 @@
+Author: BHW
+Week: 7 (22/03/2022)
+
+
+Assigned actions
+====================
+
+Action 1:  ONGOING Baggy and Dean will develop a plan for successfully finishing the project.
+
+	This was completed the week before, but I made some additions to the existing plan.
+	
+Hours: 1
+
+
+Action 2: Maciek, Mateusz, Dean and Baggy will meet and review Test Specification.
+	
+	The test spec was reviewed the previous week
+
+	Hours: 0
+
+
+Other project work
+========================
+Examined the code that James and ash had been working on so I could get an idea of how it worked.
+	Hours: 2
+
+Total Hours: 3
